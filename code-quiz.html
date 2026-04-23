@@ -1,0 +1,714 @@
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Internet Prog Code Quiz",
+  "schemaVersion": 1,
+  "description": "인터넷프로그래밍 중간고사 대비 — 실제 예제 코드 기반 객관식 문제 30문제 (코드 해석 / 빈칸 / 오류 찾기 / 실행 결과 예측)"
+}
+</script>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>인터넷프로그래밍 코드 문제 퀴즈</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 24px 16px 80px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+  background: #f7f8fa;
+  color: #1f2937;
+  line-height: 1.6;
+}
+.container { max-width: 760px; margin: 0 auto; }
+header {
+  background: linear-gradient(135deg, #059669 0%, #0891b2 100%);
+  color: white;
+  padding: 24px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(8, 145, 178, 0.25);
+}
+header h1 { margin: 0 0 4px; font-size: 22px; font-weight: 700; }
+header p { margin: 0; font-size: 14px; opacity: 0.92; }
+header .pool-info { margin-top: 8px; font-size: 12px; opacity: 0.85; }
+
+.progress-bar {
+  position: sticky; top: 0;
+  background: white; padding: 12px 16px; border-radius: 12px;
+  margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  z-index: 10; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+.progress-track { flex: 1; min-width: 120px; background: #e5e7eb; height: 8px; border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #059669, #0891b2); transition: width 0.3s; width: 0%; }
+.progress-text { font-size: 13px; font-weight: 600; color: #059669; white-space: nowrap; }
+.score-badge { background: #10b981; color: white; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+
+.mode-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.mode-btn {
+  padding: 6px 12px; border: 1.5px solid #d1fae5; background: white;
+  border-radius: 999px; font-size: 12px; cursor: pointer;
+  color: #047857; font-weight: 600; transition: all 0.15s;
+}
+.mode-btn:hover { background: #ecfdf5; }
+.mode-btn.active { background: #059669; border-color: #059669; color: white; }
+
+.filter-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.filter-btn {
+  padding: 6px 12px; border: 1.5px solid #e5e7eb; background: white;
+  border-radius: 999px; font-size: 12px; cursor: pointer;
+  color: #6b7280; font-weight: 500; transition: all 0.15s;
+}
+.filter-btn:hover { border-color: #059669; color: #059669; }
+.filter-btn.active { background: #059669; border-color: #059669; color: white; }
+
+.question-card {
+  background: white; border-radius: 14px; padding: 20px;
+  margin-bottom: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  border: 2px solid transparent; transition: border-color 0.2s;
+}
+.question-card.answered-correct { border-color: #10b981; }
+.question-card.answered-wrong { border-color: #ef4444; }
+
+.q-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.q-num { background: #d1fae5; color: #047857; font-weight: 700; padding: 3px 10px; border-radius: 6px; font-size: 13px; }
+.q-tag { background: #f3f4f6; color: #6b7280; font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+.q-type {
+  font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 600;
+}
+.q-type.fill { background: #ede9fe; color: #6d28d9; }
+.q-type.predict { background: #dbeafe; color: #1d4ed8; }
+.q-type.error { background: #fee2e2; color: #b91c1c; }
+.q-type.interpret { background: #fef3c7; color: #92400e; }
+.q-exercise {
+  background: #fce7f3; color: #be185d;
+  font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 700;
+  border: 1px solid #fbcfe8;
+}
+.q-star { color: #f59e0b; font-size: 13px; }
+
+.q-text { font-size: 15px; font-weight: 500; margin: 0 0 14px; color: #111827; }
+.q-text code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-family: 'D2Coding', Menlo, Consolas, monospace; font-size: 13px; color: #be185d; }
+.q-codeblock {
+  background: #0f172a; color: #e2e8f0; padding: 14px 16px; border-radius: 10px;
+  font-family: 'D2Coding', Menlo, Consolas, monospace; font-size: 13px;
+  margin: 8px 0 14px; white-space: pre; overflow-x: auto;
+  border-left: 4px solid #10b981;
+}
+
+.choices { display: flex; flex-direction: column; gap: 8px; }
+.choice {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 12px; border: 1.5px solid #e5e7eb; border-radius: 10px;
+  cursor: pointer; transition: all 0.15s; background: #fafafa;
+}
+.choice:hover { border-color: #6ee7b7; background: #ecfdf5; }
+.choice.selected { border-color: #059669; background: #ecfdf5; }
+.choice.correct { border-color: #10b981; background: #d1fae5; }
+.choice.wrong { border-color: #ef4444; background: #fef2f2; }
+.choice.disabled { cursor: default; }
+.choice.disabled:hover { border-color: #e5e7eb; background: #fafafa; }
+.choice.disabled.selected:hover { border-color: #059669; background: #ecfdf5; }
+.choice.disabled.correct:hover { border-color: #10b981; background: #d1fae5; }
+.choice.disabled.wrong:hover { border-color: #ef4444; background: #fef2f2; }
+
+.choice-num {
+  flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+  border: 1.5px solid #cbd5e1; background: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: #64748b;
+}
+.choice.selected .choice-num { background: #059669; border-color: #059669; color: white; }
+.choice.correct .choice-num { background: #10b981; border-color: #10b981; color: white; }
+.choice.wrong .choice-num { background: #ef4444; border-color: #ef4444; color: white; }
+.choice-text { flex: 1; font-size: 14px; color: #374151; }
+.choice-text code { background: #f3f4f6; padding: 1px 5px; border-radius: 3px; font-family: 'D2Coding', Menlo, Consolas, monospace; font-size: 12px; color: #be185d; }
+
+.explain {
+  margin-top: 12px; padding: 12px 14px; background: #fefce8;
+  border-left: 4px solid #facc15; border-radius: 8px;
+  font-size: 13px; color: #78350f; display: none;
+}
+.explain.show { display: block; }
+.explain-label { font-weight: 700; margin-right: 6px; color: #a16207; }
+
+.controls {
+  display: flex; gap: 10px; justify-content: center;
+  margin-top: 24px; flex-wrap: wrap;
+}
+.btn {
+  padding: 10px 22px; border-radius: 10px; border: none;
+  font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.15s;
+}
+.btn-primary { background: #059669; color: white; }
+.btn-primary:hover { background: #047857; }
+.btn-secondary { background: white; color: #059669; border: 1.5px solid #a7f3d0; }
+.btn-secondary:hover { background: #ecfdf5; }
+
+.result-card {
+  background: white; border-radius: 16px; padding: 22px;
+  margin-bottom: 16px; text-align: center; display: none;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+.result-card.show { display: block; }
+.result-score { font-size: 40px; font-weight: 800; color: #059669; margin-bottom: 4px; }
+.result-detail { font-size: 14px; color: #6b7280; margin-bottom: 12px; }
+.result-message { font-size: 16px; font-weight: 600; color: #111827; }
+.result-breakdown { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 12px; }
+.result-breakdown span { background: #f3f4f6; color: #374151; padding: 4px 10px; border-radius: 999px; font-size: 12px; }
+
+footer { text-align: center; margin-top: 30px; font-size: 11px; color: #9ca3af; }
+.mode-label { font-size: 12px; color: #6b7280; margin-right: 6px; align-self: center; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>💻 인터넷프로그래밍 코드 문제</h1>
+    <p>실제 예제 + 주차별 연습문제 기반 객관식 · 2~7강 · 인하대 소프트웨어융합공학과</p>
+    <div class="pool-info" id="pool-info"></div>
+  </header>
+
+  <div class="progress-bar">
+    <span class="progress-text" id="progress-text">0 / 0</span>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <span class="score-badge" id="score-badge">정답 0</span>
+  </div>
+
+  <div class="mode-bar">
+    <span class="mode-label">출제:</span>
+    <button class="mode-btn active" data-mode="20">랜덤 20문제</button>
+    <button class="mode-btn" data-mode="ex">연습문제만 (10)</button>
+    <button class="mode-btn" data-mode="all">전체 40문제</button>
+  </div>
+
+  <div class="filter-bar" id="filter-bar"></div>
+
+  <div class="result-card" id="result-card">
+    <div class="result-score" id="result-score">0 / 0</div>
+    <div class="result-detail" id="result-detail">정답률 0%</div>
+    <div class="result-message" id="result-message"></div>
+    <div class="result-breakdown" id="result-breakdown"></div>
+  </div>
+
+  <div id="quiz-container"></div>
+
+  <div class="controls">
+    <button class="btn btn-secondary" id="reset-btn">🎲 새 문제로 다시 풀기</button>
+    <button class="btn btn-primary" id="submit-btn">📊 결과 보기</button>
+  </div>
+
+  <footer>담당교수: 서원준 · 교재: HTML5 웹 프로그래밍 입문(4판, 윤인성)</footer>
+</div>
+
+<script>
+// ============ 코드 기반 문제 풀 (40문제) ============
+const POOL = [
+  { lec: '2강', type: 'error', star: 3, q: '다음 HTML 문서에서 웹 표준에 맞지 않는 오류는?',
+    code: '<!doctype html>\n<html lang="en">\n  <html>\n    <head>\n      <title>HTML5 Basic</title>\n    </head>\n  </html>\n</html>',
+    choices: ['<!doctype html>이 소문자이다', '<html> 태그가 중복되어 있다', 'lang 속성은 존재할 수 없다', '<title> 위치가 잘못되었다'],
+    answer: 1, explain: '<html> 태그는 문서에 단 하나만 있어야 하는데 중복되어 있음. <!doctype html>은 대소문자 구분 X.' },
+  { lec: '2강', type: 'fill', star: 2, q: '다음 HTML 문서의 빈칸 ①에 들어갈 것으로 옳은 것은?',
+    code: '① _____________\n<html lang="ko">\n  <head>\n    <title>페이지 제목</title>\n  </head>\n  <body>\n  </body>\n</html>',
+    choices: ['<?xml version="1.0"?>', '<!doctype html>', '<meta charset="UTF-8">', '<html5>'],
+    answer: 1, explain: 'HTML5 문서의 가장 첫 줄에는 반드시 <!doctype html>을 작성한다.' },
+  { lec: '2강', type: 'fill', star: 2, q: '다음 코드에서 lang 속성에 들어갈 한국어 언어 코드는?',
+    code: '<!doctype html>\n<html lang="____">\n  <head>\n    <title>안녕하세요</title>\n  </head>\n</html>',
+    choices: ['kor', 'ko', 'kr', 'korea'],
+    answer: 1, explain: '한국어 = ko (ISO 639-1 코드). 일본어는 ja, 영어는 en.' },
+  { lec: '2강', type: 'fill', star: 3, fromExercise: true,
+    q: '【연습문제 2-2】 외부 CSS 파일과 외부 JavaScript 파일을 연결하는 ①, ②에 들어갈 태그로 옳은 것은?',
+    code: '<head>\n  <title>HTML5 Basic</title>\n  ①  ___________________  <!-- outer_stylesheet.css 연결 -->\n  ②  ___________________  <!-- outer_javascript.js 연결 -->\n</head>',
+    choices: [
+      '① <css src="outer_stylesheet.css"> ② <js src="outer_javascript.js">',
+      '① <link rel="stylesheet" href="outer_stylesheet.css" /> ② <script src="outer_javascript.js"><\/script>',
+      '① <style href="outer_stylesheet.css"/> ② <javascript src="outer_javascript.js"><\/javascript>',
+      '① <import href="outer_stylesheet.css"/> ② <include src="outer_javascript.js"><\/include>'
+    ],
+    answer: 1,
+    explain: '외부 CSS = <link rel="stylesheet" href="...">, 외부 JS = <script src="...">. <style>은 내부 CSS용이고, <css>/<js>/<import>는 HTML 표준 태그가 아니다.' },
+  { lec: '3강', type: 'predict', star: 2, q: '다음 코드의 실행 결과로 옳은 것은?',
+    code: '<ol>\n  <li>사과</li>\n  <li>바나나</li>\n  <li>오렌지</li>\n</ol>',
+    choices: ['• 사과 • 바나나 • 오렌지', '1. 사과 2. 바나나 3. 오렌지', 'A. 사과 B. 바나나 C. 오렌지', '사과 바나나 오렌지 (기호 없음)'],
+    answer: 1, explain: '<ol>은 순서 있는 목록(ordered list)이므로 1, 2, 3 숫자가 자동 부여.' },
+  { lec: '3강', type: 'interpret', star: 3, q: '다음 표에서 "중국" 셀이 차지하는 행(row)의 수는?',
+    code: '<table border="1">\n  <tr><th colspan="2">지역별 홍차</th></tr>\n  <tr><th rowspan="3">중국</th><td>정산소종</td></tr>\n  <tr><td>기문</td></tr>\n  <tr><td>전홍</td></tr>\n</table>',
+    choices: ['1행', '2행', '3행', '4행'],
+    answer: 2, explain: 'rowspan="3" → 세로 3행을 하나로 병합. colspan은 열 병합.' },
+  { lec: '3강', type: 'fill', star: 1, q: '다음 코드에서 빈칸에 들어갈 속성은?',
+    code: '<a ____="https://www.hanbit.co.kr">한빛미디어</a>',
+    choices: ['src', 'link', 'href', 'url'],
+    answer: 2, explain: '<a>의 링크 주소는 href 속성. <img>의 이미지 주소는 src.' },
+  { lec: '3강', type: 'predict', star: 2, q: '다음 코드의 실행 결과로 적절한 것은?',
+    code: '<img src="ham.png" alt="햄 사진" width="200">',
+    choices: ['ham.png 파일을 너비 200픽셀로 표시', '200개의 햄 이미지를 표시', 'alt 텍스트만 표시', '아무것도 표시되지 않음'],
+    answer: 0, explain: 'src=파일경로, alt=대체 텍스트(이미지 못 뜰 때 표시), width=너비.' },
+  { lec: '3강', type: 'predict', star: 3, fromExercise: true,
+    q: '【연습문제 3-2】 다음 중첩 목록의 실행 결과로 옳은 것은?',
+    code: '<ul>\n  <li>따뜻한 음료\n    <ol>\n      <li>커피</li>\n      <li>녹차</li>\n    </ol>\n  </li>\n  <li>차가운 음료\n    <ol>\n      <li>커피</li>\n      <li>스무디</li>\n    </ol>\n  </li>\n</ul>',
+    choices: [
+      '• 따뜻한 음료 / • 커피 • 녹차 / • 차가운 음료 / • 커피 • 스무디',
+      '• 따뜻한 음료 / 1. 커피 2. 녹차 / • 차가운 음료 / 1. 커피 2. 스무디',
+      '1. 따뜻한 음료 / • 커피 • 녹차 / 2. 차가운 음료 / • 커피 • 스무디',
+      '1. 따뜻한 음료 / 1. 커피 2. 녹차 / 2. 차가운 음료 / 3. 커피 4. 스무디'
+    ],
+    answer: 1,
+    explain: '바깥 <ul>는 불릿(•), 안쪽 <ol>는 숫자(1, 2). 각 <ol>은 독립적으로 1번부터 다시 시작.' },
+  { lec: '3강', type: 'interpret', star: 2, fromExercise: true,
+    q: '【연습문제 3-3】 "한국의 차" 표 코드에서 <th colspan="6">한국의 차</th>가 의미하는 것은?',
+    code: '<table border="1">\n  <tr>\n    <th colspan="6">한국의 차</th>\n  </tr>\n  <tr>\n    <th rowspan="9">종류</th>\n    <th rowspan="5">발효차</th>\n    ...\n  </tr>\n</table>',
+    choices: [
+      '"한국의 차" 셀이 세로로 6행을 차지한다',
+      '"한국의 차" 셀이 가로로 6열을 병합하여 차지한다',
+      '"한국의 차" 셀의 너비가 6px이다',
+      '표의 테두리를 6px 굵게 만든다'
+    ],
+    answer: 1,
+    explain: 'colspan = 가로(column) 병합, rowspan = 세로(row) 병합. colspan="6"은 한 셀로 6개 열을 차지한다는 뜻 — 표의 맨 윗줄 제목에 자주 사용.' },
+  { lec: '4강', type: 'fill', star: 2, q: '다음 폼에서 데이터를 서버로 전송하되 URL에 노출되지 않게 하려면 빈칸은?',
+    code: '<form action="test.php" method="____">\n  <input type="text" name="id">\n  <input type="password" name="pw">\n</form>',
+    choices: ['get', 'post', 'send', 'hidden'],
+    answer: 1, explain: 'POST는 본문으로 전송(노출X, 용량↑), GET은 URL로 전송(노출O, 용량↓).' },
+  { lec: '4강', type: 'predict', star: 2, q: '다음 코드에서 기본으로 체크되어 있는 과일은?',
+    code: '<input type="checkbox" name="fruit">사과\n<input type="checkbox" name="fruit">바나나\n<input type="checkbox" name="fruit" checked>오렌지',
+    choices: ['사과', '바나나', '오렌지', '모두 체크'],
+    answer: 2, explain: 'checked 속성이 붙은 input만 처음부터 체크됨.' },
+  { lec: '4강', type: 'fill', star: 3, q: '다음 코드의 빈칸에 들어갈 속성은?',
+    code: '<label ____="inputTag">label 태그</label>\n<input id="inputTag" type="text">',
+    choices: ['id', 'name', 'for', 'link'],
+    answer: 2, explain: 'label의 for 속성 값 = 연결할 input의 id. 라벨 클릭 시 input에 포커스.' },
+  { lec: '4강', type: 'fill', star: 3, q: '다음 시맨틱 구조에서 빈칸 ①에 들어갈 태그는?',
+    code: '<body>\n  <header>\n    <h1>제목</h1>\n    <nav>메뉴</nav>\n  </header>\n  <①____>\n    <article>본문 글</article>\n  </①____>\n  <footer>하단</footer>\n</body>',
+    choices: ['div', 'span', 'section', 'main-content'],
+    answer: 2, explain: 'section은 문서의 주요 영역(묶음)을 의미. article은 section 안에 들어가는 독립 글.' },
+  { lec: '4강', type: 'interpret', star: 2, q: '다음 코드에서 "회원가입"이라는 텍스트의 역할은?',
+    code: '<fieldset>\n  <legend>회원가입</legend>\n  <input type="text" name="id">\n  <input type="password" name="pw">\n</fieldset>',
+    choices: ['입력칸의 placeholder 문자', 'fieldset 그룹의 제목(캡션)', '폼 제출 시 서버로 보내질 값', 'form 태그 외부에 표시되는 주석'],
+    answer: 1, explain: '<legend>는 <fieldset>의 제목(caption) 역할. 그룹 테두리 위에 표시됨.' },
+  { lec: '4강', type: 'interpret', star: 3, fromExercise: true,
+    q: '【연습문제 4-1】 회원가입 폼의 성별 라디오 버튼 두 개 중 하나만 선택되게 하려면 어떻게 해야 하는가?',
+    code: '<form method="post" action="#">\n  <fieldset>\n    <legend>회원정보</legend>\n    <label>성별:</label>\n    <input type="radio" name="①____" value="M"> 남자\n    <input type="radio" name="①____" value="F"> 여자\n  </fieldset>\n</form>',
+    choices: [
+      '두 input의 name 속성을 서로 다르게 지정한다',
+      '두 input의 name 속성을 같은 값(예: gender)으로 지정한다',
+      'id 속성을 같게 지정한다',
+      'name 대신 group 속성을 추가한다'
+    ],
+    answer: 1,
+    explain: '라디오 버튼은 같은 name을 가진 input끼리 하나의 그룹이 되어 그중 하나만 선택 가능. type="radio" + 동일 name이 라디오 그룹의 핵심.' },
+  { lec: '5강', type: 'predict', star: 2, q: '다음 코드에서 빨간색으로 표시되는 항목은?',
+    code: '<style>\n  .select { color: red; }\n</style>\n<ul>\n  <li class="select">사과</li>\n  <li>바나나</li>\n  <li class="select">오렌지</li>\n  <li>감</li>\n</ul>',
+    choices: ['사과만', '사과, 오렌지', '모든 항목', '바나나, 감'],
+    answer: 1, explain: '.select 클래스가 붙은 <li>만 적용 → 사과, 오렌지.' },
+  { lec: '5강', type: 'predict', star: 3, q: '다음 코드에서 빨간색으로 표시되는 요소는? (주의: 태그+클래스 선택자)',
+    code: '<style>\n  li.select { color: red; }\n</style>\n<h1 class="select">제목 글자</h1>\n<ul>\n  <li class="select">사과</li>\n  <li>바나나</li>\n</ul>',
+    choices: ['제목 글자와 사과', '사과만', '제목 글자만', '바나나만'],
+    answer: 1, explain: 'li.select = class="select"인 <li>만 선택 → <h1 class="select">는 제외.' },
+  { lec: '5강', type: 'predict', star: 3, q: '다음 코드에서 color: red가 적용되는 <h1>은?',
+    code: '<style>\n  #header > h1 { color: red; }\n</style>\n<div id="header">\n  <h1>① Lorem ipsum</h1>\n  <div id="nav">\n    <h1>② Navigation</h1>\n  </div>\n</div>',
+    choices: ['① 만', '② 만', '①과 ② 모두', '둘 다 적용 안 됨'],
+    answer: 0, explain: '> 는 자식 선택자(직계 자손만). ②는 #nav의 자식이라 제외.' },
+  { lec: '5강', type: 'predict', star: 2, q: '다음 코드에서 배경이 red인 항목은?',
+    code: '<style>\n  li:nth-child(2n) { background-color: red; }\n</style>\n<ul>\n  <li>1번</li>\n  <li>2번</li>\n  <li>3번</li>\n  <li>4번</li>\n</ul>',
+    choices: ['홀수 번째(1, 3번)', '짝수 번째(2, 4번)', '모든 li', '1번만'],
+    answer: 1, explain: '2n = 짝수 번째(2, 4, 6…). 홀수는 2n+1.' },
+  { lec: '5강', type: 'interpret', star: 2, q: '다음 CSS의 의미로 옳은 것은?',
+    code: 'input:checked {\n  box-shadow: 0 0 5px 2px red;\n}',
+    choices: ['모든 input에 빨간 그림자', '체크된 input(체크박스/라디오)에 빨간 그림자', '포커스된 input에 빨간 그림자', '비활성화된 input에 빨간 그림자'],
+    answer: 1, explain: ':checked = 체크된 상태. 포커스는 :focus, 비활성은 :disabled.' },
+  { lec: '5강', type: 'predict', star: 2, q: '다음 코드에서 password 입력칸의 배경색은?',
+    code: '<style>\n  input[type="text"] { background: red; }\n  input[type="password"] { background: blue; }\n</style>\n<input type="text">\n<input type="password">',
+    choices: ['빨강', '파랑', '기본(흰색)', '보라(빨강+파랑 혼합)'],
+    answer: 1, explain: '속성 선택자 input[type="password"] → 파랑 적용.' },
+  { lec: '5강', type: 'interpret', star: 3, fromExercise: true,
+    q: '【연습문제 5-1】 다음 세 선택자(①, ②, ③)의 종류를 올바르게 짝지은 것은? (세 선택자는 모두 같은 <td>들을 빨갛게 만든다)',
+    code: '<style>\n  .head-item   { color: red; }  /* ① */\n  .head td     { color: red; }  /* ② */\n  tr.head > td { color: red; }  /* ③ */\n</style>\n<table>\n  <tr class="head">\n    <td class="head-item">이름</td>\n    <td class="head-item">나이</td>\n  </tr>\n  <tr><td>홍길동</td><td>27</td></tr>\n</table>',
+    choices: [
+      '① 클래스 선택자  ② 후손(descendant) 선택자  ③ 자식(child) 선택자',
+      '① 태그 선택자  ② 자식 선택자  ③ 후손 선택자',
+      '① 아이디 선택자  ② 클래스 선택자  ③ 속성 선택자',
+      '셋 다 같은 클래스 선택자'
+    ],
+    answer: 0,
+    explain: '.head-item = 클래스, 공백 "A B" = 후손 선택자, "A > B" = 자식(직계) 선택자. 결과는 같지만 선택 방식이 다르다.' },
+  { lec: '5강', type: 'interpret', star: 2, fromExercise: true,
+    q: '【연습문제 5-2】 다음 세 선택자 ①, ②, ③은 모두 첫 번째 <li>의 글자색을 빨간색으로 만든다. 옳은 설명은?',
+    code: '<style>\n  #first         { color: red; }  /* ① */\n  .active        { color: red; }  /* ② */\n  li:first-child { color: red; }  /* ③ */\n</style>\n<ul>\n  <li id="first" class="active">CSS3 Selector</li>\n  <li>HTML5 Tag</li>\n  <li>JavaScript</li>\n</ul>',
+    choices: [
+      '세 선택자는 서로 다른 <li>를 선택한다',
+      '세 선택자 모두 첫 번째 <li>를 선택한다 — ①아이디, ②클래스, ③구조적 가상 클래스로 접근 방식만 다르다',
+      '③만 유효하고 ①, ②는 오류이다',
+      '①은 첫 번째, ②는 두 번째, ③은 세 번째 <li>를 선택한다'
+    ],
+    answer: 1,
+    explain: '#first(아이디), .active(클래스), li:first-child(구조) 세 가지 모두 동일한 첫 번째 <li>를 가리킴 — 같은 요소를 여러 방식으로 선택할 수 있다.' },
+  { lec: '6강', type: 'interpret', star: 3, q: '다음 div의 화면에서 차지하는 총 너비(margin 포함)는?',
+    code: 'div {\n  width: 100px;\n  padding: 30px;\n  border: 20px solid black;\n  margin: 10px;\n}',
+    choices: ['100px', '160px', '220px', '280px'],
+    answer: 2, explain: '전체 너비 = width + 2×(padding + border + margin) = 100 + 2×(30+20+10) = 220px.' },
+  { lec: '6강', type: 'predict', star: 2, q: '다음 코드의 실행 결과로 옳은 것은?',
+    code: '<style>\n  #box { display: inline-block; }\n</style>\n<span>더미1</span>\n<div id="box">대상</div>\n<span>더미2</span>',
+    choices: ['3개 요소가 한 줄에 나란히 배치', '3개 요소가 각각 줄바꿈됨', '대상 div만 보이고 span은 숨겨짐', '대상 div가 전체 너비를 차지'],
+    answer: 0, explain: 'inline-block = 인라인처럼 한 줄 + 블록처럼 크기 지정 가능.' },
+  { lec: '6강', type: 'interpret', star: 2, q: '다음 CSS에서 테두리의 스타일(모양)은?',
+    code: '.box {\n  border-width: thick;\n  border-style: dashed;\n  border-color: black;\n  border-radius: 20px;\n}',
+    choices: ['실선(solid)', '점선(dotted)', '파선/대시(dashed)', '이중선(double)'],
+    answer: 2, explain: 'border-style: dashed = 파선(짧은 선 반복). dotted는 점선.' },
+  { lec: '6강', type: 'interpret', star: 2, q: '다음 코드에서 p.b의 글자 크기는? (부모 font-size = 16px 기본값)',
+    code: '.a { font-size: 32px; }\n.b { font-size: 2em; }\n.c { font-size: large; }\n.d { font-size: small; }',
+    choices: ['2px', '16px', '32px', '부모 글자 크기의 2배(=32px)'],
+    answer: 3, explain: '1em = 부모의 font-size. 2em = 부모 크기의 2배.' },
+  { lec: '6강', type: 'interpret', star: 1, q: '다음 코드에서 <h1>의 텍스트 정렬은?',
+    code: 'div {\n  font-family: "Times New Roman";\n  height: 60px;\n  line-height: 60px;\n  text-align: center;\n}',
+    choices: ['왼쪽 정렬 + 위 정렬', '가운데 정렬 + 수직 중앙', '오른쪽 정렬 + 아래', '양쪽 균등'],
+    answer: 1, explain: 'text-align: center = 가로 중앙, height와 동일한 line-height = 한 줄 텍스트 수직 중앙.' },
+  { lec: '6강', type: 'interpret', star: 3, fromExercise: true,
+    q: '【연습문제 6-1】 다음 폼 스타일링에서 label에 display: inline-block과 width: 80px을 지정한 이유로 가장 적절한 것은?',
+    code: 'body  { background: #7a7a7a; font-family: sans-serif; }\nform  { width: 400px; margin: 0 auto; }\nlabel { display: inline-block; width: 80px; }\ninput { width: 220px; height: 30px; border-radius: 15px; }',
+    choices: [
+      'label을 화면에서 숨기기 위해',
+      'label은 인라인 요소라 width가 무시되는데, inline-block으로 바꾸면 width가 적용되어 label 너비가 일정해지고 input들이 세로로 정렬됨',
+      'label 다음에 줄바꿈을 넣기 위해',
+      'border-radius를 적용하려면 반드시 inline-block이어야 하기 때문'
+    ],
+    answer: 1,
+    explain: '<label>은 기본 인라인 → width/height 무시됨. display: inline-block으로 바꾸면 인라인처럼 같은 줄에 나오면서 블록처럼 크기 지정 가능 → 라벨 너비가 모두 80px로 맞춰져 오른쪽 input들이 세로로 나란히 정렬됨.' },
+  { lec: '6강', type: 'predict', star: 2, fromExercise: true,
+    q: '【연습문제 6-2】 다음 코드의 실행 결과로 옳은 것은?',
+    code: '<style>\n  .box {\n    display: inline-block;\n    width: 100px; height: 100px;\n    background-color: red;\n    margin: 10px;\n    text-align: right;\n    line-height: 100px;\n    font-size: 2em; font-weight: bold;\n  }\n</style>\n<div class="box">1</div>\n<div class="box">2</div>\n<div class="box">3</div>',
+    choices: [
+      '3개의 박스가 세로로 쌓이고 숫자는 왼쪽 위에 표시',
+      '3개의 빨간 박스가 가로로 나란히 배치되며, 숫자는 박스 오른쪽·세로 중앙에 큰 글씨로 표시',
+      '3개의 박스가 겹쳐져서 1만 보임',
+      '박스는 사라지고 숫자 1 2 3 만 일렬로 표시'
+    ],
+    answer: 1,
+    explain: 'inline-block → 가로 배치, text-align: right → 텍스트 오른쪽 정렬, line-height: 100px(height와 동일) → 한 줄 텍스트 수직 중앙, font-size: 2em + bold → 큰 굵은 글자.' },
+  { lec: '7강', type: 'predict', star: 3, q: '다음 코드에서 화면 가장 앞(최상단)에 보이는 박스의 색은?',
+    code: '.box { width:100px; height:100px; position: absolute; }\n.box:nth-child(1) { background: red;   left: 10px; top: 10px; z-index: 100; }\n.box:nth-child(2) { background: green; left: 50px; top: 50px; z-index: 10; }\n.box:nth-child(3) { background: blue;  left: 90px; top: 90px; z-index: 1; }',
+    choices: ['빨강(red)', '녹색(green)', '파랑(blue)', '모두 같은 층'],
+    answer: 0, explain: 'z-index가 클수록 앞에 표시. 100 > 10 > 1 → 빨강이 최상단.' },
+  { lec: '7강', type: 'predict', star: 3, q: '다음 코드에서 박스 배치 순서는? (왼쪽→오른쪽 기준)',
+    code: '.box {\n  width: 100px; height: 100px;\n  background-color: red;\n  margin: 10px;\n  float: right;\n}\n<div class="box">1</div>\n<div class="box">2</div>',
+    choices: ['1, 2 순서 (왼쪽부터)', '2, 1 순서 (왼쪽부터)', '위아래로 배치', '1과 2가 겹침'],
+    answer: 1, explain: 'float: right = 오른쪽부터 붙음. 첫 번째가 오른쪽, 두 번째가 그 왼쪽. 왼쪽부터 보면 2, 1.' },
+  { lec: '7강', type: 'interpret', star: 2, q: '다음 box-shadow 속성값의 순서로 옳은 해석은?',
+    code: 'h1 {\n  box-shadow: 10px 10px 30px black;\n}',
+    choices: ['색 / 수평 / 수직 / 흐림', '수평거리 / 수직거리 / 흐림반경 / 색', '흐림 / 수평 / 수직 / 색', '수직 / 수평 / 색 / 흐림'],
+    answer: 1, explain: 'box-shadow: 수평 수직 흐림[ 퍼짐] 색. text-shadow도 같은 순서.' },
+  { lec: '7강', type: 'interpret', star: 2, q: '다음 그레이디언트의 진행 방향은?',
+    code: 'background: linear-gradient(to bottom, #f85032 0%, #e73827 100%);',
+    choices: ['왼쪽 → 오른쪽', '위 → 아래', '아래 → 위', '대각선(좌상 → 우하)'],
+    answer: 1, explain: 'to bottom = 위→아래. to right=좌→우, to top=아래→위.' },
+  { lec: '7강', type: 'interpret', star: 3, q: '다음 코드에서 .box의 위치 기준점(origin)은?',
+    code: 'body > div {\n  width: 400px; height: 100px;\n  position: relative;\n}\n.box {\n  width: 100px; height: 100px;\n  position: absolute;\n  left: 10px; top: 10px;\n}',
+    choices: ['브라우저(뷰포트) 좌상단', '<body> 좌상단', 'position이 지정된 가장 가까운 조상(부모 div)', '가장 가까운 .box 형제'],
+    answer: 2, explain: 'position: absolute의 기준점 = position이 static이 아닌 가장 가까운 조상. 부모 div가 relative.' },
+  { lec: '7강', type: 'error', star: 3, q: '다음 코드에서 자식 .box가 absolute로 위치 지정되었지만 부모에 "기준"이 없어 body 기준으로 튀어나갑니다. 빠진 속성은?',
+    code: '.parent {\n  width: 400px;\n  height: 200px;\n  /* 빈칸 ① */\n}\n.box {\n  position: absolute;\n  left: 10px; top: 10px;\n}',
+    choices: ['display: block;', 'position: relative;', 'float: left;', 'overflow: hidden;'],
+    answer: 1, explain: '부상자절: 부모의 position: relative가 absolute 자식의 기준점이 된다.' },
+  { lec: '7강', type: 'predict', star: 2, q: '다음 코드의 실행 결과로 옳은 것은?',
+    code: 'h1 {\n  text-shadow: 5px 5px 5px black;\n  box-shadow: 10px 10px 30px black;\n}',
+    choices: ['h1 글자에만 그림자, 박스에는 그림자 없음', 'h1 박스에만 그림자, 글자에는 그림자 없음', 'h1 글자와 박스 모두에 그림자 적용', '오류 발생'],
+    answer: 2, explain: 'text-shadow=글자 그림자, box-shadow=박스 그림자. 둘 다 적용 가능.' },
+  { lec: '7강', type: 'predict', star: 3, fromExercise: true,
+    q: '【연습문제 7-1】 다음 코드의 실행 결과로 화면에서 왼쪽→오른쪽 방향으로 보이는 숫자 순서는?',
+    code: '<style>\n  .box {\n    width: 150px; height: 150px;\n    background-color: red;\n    float: right;\n    margin: 10px;\n    text-align: center; line-height: 150px;\n  }\n</style>\n<div class="box">1</div>\n<div class="box">2</div>\n<div class="box">3</div>',
+    choices: [
+      '1, 2, 3 (왼쪽부터)',
+      '3, 2, 1 (왼쪽부터)',
+      '2, 1, 3',
+      '세 박스가 세로로 겹쳐 쌓인다'
+    ],
+    answer: 1,
+    explain: 'float: right는 작성 순서대로 오른쪽 끝부터 차례로 붙음 → 1이 최우측, 2가 그 왼쪽, 3이 가장 왼쪽. 따라서 왼쪽부터 읽으면 3, 2, 1.' },
+  { lec: '7강', type: 'interpret', star: 2, fromExercise: true,
+    q: '【연습문제 7-2】 다음 코드에서 <img>에 border-radius: 50%를 적용한 효과는? (이미지는 정사각형)',
+    code: '.figure {\n  float: left;\n  margin-right: 20px;\n}\n.figure img {\n  display: block;\n  border-radius: 50%;\n}\n.shock { width: 200px; height: 200px; }\n.ham   { width: 100px; height: 100px; }',
+    choices: [
+      '이미지가 둥근 사각형(라운드 코너)으로 표시된다',
+      '정사각형 이미지가 완전한 원(circle)으로 잘려 표시된다',
+      '이미지 크기가 50%로 축소된다',
+      'img에는 border-radius가 적용되지 않아 아무 변화가 없다'
+    ],
+    answer: 1,
+    explain: 'border-radius: 50%는 네 모서리를 요소 크기의 절반만큼 둥글게 만든다 → 정사각형이면 완벽한 원. 가로≠세로이면 타원 모양이 된다. float: left + margin-right는 이미지 왼쪽 배치 + 텍스트가 이미지 오른쪽으로 흘러감.' },
+];
+
+// ============ 상태 ============
+const LECTURES = ['2강', '3강', '4강', '5강', '6강', '7강'];
+const TYPE_LABEL = {
+  fill: '빈칸', predict: '실행결과', error: '오류찾기', interpret: '코드해석'
+};
+
+const state = {
+  questions: [],
+  answers: {},
+  revealed: {},
+  filter: 'all',
+  mode: '20',
+  seenIds: new Set(),
+};
+
+// ============ 유틸 ============
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+const escapeHtml = (s) => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const inlineCode = (s) => {
+  return escapeHtml(s)
+    .replace(/&lt;[^&]*?&gt;/g, m => `<code>${m}</code>`)
+    .replace(/(^|\s)(#\w+|\.\w+|:\w+(?:-\w+)*(?:\([^)]*\))?|[-\w]+: ?[^;,]+;?)(?=\s|$|,|\.)/g, (m, pre, code) => `${pre}<code>${code}</code>`);
+};
+
+// 보기(choices) 순서를 섞으면서 정답 인덱스를 재계산
+function shuffleChoices(q) {
+  const indexed = q.choices.map((c, idx) => ({ c, idx }));
+  const sh = shuffle(indexed);
+  return {
+    ...q,
+    choices: sh.map(x => x.c),
+    answer: sh.findIndex(x => x.idx === q.answer),
+  };
+}
+
+// ============ 문제 추첨 ============
+function pickQuestions() {
+  if (state.mode === 'all') {
+    const out = [];
+    for (const lec of LECTURES) {
+      out.push(...shuffle(POOL.filter(q => q.lec === lec)));
+    }
+    return out.map(shuffleChoices);
+  }
+  if (state.mode === 'ex') {
+    const out = [];
+    for (const lec of LECTURES) {
+      out.push(...POOL.filter(q => q.lec === lec && q.fromExercise));
+    }
+    return out.map(shuffleChoices);
+  }
+  // 랜덤 20: 연습문제 10 전부(고정) + 비연습 10개 강별 균형 추첨
+  // 방금 나온 비연습 문제는 다음 라운드에서 제외. 남은 풀이 부족하면 비연습 히스토리 리셋.
+  const target = 20;
+  const exQs = POOL.filter(q => q.fromExercise);
+  const remaining = target - exQs.length;
+  const nonExAll = POOL.filter(q => !q.fromExercise);
+  if (nonExAll.filter(q => !state.seenIds.has(q.q)).length < remaining) {
+    nonExAll.forEach(q => state.seenIds.delete(q.q));
+  }
+  const nonExPool = {};
+  LECTURES.forEach(l => {
+    nonExPool[l] = POOL.filter(q => q.lec === l && !q.fromExercise && !state.seenIds.has(q.q));
+  });
+  const perLec = {};
+  LECTURES.forEach(l => perLec[l] = 0);
+  let totalAvail = 0;
+  LECTURES.forEach(l => totalAvail += nonExPool[l].length);
+  let assigned = 0;
+  if (totalAvail > 0) {
+    LECTURES.forEach(l => {
+      const share = Math.floor((nonExPool[l].length / totalAvail) * remaining);
+      perLec[l] = Math.min(share, nonExPool[l].length);
+      assigned += perLec[l];
+    });
+  }
+  const order = [...LECTURES].sort((a,b) => nonExPool[b].length - nonExPool[a].length);
+  let safety = 0;
+  while (assigned < remaining && safety++ < 100) {
+    let advanced = false;
+    for (const l of order) {
+      if (perLec[l] < nonExPool[l].length) {
+        perLec[l]++;
+        assigned++;
+        advanced = true;
+        if (assigned >= remaining) break;
+      }
+    }
+    if (!advanced) break;
+  }
+  const picked = [];
+  for (const lec of LECTURES) {
+    const lecEx = exQs.filter(q => q.lec === lec);
+    const lecNonEx = shuffle(nonExPool[lec]).slice(0, perLec[lec]);
+    lecNonEx.forEach(q => state.seenIds.add(q.q));
+    picked.push(...shuffle([...lecEx, ...lecNonEx]));
+  }
+  // 보기 순서도 매 라운드 섞음
+  return picked.map(shuffleChoices);
+}
+
+function newRound() {
+  state.questions = pickQuestions();
+  state.answers = {};
+  state.revealed = {};
+  state.filter = 'all';
+  document.getElementById('result-card').classList.remove('show');
+  renderFilters();
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ============ 렌더링 ============
+function render() {
+  const container = document.getElementById('quiz-container');
+  const list = state.filter === 'all'
+    ? state.questions.map((q, i) => ({ q, i }))
+    : state.questions.map((q, i) => ({ q, i })).filter(x => x.q.lec === state.filter);
+
+  container.innerHTML = list.map(({ q, i }) => {
+    const selected = state.answers[i];
+    const revealed = state.revealed[i];
+    const isCorrect = selected === q.answer;
+    const cardClass = revealed ? (isCorrect ? 'answered-correct' : 'answered-wrong') : '';
+    const stars = '⭐'.repeat(q.star);
+    const codeBlock = q.code ? `<pre class="q-codeblock">${escapeHtml(q.code)}</pre>` : '';
+    const typeLabel = TYPE_LABEL[q.type] || '기본';
+    const exerciseBadge = q.fromExercise ? `<span class="q-exercise">📘 연습문제</span>` : '';
+
+    const choicesHtml = q.choices.map((c, ci) => {
+      let cls = 'choice';
+      if (revealed) {
+        cls += ' disabled';
+        if (ci === q.answer) cls += ' correct';
+        else if (ci === selected) cls += ' wrong';
+      } else if (selected === ci) {
+        cls += ' selected';
+      }
+      return `
+        <div class="${cls}" data-qi="${i}" data-ci="${ci}">
+          <div class="choice-num">${ci + 1}</div>
+          <div class="choice-text">${inlineCode(c)}</div>
+        </div>
+      `;
+    }).join('');
+
+    const explainHtml = revealed ? `
+      <div class="explain show">
+        <span class="explain-label">${isCorrect ? '✅ 정답!' : '❌ 오답'}</span>
+        ${escapeHtml(q.explain)}
+      </div>
+    ` : '';
+
+    return `
+      <div class="question-card ${cardClass}" id="q-${i}">
+        <div class="q-header">
+          <span class="q-num">Q${i + 1}</span>
+          <span class="q-tag">${q.lec}</span>
+          <span class="q-type ${q.type}">${typeLabel}</span>
+          ${exerciseBadge}
+          <span class="q-star">${stars}</span>
+        </div>
+        <div class="q-text">${inlineCode(q.q)}</div>
+        ${codeBlock}
+        <div class="choices">${choicesHtml}</div>
+        ${explainHtml}
+      </div>
+    `;
+  }).join('');
+
+  container.querySelectorAll('.choice').forEach(el => {
+    if (el.classList.contains('disabled')) return;
+    el.addEventListener('click', () => {
+      const qi = parseInt(el.dataset.qi);
+      const ci = parseInt(el.dataset.ci);
+      state.answers[qi] = ci;
+      state.revealed[qi] = true;
+      render();
+    });
+  });
+
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = state.questions.length;
+  const answered = Object.keys(state.revealed).length;
+  const correct = state.questions.filter((q, i) => state.answers[i] === q.answer).length;
+  document.getElementById('progress-text').textContent = `${answered} / ${total}`;
+  document.getElementById('progress-fill').style.width = total ? `${(answered / total) * 100}%` : '0%';
+  document.getElementById('score-badge').textContent = `정답 ${correct}`;
+}
+
+function renderFilters() {
+  const bar = document.getElementById('filter-bar');
+  const items = ['all', ...LECTURES];
+  bar.innerHTML = items.map(l => {
+    const label = l === 'all' ? `전체 (${state.questions.length})` : `${l} (${state.questions.filter(q => q.lec === l).length})`;
+    const cls = state.filter === l ? 'filter-btn active' : 'filter-btn';
+    return `<button class="${cls}" data-filter="${l}">${label}</button>`;
+  }).join('');
+  bar.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.filter = btn.dataset.filter;
+      renderFilters();
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+}
+
+function renderPoolInfo() {
+  const info = document.getElementById('pool-info');
+  const perLec = LECTURES.map(l => `${l} ${POOL.filter(q => q.lec === l).length}`).join(' · ');
+  const exCount = POOL.filter(q => q.fromExercise).length;
+  info.textContent = `코드 문제 풀: ${POOL.length}문제 (연습문제 ${exCount}) · ${perLec}`;
+}
+
+// ============ 이벤트 ============
+document.querySelectorAll('.mode-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.mode = btn.dataset.mode;
+    newRound();
+  });
+});
+
+document.getElementById('submit-btn').addEventListener('click', () => {
+  const total = state.questions.length;
+  const answered = Object.keys(state.revealed).length;
+  const correct = state.questions.filter((q, i) => state.answers[i] === q.answer).length;
+  const percent = total ? Math.round((correct / total) * 100) : 0;
+
+  const breakdown = LECTURES.map(l => {
+    const lecQs = state.questions.map((q, i) => ({ q, i })).filter(x => x.q.lec === l);
+    if (lecQs.length === 0) return null;
+    const lecCorrect = lecQs.filter(x => state.answers[x.i] === x.q.answer).length;
+    return `${l} ${lecCorrect}/${lecQs.length}`;
+  }).filter(Boolean);
+
+  const card = document.getElementById('result-card');
+  document.getElementById('result-score').textContent = `${correct} / ${total}`;
+  document.getElementById('result-detail').textContent = `정답률 ${percent}% · 응답 ${answered}문제`;
+
+  let msg;
+  if (percent >= 90) msg = '🎉 완벽해요! 코드 문제는 자신 있네요';
+  else if (percent >= 75) msg = '👍 좋아요! 틀린 문제 해설만 읽어보세요';
+  else if (percent >= 60) msg = '💪 한 번 더! 오답 해설 꼼꼼히';
+  else msg = '📚 코드 읽기 연습이 더 필요해요';
+  document.getElementById('result-message').textContent = msg;
+  document.getElementById('result-breakdown').innerHTML = breakdown.map(b => `<span>${b}</span>`).join('');
+
+  card.classList.add('show');
+  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+document.getElementById('reset-btn').addEventListener('click', () => {
+  const label = state.mode === 'all' ? '전체 40문제' : (state.mode === 'ex' ? '연습문제 10개' : '랜덤 20문제');
+  if (Object.keys(state.revealed).length === 0 || confirm(`${label}로 다시 시작할까요?`)) {
+    newRound();
+  }
+});
+
+// ============ 초기화 ============
+renderPoolInfo();
+newRound();
+</script>
+</body>

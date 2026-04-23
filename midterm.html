@@ -1,0 +1,836 @@
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Internet Prog Quiz Midterm",
+  "schemaVersion": 1,
+  "description": "인터넷프로그래밍 중간고사 대비 인터랙티브 퀴즈 (1강~7강) — 142문제 풀에서 강별 랜덤 33문제 출제"
+}
+</script>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>인터넷프로그래밍 중간고사 퀴즈</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 24px 16px 80px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+  background: #f7f8fa;
+  color: #1f2937;
+  line-height: 1.6;
+}
+.container { max-width: 760px; margin: 0 auto; }
+header {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: white;
+  padding: 24px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+header h1 { margin: 0 0 4px; font-size: 22px; font-weight: 700; }
+header p { margin: 0; font-size: 14px; opacity: 0.9; }
+header .pool-info { margin-top: 8px; font-size: 12px; opacity: 0.8; }
+
+.progress-bar {
+  position: sticky; top: 0;
+  background: white; padding: 12px 16px; border-radius: 12px;
+  margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  z-index: 10; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+.progress-track { flex: 1; min-width: 120px; background: #e5e7eb; height: 8px; border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #4f46e5, #7c3aed); transition: width 0.3s; width: 0%; }
+.progress-text { font-size: 13px; font-weight: 600; color: #4f46e5; white-space: nowrap; }
+.score-badge { background: #10b981; color: white; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+
+.filter-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.filter-btn {
+  padding: 6px 12px; border: 1.5px solid #e5e7eb; background: white;
+  border-radius: 999px; font-size: 12px; cursor: pointer;
+  color: #6b7280; font-weight: 500; transition: all 0.15s;
+}
+.filter-btn:hover { border-color: #4f46e5; color: #4f46e5; }
+.filter-btn.active { background: #4f46e5; border-color: #4f46e5; color: white; }
+
+.question-card {
+  background: white; border-radius: 14px; padding: 20px;
+  margin-bottom: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  border: 2px solid transparent; transition: border-color 0.2s;
+}
+.question-card.answered-correct { border-color: #10b981; }
+.question-card.answered-wrong { border-color: #ef4444; }
+
+.q-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.q-num { background: #eef2ff; color: #4f46e5; font-weight: 700; padding: 3px 10px; border-radius: 6px; font-size: 13px; }
+.q-tag { background: #f3f4f6; color: #6b7280; font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+.q-star { color: #f59e0b; font-size: 13px; }
+
+.q-text { font-size: 15px; font-weight: 500; margin: 0 0 14px; color: #111827; }
+.q-text code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-family: 'D2Coding', Menlo, Consolas, monospace; font-size: 13px; color: #be185d; }
+.q-codeblock {
+  background: #1f2937; color: #e5e7eb; padding: 12px 14px; border-radius: 8px;
+  font-family: 'D2Coding', Menlo, Consolas, monospace; font-size: 13px;
+  margin: 8px 0 14px; white-space: pre; overflow-x: auto;
+}
+
+.choices { display: flex; flex-direction: column; gap: 8px; }
+.choice {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 12px; border: 1.5px solid #e5e7eb; border-radius: 10px;
+  cursor: pointer; transition: all 0.15s; background: #fafafa;
+}
+.choice:hover { border-color: #a5b4fc; background: #eef2ff; }
+.choice.selected { border-color: #4f46e5; background: #eef2ff; }
+.choice.correct { border-color: #10b981; background: #ecfdf5; }
+.choice.wrong { border-color: #ef4444; background: #fef2f2; }
+.choice.disabled { cursor: default; }
+.choice.disabled:hover { border-color: #e5e7eb; background: #fafafa; }
+.choice.disabled.selected:hover { border-color: #4f46e5; background: #eef2ff; }
+.choice.disabled.correct:hover { border-color: #10b981; background: #ecfdf5; }
+.choice.disabled.wrong:hover { border-color: #ef4444; background: #fef2f2; }
+
+.choice-num {
+  flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+  border: 1.5px solid #cbd5e1; background: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: #64748b;
+}
+.choice.selected .choice-num { background: #4f46e5; border-color: #4f46e5; color: white; }
+.choice.correct .choice-num { background: #10b981; border-color: #10b981; color: white; }
+.choice.wrong .choice-num { background: #ef4444; border-color: #ef4444; color: white; }
+.choice-text { flex: 1; font-size: 14px; color: #374151; }
+.choice-text code { background: #f3f4f6; padding: 1px 5px; border-radius: 3px; font-family: 'D2Coding', Menlo, Consolas, monospace; font-size: 12px; color: #be185d; }
+
+.explain {
+  margin-top: 12px; padding: 12px 14px; background: #fefce8;
+  border-left: 4px solid #facc15; border-radius: 8px;
+  font-size: 13px; color: #78350f; display: none;
+}
+.explain.show { display: block; }
+.explain-label { font-weight: 700; margin-right: 6px; color: #a16207; }
+
+.controls {
+  display: flex; gap: 10px; justify-content: center;
+  margin-top: 24px; flex-wrap: wrap;
+}
+.btn {
+  padding: 10px 22px; border-radius: 10px; border: none;
+  font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.15s;
+}
+.btn-primary { background: #4f46e5; color: white; }
+.btn-primary:hover { background: #4338ca; }
+.btn-secondary { background: white; color: #4f46e5; border: 1.5px solid #c7d2fe; }
+.btn-secondary:hover { background: #eef2ff; }
+
+.result-card {
+  background: white; border-radius: 16px; padding: 22px;
+  margin-bottom: 16px; text-align: center; display: none;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+.result-card.show { display: block; }
+.result-score { font-size: 40px; font-weight: 800; color: #4f46e5; margin-bottom: 4px; }
+.result-detail { font-size: 14px; color: #6b7280; margin-bottom: 12px; }
+.result-message { font-size: 16px; font-weight: 600; color: #111827; }
+.result-breakdown { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 12px; }
+.result-breakdown span { background: #f3f4f6; color: #374151; padding: 4px 10px; border-radius: 999px; font-size: 12px; }
+
+footer { text-align: center; margin-top: 30px; font-size: 11px; color: #9ca3af; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>📘 인터넷프로그래밍 중간고사</h1>
+    <p>1강~7강 · 매번 강별 랜덤 33문제 · 인하대 소프트웨어융합공학과</p>
+    <div class="pool-info" id="pool-info"></div>
+  </header>
+
+  <div class="progress-bar">
+    <span class="progress-text" id="progress-text">0 / 33</span>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <span class="score-badge" id="score-badge">정답 0</span>
+  </div>
+
+  <div class="filter-bar" id="filter-bar"></div>
+
+  <div class="result-card" id="result-card">
+    <div class="result-score" id="result-score">0 / 33</div>
+    <div class="result-detail" id="result-detail">정답률 0%</div>
+    <div class="result-message" id="result-message"></div>
+    <div class="result-breakdown" id="result-breakdown"></div>
+  </div>
+
+  <div id="quiz-container"></div>
+
+  <div class="controls">
+    <button class="btn btn-secondary" id="reset-btn">🎲 새 문제로 다시 풀기</button>
+    <button class="btn btn-primary" id="submit-btn">📊 결과 보기</button>
+  </div>
+
+  <footer>담당교수: 서원준 · 교재: HTML5 웹 프로그래밍 입문(4판, 윤인성)</footer>
+</div>
+
+<script>
+// ============ 문제 풀 (총 142문제) ============
+const POOL = [
+  // ===== 1강. 웹 개요와 실습환경 구축 (12문제) =====
+  { lec: '1강', star: 1, q: '인터넷(Internet)과 웹(Web)의 관계에 대한 설명으로 옳은 것은?',
+    choices: ['인터넷과 웹은 동일한 개념이다', '웹은 인터넷 공간에서 제공하는 서비스 중 하나이다', '인터넷은 웹의 하위 서비스이다', '웹이 인터넷보다 먼저 만들어졌다'],
+    answer: 1, explain: '웹은 인터넷이라는 통신망 위에서 제공되는 여러 서비스 중 하나이다. 이메일, FTP, 텔넷도 인터넷 서비스.' },
+  { lec: '1강', star: 1, q: '국제 웹 표준화 단체로서 HTML 표준을 제작하거나 제안하는 기관은?',
+    choices: ['ARPA', 'WHATWG', 'W3C', 'IEEE'],
+    answer: 2, explain: 'W3C = World Wide Web Consortium, 국제 웹 표준화 단체.' },
+  { lec: '1강', star: 1, q: '웹 표준 기술 3요소의 역할이 올바르게 짝지어진 것은?',
+    choices: ['HTML5—동작, CSS3—구조, JavaScript—스타일', 'HTML5—구조, CSS3—스타일, JavaScript—동작', 'HTML5—스타일, CSS3—동작, JavaScript—구조', 'HTML5—구조, CSS3—동작, JavaScript—스타일'],
+    answer: 1, explain: 'H(구조) / C(스타일) / J(동작) — 집을 짓고, 칠하고, 움직이게!' },
+  { lec: '1강', star: 0, q: '최초의 GUI(Graphical User Interface) 웹 브라우저는?',
+    choices: ['넷스케이프(Netscape)', '인터넷 익스플로러', '모자이크(Mosaic)', '파이어폭스'],
+    answer: 2, explain: '모자이크(Mosaic)가 최초의 GUI 웹 브라우저.' },
+  { lec: '1강', star: 1, q: 'HTML5 표준이 공식 발표된 연도는?',
+    choices: ['2010년', '2012년', '2014년', '2016년'],
+    answer: 2, explain: 'HTML5는 2014년 10월에 발표되었다.' },
+  { lec: '1강', star: 0, q: 'WWW(World Wide Web)를 1991년에 처음 발표한 사람은?',
+    choices: ['마크 앤드리슨', '팀 버너스 리(Tim Berners-Lee)', '빌 게이츠', '스티브 잡스'],
+    answer: 1, explain: '팀 버너스 리가 1991년 WWW를 발표하고 1993년 소스 코드를 공개하였다.' },
+  { lec: '1강', star: 1, q: 'WHATWG에 대한 설명으로 옳은 것은?',
+    choices: ['미국 국방성 산하의 연구 기관이다', '웹 브라우저 제공 기업들이 조직한 웹 표준 기관이다', 'W3C의 전신이다', 'HTML 교재를 출판하는 단체이다'],
+    answer: 1, explain: 'WHATWG는 브라우저 기업들이 조직한 실무적 웹 표준 기관이다.' },
+  { lec: '1강', star: 1, q: '웹 2.0(Web 2.0)의 개념으로 가장 적절한 것은?',
+    choices: ['사용자가 함께 새로운 콘텐츠를 창조하는 시대', '자바스크립트를 처음 도입한 단계', 'W3C가 공식 표준화한 최초의 웹', '인터넷 익스플로러 전용 웹 기술'],
+    answer: 0, explain: '웹 2.0 = 사용자 참여형 웹. 유튜브·위키피디아·깃허브가 대표 예시.' },
+  { lec: '1강', star: 0, q: '1969년 아파넷(ARPANET)을 개발한 미국 국방성 부서는?',
+    choices: ['W3C', 'ARPA', 'WHATWG', 'IEEE'],
+    answer: 1, explain: 'ARPA = Advanced Research Projects Agency, 미 국방성 부서.' },
+  { lec: '1강', star: 1, q: '웹 표준 기술 3요소 중 "스타일"을 담당하는 것은?',
+    choices: ['HTML5', 'CSS3', 'JavaScript', 'XML'],
+    answer: 1, explain: 'CSS3 = 스타일(Style) 담당 스타일시트 언어.' },
+  { lec: '1강', star: 1, q: '웹 표준 기술 3요소 중 "동작"을 담당하는 것은?',
+    choices: ['HTML5', 'CSS3', 'JavaScript', 'PHP'],
+    answer: 2, explain: 'JavaScript = 동작(Behavior) 담당 프로그래밍 언어.' },
+  { lec: '1강', star: 0, q: '웹 브라우저(Web Browser)의 역할로 가장 적절한 것은?',
+    choices: ['웹에 공개된 정보를 탐색할 수 있게 하는 프로그램', '서버에서 HTML을 생성하는 프로그램', '데이터베이스를 관리하는 프로그램', '코드를 컴파일하는 프로그램'],
+    answer: 0, explain: '웹 브라우저는 사용자가 웹 정보를 탐색·표시할 수 있게 해주는 프로그램이다.' },
+
+  // ===== 2강. 웹 페이지 기본 구조와 작성 방법 (15문제) =====
+  { lec: '2강', star: 1, q: 'HTML5 문서의 가장 첫 행에 반드시 작성해야 하는 것은?',
+    choices: ['<html>', '<head>', '<!DOCTYPE html>', '<meta charset="UTF-8">'],
+    answer: 2, explain: '<!DOCTYPE html>은 HTML5 문서임을 선언하며 반드시 첫 행에 위치.' },
+  { lec: '2강', star: 1, q: '다음 중 내용을 가질 수 없는 요소(빈 요소, Void Element)가 아닌 것은?',
+    choices: ['<img>', '<br>', '<hr>', '<p>'],
+    answer: 3, explain: '<p>는 내용을 가질 수 있는 요소. img, br, hr은 빈 요소.' },
+  { lec: '2강', star: 1, q: '다음 중 <head> 태그 내부에 넣을 수 없는 태그는?',
+    choices: ['<title>', '<meta>', '<h1>', '<style>'],
+    answer: 2, explain: 'head에 들어가는 태그: meta, title, script, link, style, base. h1은 body용.' },
+  { lec: '2강', star: 0, q: '다음 중 HTML5 주석의 올바른 형식은?',
+    choices: ['// 주석', '/* 주석 */', '<!-- 주석 -->', '# 주석'],
+    answer: 2, explain: 'HTML 주석은 <!-- ... --> 형태.' },
+  { lec: '2강', star: 1, q: '<html lang="ko">에서 lang 속성의 역할로 옳은 것은?',
+    choices: ['웹 페이지의 제목을 지정한다', '검색 엔진이 페이지의 언어를 쉽게 알 수 있도록 돕는다', '웹 페이지 인코딩을 설정한다', '웹 페이지의 스타일을 지정한다'],
+    answer: 1, explain: 'lang 속성은 페이지의 언어를 명시하여 검색 엔진과 접근성 도구가 언어를 인식하게 한다.' },
+  { lec: '2강', star: 0, q: 'HTML에서 일본어를 의미하는 lang 속성값은?',
+    choices: ['jp', 'ja', 'jap', 'jpn'],
+    answer: 1, explain: 'ko=한국어, en=영어, ja=일본어, zh=중국어.' },
+  { lec: '2강', star: 1, q: '태그(Tag)와 요소(Element)의 관계에 대한 설명으로 옳은 것은?',
+    choices: ['태그는 페이지 부품, 요소는 작성 방법이다', '요소는 페이지 부품, 태그는 요소를 만드는 작성 방법이다', '둘은 완전히 다른 개념이며 호환되지 않는다', '요소는 태그 안에 값을 지정한 것을 의미한다'],
+    answer: 1, explain: '요소(부품) = h1·p·img 등, 태그(작성 방법) = <h1>, </h1>.' },
+  { lec: '2강', star: 1, q: 'XHTML 표기법으로 줄 바꿈(<br>)을 작성하는 방법은?',
+    choices: ['<br>', '<br />', '<br></br>', '<breakline>'],
+    answer: 1, explain: 'XHTML은 빈 요소도 슬래시(/)로 닫는다: <br />, <img />, <hr />.' },
+  { lec: '2강', star: 1, q: '속성(Attribute)의 올바른 구성은?',
+    choices: ['속성 이름만 입력', '속성 이름="속성 값"', '속성 값="속성 이름"', '속성 값만 입력'],
+    answer: 1, explain: '속성은 항상 이름과 값의 쌍이며 값은 쌍따옴표로 감싼다.' },
+  { lec: '2강', star: 1, q: '모든 HTML 페이지의 루트(root)가 되는 태그는?',
+    choices: ['<head>', '<body>', '<html>', '<root>'],
+    answer: 2, explain: '<html> 태그는 HTML 페이지의 최상위(루트) 요소이다.' },
+  { lec: '2강', star: 1, q: '웹 브라우저 화면에 실제로 표시되는 내용을 감싸는 태그는?',
+    choices: ['<head>', '<body>', '<html>', '<title>'],
+    answer: 1, explain: '<body>는 사용자에게 실제로 보이는 부분을 담는다.' },
+  { lec: '2강', star: 1, q: '브라우저 탭에 표시되는 페이지 제목을 지정하는 태그는?',
+    choices: ['<h1>', '<title>', '<header>', '<caption>'],
+    answer: 1, explain: '<title>은 <head> 안에 위치하며 브라우저 탭 제목으로 표시된다.' },
+  { lec: '2강', star: 0, q: 'HTML5 기본 구조의 올바른 순서는?',
+    choices: ['DOCTYPE → body → head → html', 'DOCTYPE → html → head → body', 'html → DOCTYPE → head → body', 'head → DOCTYPE → html → body'],
+    answer: 1, explain: '암기법: DTHB = "Don\'t Touch His Bag".' },
+  { lec: '2강', star: 0, q: '다음 중 내용을 가질 수 있는 요소는?',
+    choices: ['<br>', '<img>', '<hr>', '<span>'],
+    answer: 3, explain: '<span>은 내용을 가질 수 있는 인라인 요소. br/img/hr은 빈 요소.' },
+  { lec: '2강', star: 0, q: '웹 페이지에 추가 정보(문자 인코딩, 설명 등)를 전달하는 head 내 태그는?',
+    choices: ['<meta>', '<title>', '<link>', '<style>'],
+    answer: 0, explain: '<meta>는 페이지의 메타 정보(charset, description 등)를 브라우저·검색엔진에 전달.' },
+
+  // ===== 3강. HTML5 기본 태그 (20문제) =====
+  { lec: '3강', star: 1, q: 'HTML5에서 줄 바꿈을 수행하는 태그는?',
+    choices: ['<hr>', '<br>', '<p>', '<ln>'],
+    answer: 1, explain: '<br> = break, 줄 바꿈 빈 요소.' },
+  { lec: '3강', star: 1, q: '다음 중 빈 요소(void element)가 아닌 것은?',
+    choices: ['<br>', '<hr>', '<img>', '<a>'],
+    answer: 3, explain: '<a>는 내용을 가질 수 있다. <a>링크 텍스트</a>.' },
+  { lec: '3강', star: 1, q: 'HTML에서 여러 칸의 공백을 표시하기 위한 특수 문자는?',
+    choices: ['&lt;', '&gt;', '&nbsp;', '&amp;'],
+    answer: 2, explain: '&nbsp; = Non-Breaking SPace.' },
+  { lec: '3강', star: 1, q: '순서가 있는 목록(번호 목록)을 생성하는 태그는?',
+    choices: ['<ul>', '<ol>', '<li>', '<dl>'],
+    answer: 1, explain: '<ol> = Ordered List. <ul>은 Unordered List.' },
+  { lec: '3강', star: 1, q: '테이블에서 가로 방향으로 셀을 병합하는 속성은?',
+    choices: ['rowspan', 'colspan', 'cellspan', 'merge'],
+    answer: 1, explain: 'colspan = 열(column) 방향 병합(가로).' },
+  { lec: '3강', star: 1, q: '다음 중 웹 표준을 위반한 코드는?',
+    choices: ['<h1><b>제목</b></h1>', '<p><i>기울임</i></p>', '<i><h1>제목</h1></i>', '<b><i>굵은 기울임</i></b>'],
+    answer: 2, explain: '인라인 요소(<i>, <b>) 내부에 블록 요소(<h1>, <p>)를 넣을 수 없다.' },
+  { lec: '3강', star: 1, q: '테이블에서 굵은 글씨와 가운데 정렬이 기본 적용되는 제목 셀 태그는?',
+    choices: ['<td>', '<tr>', '<th>', '<table>'],
+    answer: 2, explain: '<th> = Table Heading.' },
+  { lec: '3강', star: 1, q: 'HTML 특수 문자 &lt;는 무엇을 표시하는가?',
+    choices: ['>', '<', '&', '공백'],
+    answer: 1, explain: '&lt; = Less Than = < (부등호 왼쪽).' },
+  { lec: '3강', star: 1, q: 'HTML 특수 문자 &gt;는 무엇을 표시하는가?',
+    choices: ['<', '>', '&', '"'],
+    answer: 1, explain: '&gt; = Greater Than = > (부등호 오른쪽).' },
+  { lec: '3강', star: 1, q: 'HTML 특수 문자 &amp;는 무엇을 표시하는가?',
+    choices: ['@', '$', '&', '#'],
+    answer: 2, explain: '&amp; = Ampersand = &.' },
+  { lec: '3강', star: 1, q: '테이블에서 세로 방향으로 셀을 병합하는 속성은?',
+    choices: ['colspan', 'rowspan', 'height', 'vspan'],
+    answer: 1, explain: 'rowspan = 행(row) 방향 병합(세로).' },
+  { lec: '3강', star: 1, q: '제목 태그 중 글자가 가장 큰 것은?',
+    choices: ['<h1>', '<h3>', '<h6>', '숫자가 클수록 크다'],
+    answer: 0, explain: 'h1이 가장 크고 h6이 가장 작다 (숫자가 클수록 작아짐).' },
+  { lec: '3강', star: 1, q: '같은 페이지 내부의 특정 위치로 이동하기 위한 a 태그 href 작성법은?',
+    choices: ['href="alpha"', 'href="#alpha"', 'href="@alpha"', 'href="/alpha"'],
+    answer: 1, explain: '내부 링크는 #id값 형태. 예: href="#alpha" → id="alpha".' },
+  { lec: '3강', star: 0, q: '하이퍼링크를 만드는 <a> 태그의 "a"는 무엇의 약자인가?',
+    choices: ['address', 'anchor', 'apply', 'append'],
+    answer: 1, explain: 'a = Anchor(닻) — 특정 위치에 연결한다는 의미.' },
+  { lec: '3강', star: 1, q: '<img> 태그에서 이미지를 불러올 수 없을 때 대신 표시될 대체 텍스트를 지정하는 속성은?',
+    choices: ['src', 'alt', 'title', 'caption'],
+    answer: 1, explain: 'alt = alternative text. 접근성과 SEO에도 중요.' },
+  { lec: '3강', star: 0, q: '글자를 굵게(bold) 표시하는 태그는?',
+    choices: ['<b>', '<i>', '<s>', '<u>'],
+    answer: 0, explain: '<b> = bold.' },
+  { lec: '3강', star: 0, q: '글자를 기울임(italic)으로 표시하는 태그는?',
+    choices: ['<b>', '<i>', '<em>', '<small>'],
+    answer: 1, explain: '<i> = italic.' },
+  { lec: '3강', star: 0, q: '위 첨자(superscript)를 표시하는 태그는?',
+    choices: ['<sub>', '<sup>', '<top>', '<up>'],
+    answer: 1, explain: '<sup> = superscript(위 첨자), <sub> = subscript(아래 첨자).' },
+  { lec: '3강', star: 0, q: '목록의 각 항목을 나타내는 태그는?',
+    choices: ['<li>', '<item>', '<tr>', '<td>'],
+    answer: 0, explain: '<li> = list item. <ul>과 <ol> 모두의 항목에 사용.' },
+  { lec: '3강', star: 0, q: '<table> 내부에서 행(row)을 표시하는 태그는?',
+    choices: ['<td>', '<th>', '<tr>', '<row>'],
+    answer: 2, explain: '<tr> = Table Row.' },
+
+  // ===== 4강. 입력 양식 & 시맨틱 태그 (25문제) =====
+  { lec: '4강', star: 1, q: 'GET 방식과 POST 방식의 차이로 올바른 것은?',
+    choices: ['GET은 용량 제한이 없고, POST는 제한된다', 'GET은 주소(URL)에 데이터가 노출되지 않는다', 'POST는 주소를 변경하지 않고 비밀스럽게 데이터를 전달한다', 'GET과 POST는 내부적으로 동일하게 동작한다'],
+    answer: 2, explain: 'GET=주소 공개/용량 한정, POST=주소 변경X/용량 제한 없음/비노출.' },
+  { lec: '4강', star: 1, q: '라디오 버튼에서 하나만 선택되게 하려면 같게 해야 하는 속성은?',
+    choices: ['id', 'value', 'name', 'type'],
+    answer: 2, explain: '라디오 버튼은 name 속성이 같아야 그룹화된다.' },
+  { lec: '4강', star: 1, q: '<label>의 for 속성은 <input>의 어떤 속성과 연결되는가?',
+    choices: ['name', 'type', 'value', 'id'],
+    answer: 3, explain: 'label for="id값" ↔ input id="id값". 클릭 시 포커스 이동.' },
+  { lec: '4강', star: 1, q: '다음 중 인라인(inline) 형식의 태그가 아닌 것은?',
+    choices: ['<span>', '<a>', '<i>', '<div>'],
+    answer: 3, explain: '<div>는 블록. 인라인: span, a, input, b, i 등.' },
+  { lec: '4강', star: 1, q: '시맨틱 태그에서 내비게이션(하이퍼링크 모음) 역할을 하는 태그는?',
+    choices: ['<header>', '<nav>', '<section>', '<footer>'],
+    answer: 1, explain: '<nav> = navigation.' },
+  { lec: '4강', star: 1, q: '<form> 태그에서 데이터 전달 방식(GET/POST)을 지정하는 속성은?',
+    choices: ['action', 'method', 'type', 'name'],
+    answer: 1, explain: 'method = 전달 방법, action = 전달 장소(URL).' },
+  { lec: '4강', star: 1, q: '<form> 태그에서 데이터를 전달할 URL을 지정하는 속성은?',
+    choices: ['method', 'action', 'target', 'src'],
+    answer: 1, explain: 'action = 전달받을 서버 URL.' },
+  { lec: '4강', star: 1, q: '입력 내용이 ●●●와 같이 가려져 표시되는 input type은?',
+    choices: ['text', 'password', 'hidden', 'secret'],
+    answer: 1, explain: 'type="password"는 입력 내용을 가린다.' },
+  { lec: '4강', star: 1, q: '여러 항목을 복수 선택할 수 있는 입력 양식은?',
+    choices: ['<input type="radio">', '<input type="text">', '<input type="checkbox">', '<input type="password">'],
+    answer: 2, explain: 'checkbox는 복수 선택 가능. radio는 그룹 내 하나만 선택.' },
+  { lec: '4강', star: 1, q: 'form 데이터를 서버로 전송하는 버튼을 만드는 input type은?',
+    choices: ['button', 'reset', 'submit', 'send'],
+    answer: 2, explain: 'type="submit" = 제출 버튼.' },
+  { lec: '4강', star: 1, q: '입력한 내용을 초기화하는 버튼을 만드는 input type은?',
+    choices: ['clear', 'reset', 'init', 'erase'],
+    answer: 1, explain: 'type="reset" = 초기화 버튼.' },
+  { lec: '4강', star: 0, q: '화면에 보이지 않는 입력 양식을 만드는 input type은?',
+    choices: ['none', 'invisible', 'hidden', 'secret'],
+    answer: 2, explain: 'type="hidden"은 화면에 표시되지 않지만 데이터는 전송된다.' },
+  { lec: '4강', star: 1, q: '목록에서 항목 중 하나 또는 여러 개를 선택할 때 사용하는 태그는?',
+    choices: ['<option>', '<select>', '<list>', '<menu>'],
+    answer: 1, explain: '<select> 태그는 드롭다운 목록을 만든다.' },
+  { lec: '4강', star: 1, q: '<select> 태그에서 여러 항목을 선택 가능하게 하는 속성은?',
+    choices: ['checked', 'selected', 'multiple', 'all'],
+    answer: 2, explain: 'multiple="multiple" 속성을 추가하면 다중 선택 가능.' },
+  { lec: '4강', star: 0, q: '<select> 내부에서 옵션을 그룹으로 묶는 태그는?',
+    choices: ['<group>', '<optgroup>', '<optionset>', '<fieldset>'],
+    answer: 1, explain: '<optgroup label="그룹명">으로 옵션을 그룹화.' },
+  { lec: '4강', star: 1, q: '<textarea>에서 여러 행의 높이를 지정하는 속성은?',
+    choices: ['cols', 'rows', 'height', 'size'],
+    answer: 1, explain: 'cols=너비(열 개수), rows=높이(행 개수).' },
+  { lec: '4강', star: 1, q: '<textarea>의 들여쓰기 관련 주의사항으로 옳은 것은?',
+    choices: ['들여쓰기가 자동으로 제거된다', '들여쓰기가 그대로 입력 양식 내부에 출력된다', '공백은 모두 무시된다', '특수 문자로만 들여쓰기가 가능하다'],
+    answer: 1, explain: 'textarea 내부 들여쓰기는 그대로 출력되므로 여는 태그 바로 뒤에 내용 작성.' },
+  { lec: '4강', star: 1, q: '입력 양식을 그룹으로 묶고 이름을 지정할 때 사용하는 태그 조합은?',
+    choices: ['<div> + <span>', '<form> + <label>', '<fieldset> + <legend>', '<select> + <optgroup>'],
+    answer: 2, explain: '<fieldset>으로 그룹을 만들고 <legend>로 이름 지정.' },
+  { lec: '4강', star: 1, q: '블록(block) 형식으로 공간을 분할하는 태그는?',
+    choices: ['<span>', '<div>', '<a>', '<input>'],
+    answer: 1, explain: '<div> = division, 블록 형식. <span>은 인라인.' },
+  { lec: '4강', star: 1, q: '시맨틱 태그 중 "머리말"(페이지 제목, 소개) 역할을 하는 태그는?',
+    choices: ['<header>', '<nav>', '<main>', '<top>'],
+    answer: 0, explain: '<header> = 머리말. 페이지 제목, 소개 영역.' },
+  { lec: '4강', star: 1, q: '시맨틱 태그 중 "꼬리말"(저작권 정보 등) 역할을 하는 태그는?',
+    choices: ['<bottom>', '<aside>', '<footer>', '<end>'],
+    answer: 2, explain: '<footer> = 꼬리말. 저작권, 연락처 정보 등.' },
+  { lec: '4강', star: 1, q: '시맨틱 태그 중 "문서의 장이나 절"에 해당하는 태그는?',
+    choices: ['<article>', '<section>', '<aside>', '<div>'],
+    answer: 1, explain: '<section> = 장/절. <article>은 독립적 콘텐츠.' },
+  { lec: '4강', star: 1, q: '본문과 "독립적인 콘텐츠" 영역을 표시하는 시맨틱 태그는?',
+    choices: ['<section>', '<article>', '<aside>', '<div>'],
+    answer: 1, explain: '<article>은 게시글·뉴스처럼 독립적으로도 의미가 있는 콘텐츠.' },
+  { lec: '4강', star: 1, q: '본문 흐름에서 벗어난 "노트나 팁" 영역을 표시하는 시맨틱 태그는?',
+    choices: ['<nav>', '<aside>', '<section>', '<footer>'],
+    answer: 1, explain: '<aside> = 본문 흐름에서 벗어나는 노트/팁/사이드바.' },
+  { lec: '4강', star: 0, q: '인라인 요소가 자신의 글자 크기만큼만 영역을 차지하는 반면, 블록 요소의 특징은?',
+    choices: ['한 행 전체를 차지하며 위에서 아래로 쌓인다', '글자 크기만큼만 영역을 차지한다', '화면 중앙에 자동 정렬된다', '부모 태그의 크기를 상속받는다'],
+    answer: 0, explain: '블록은 한 행 전체 차지 + 위→아래 쌓임. 인라인은 왼→오 쌓임.' },
+
+  // ===== 5강. CSS3 기초: 선택자와 단위 (28문제) =====
+  { lec: '5강', star: 1, q: '다음 중 아이디 선택자의 올바른 형태는?',
+    choices: ['.header', '*header', '#header', '@header'],
+    answer: 2, explain: '# = id 선택자, . = class 선택자, * = 전체 선택자.' },
+  { lec: '5강', star: 1, q: '다음 중 자손 선택자(child selector)의 올바른 형태는?',
+    choices: ['header h1', 'header + h1', 'header > h1', 'header ~ h1'],
+    answer: 2, explain: '> = 자손(바로 아래), 공백 = 후손(모든 하위).' },
+  { lec: '5강', star: 1, q: '마우스 커서를 올렸을 때 스타일을 적용하는 반응 선택자는?',
+    choices: [':active', ':hover', ':focus', ':checked'],
+    answer: 1, explain: ':hover = 마우스 올림, :active = 클릭.' },
+  { lec: '5강', star: 1, q: '형제 관계에서 홀수 번째 요소를 선택하는 구조 선택자는?',
+    choices: [':nth-child(2n)', ':nth-child(2n+1)', ':first-child', ':last-child'],
+    answer: 1, explain: '2n=짝수, 2n+1=홀수.' },
+  { lec: '5강', star: 1, q: 'CSS3 크기 단위 중 절대적 크기를 지정하는 단위는?',
+    choices: ['%', 'em', 'px', 'rem'],
+    answer: 2, explain: '% em은 상대적, px은 절대적. 1em = 100%.' },
+  { lec: '5강', star: 1, q: 'table > tr > th 선택자로 스타일이 적용되지 않는 이유는?',
+    choices: ['table에는 CSS 적용 불가', 'tr이 자손이 아니어서', '브라우저가 <tbody>를 자동으로 삽입하기 때문', 'th 태그가 없어서'],
+    answer: 2, explain: '실제 구조는 table > tbody > tr > th. 후손 선택자 사용 권장.' },
+  { lec: '5강', star: 1, q: 'CSS 블록에서 선택자(selector)의 역할은?',
+    choices: ['스타일의 값을 지정', '스타일을 적용할 HTML 태그를 선택', '스크립트를 실행', '페이지 레이아웃 크기 지정'],
+    answer: 1, explain: '선택자는 스타일을 적용할 대상 태그를 지정한다.' },
+  { lec: '5강', star: 1, q: '전체 선택자(universal selector)의 기호는?',
+    choices: ['#', '.', '@', '*'],
+    answer: 3, explain: '* = 페이지의 모든 태그 선택.' },
+  { lec: '5강', star: 1, q: '클래스 선택자의 기호는?',
+    choices: ['#', '.', '*', '@'],
+    answer: 1, explain: '. = class 선택자. #은 id 선택자.' },
+  { lec: '5강', star: 1, q: '웹 표준에서 id 속성에 대한 설명으로 옳은 것은?',
+    choices: ['하나의 페이지에서 여러 번 사용 가능', 'class와 동일하게 동작', '하나의 페이지에서 중복되면 안 된다', '선택자에서 .로 선택'],
+    answer: 2, explain: 'id는 유일해야 한다. 중복 시 JS에서 문제 발생.' },
+  { lec: '5강', star: 1, q: '한 태그에 여러 class를 지정할 때 구분 기호는?',
+    choices: ['쉼표(,)', '세미콜론(;)', '공백( )', '점(.)'],
+    answer: 2, explain: 'class="item header" 형태로 공백 구분.' },
+  { lec: '5강', star: 1, q: '후손 선택자(descendant selector)의 기호는?',
+    choices: ['공백( )', '>', '+', '~'],
+    answer: 0, explain: '공백 = 모든 하위 요소 선택(후손).' },
+  { lec: '5강', star: 1, q: '마우스로 클릭(누르고 있는)한 태그를 선택하는 반응 선택자는?',
+    choices: [':hover', ':active', ':focus', ':click'],
+    answer: 1, explain: ':active = 클릭(누름) 상태.' },
+  { lec: '5강', star: 1, q: '입력 양식에 포커스가 맞춰졌을 때 적용되는 선택자는?',
+    choices: [':hover', ':checked', ':enabled', ':focus'],
+    answer: 3, explain: ':focus = 포커스된 요소. 페이지당 input 하나에만 적용 가능.' },
+  { lec: '5강', star: 1, q: '체크된 input(checkbox/radio)을 선택하는 상태 선택자는?',
+    choices: [':selected', ':checked', ':active', ':on'],
+    answer: 1, explain: ':checked = 체크 상태의 input 선택.' },
+  { lec: '5강', star: 1, q: '형제 관계에서 첫 번째 요소를 선택하는 구조 선택자는?',
+    choices: [':first-child', ':first', ':first-of-type', ':nth(1)'],
+    answer: 0, explain: ':first-child = 형제 중 첫 번째.' },
+  { lec: '5강', star: 1, q: '형제 관계에서 마지막 요소를 선택하는 구조 선택자는?',
+    choices: [':last', ':end', ':last-child', ':final-child'],
+    answer: 2, explain: ':last-child = 형제 중 마지막.' },
+  { lec: '5강', star: 1, q: '형제 관계에서 짝수 번째 요소를 선택하는 구조 선택자는?',
+    choices: [':nth-child(2n)', ':nth-child(2n+1)', ':even', ':nth-child(even)'],
+    answer: 0, explain: '2n = 짝수(2, 4, 6…). CSS3 :nth-child(even)도 짝수지만 2n이 일반적 표현.' },
+  { lec: '5강', star: 1, q: 'CSS에서 "1em = 100%"라는 설명과 맞는 단위 설명은?',
+    choices: ['em은 절대적 단위이다', 'em은 배수(상대적) 단위이다', 'em은 픽셀과 동일하다', 'em은 모니터 크기와 같다'],
+    answer: 1, explain: 'em = 배수 단위. 부모 글꼴 크기의 배수로 계산.' },
+  { lec: '5강', star: 1, q: '%와 em 단위의 공통 특징은?',
+    choices: ['둘 다 절대적 단위', '둘 다 상대적 단위', '둘 다 이미지 전용', '둘 다 폰트 전용'],
+    answer: 1, explain: '%와 em은 부모를 기준으로 한 상대적 크기. px는 절대적.' },
+  { lec: '5강', star: 1, q: 'RGB 색상 각 값의 범위는?',
+    choices: ['0~99', '0~100', '0~255', '0~1000'],
+    answer: 2, explain: 'RGB 각 색상은 0~255(2^8). HEX로 16진수 2자리.' },
+  { lec: '5강', star: 1, q: 'RGBA 색상에서 Alpha 값이 0.0일 때의 상태는?',
+    choices: ['완전 불투명', '완전 투명', '반투명', '검은색'],
+    answer: 1, explain: 'Alpha: 0.0 = 완전 투명, 1.0 = 완전 불투명.' },
+  { lec: '5강', star: 1, q: 'HEX 색상 코드(#000000)는 몇 진수로 표현되는가?',
+    choices: ['2진수', '8진수', '10진수', '16진수'],
+    answer: 3, explain: 'HEX = Hexadecimal = 16진수. 각 색상당 2자리.' },
+  { lec: '5강', star: 1, q: '속성 선택자 중 "type이 text인 input"을 선택하는 올바른 표기는?',
+    choices: ['input.type=text', 'input#type=text', 'input[type=text]', 'input:type=text'],
+    answer: 2, explain: '선택자[속성=값] 형태. 예: input[type="text"].' },
+  { lec: '5강', star: 1, q: 'li 태그이면서 class="select"인 요소만 선택하는 올바른 표기는?',
+    choices: ['li .select', 'li > .select', 'li.select', 'li, .select'],
+    answer: 2, explain: '태그+클래스 조합은 공백 없이 붙여쓴다: li.select.' },
+  { lec: '5강', star: 0, q: 'CSS 스타일시트를 <head>에 작성할 때 사용하는 태그는?',
+    choices: ['<css>', '<script>', '<style>', '<link>'],
+    answer: 2, explain: '<style> 태그 안에 CSS 블록을 작성.' },
+  { lec: '5강', star: 0, q: '사용 가능한 input을 선택하는 상태 선택자는?',
+    choices: [':active', ':checked', ':enabled', ':on'],
+    answer: 2, explain: ':enabled = 활성화된 input. :disabled = 비활성화된 input.' },
+  { lec: '5강', star: 0, q: '이미지 파일 경로를 CSS에서 지정할 때 사용하는 단위 형태는?',
+    choices: ['path()', 'file()', 'url()', 'src()'],
+    answer: 2, explain: 'url(\'경로\') 형태로 지정. 예: background-image: url(\'img.png\').' },
+
+  // ===== 6강. CSS3 속성 — 박스·디스플레이·배경·글자 (22문제) =====
+  { lec: '6강', star: 3, q: '다음 CSS에서 div의 전체 너비(margin 포함)는?',
+    code: 'div {\n  width: 100px;\n  padding: 20px;\n  border: 5px solid black;\n  margin: 10px;\n}',
+    choices: ['100px', '150px', '170px', '200px'],
+    answer: 2, explain: '전체 너비 = width + 2×(margin + border + padding) = 100 + 2×(10+5+20) = 170px.' },
+  { lec: '6강', star: 2, q: 'display 속성의 키워드 중 width와 height가 적용되지 않는 것은?',
+    choices: ['block', 'inline', 'inline-block', 'none'],
+    answer: 1, explain: 'inline은 width/height/상하 margin 모두 무시됨.' },
+  { lec: '6강', star: 1, q: 'margin: 10px 20px 30px 40px; 에서 위/오른쪽/아래/왼쪽 순서로 값은?',
+    choices: ['10, 20, 30, 40', '40, 30, 20, 10', '10, 40, 30, 20', '20, 30, 40, 10'],
+    answer: 0, explain: '시계방향(12시→3시→6시→9시) = 위/오른쪽/아래/왼쪽.' },
+  { lec: '6강', star: 1, q: '<a> 태그의 밑줄을 제거하는 속성과 값은?',
+    choices: ['text-align: none;', 'text-decoration: none;', 'font-style: none;', 'border: none;'],
+    answer: 1, explain: 'text-decoration: none = 밑줄 제거.' },
+  { lec: '6강', star: 2, q: '.btn의 height가 60px일 때, 한 줄 텍스트를 수직 중앙 정렬하려면?',
+    choices: ['vertical-align: middle;', 'text-align: center;', 'line-height: 60px;', 'padding-top: 30px;'],
+    answer: 2, explain: 'line-height = height로 설정 → 한 줄 텍스트 수직 중앙.' },
+  { lec: '6강', star: 1, q: 'CSS 박스 모델에서 "테두리와 다른 태그 사이의 바깥쪽 여백"을 의미하는 속성은?',
+    choices: ['padding', 'margin', 'border', 'gap'],
+    answer: 1, explain: 'margin = 바깥 여백, padding = 안쪽 여백.' },
+  { lec: '6강', star: 1, q: 'CSS 박스 모델에서 "테두리와 글자 사이의 안쪽 여백"을 의미하는 속성은?',
+    choices: ['margin', 'padding', 'border', 'inner-space'],
+    answer: 1, explain: 'padding = 안쪽 여백. 배경색은 padding 영역까지 적용된다.' },
+  { lec: '6강', star: 1, q: 'margin: 10px 20px; 의 의미는?',
+    choices: ['위 10px, 아래 20px', '위아래 10px, 좌우 20px', '좌우 10px, 위아래 20px', '모두 15px'],
+    answer: 1, explain: '2값 단축: 위아래 / 좌우.' },
+  { lec: '6강', star: 1, q: 'margin: 10px 20px 30px; 의 의미는?',
+    choices: ['위 10, 좌우 20, 아래 30', '위 10, 오른쪽 20, 아래 30, 왼쪽 0', '모두 10', '왼쪽 10, 오른쪽 20, 위아래 30'],
+    answer: 0, explain: '3값 단축: 위 / 좌우 / 아래.' },
+  { lec: '6강', star: 1, q: '박스의 모서리를 둥글게 만드는 속성은?',
+    choices: ['border-style', 'border-radius', 'box-round', 'corner-radius'],
+    answer: 1, explain: 'border-radius = 둥근 모서리. border-radius: 50%는 원형.' },
+  { lec: '6강', star: 1, q: '화면에서 요소를 완전히 숨기고 공간도 차지하지 않게 하는 display 값은?',
+    choices: ['none', 'hidden', 'invisible', 'block'],
+    answer: 0, explain: 'display: none = 공간도 차지하지 않고 사라짐. visibility: hidden은 공간은 차지.' },
+  { lec: '6강', star: 1, q: 'display: block 형식의 특징으로 옳은 것은?',
+    choices: ['width/height 적용 불가', '한 줄을 독차지하며 줄바꿈 발생', '한 줄에 여러 개 배치 가능', 'margin이 모두 무시됨'],
+    answer: 1, explain: 'block은 한 줄 전체 차지 + 줄바꿈. div, p, h1 등의 기본값.' },
+  { lec: '6강', star: 2, q: 'display: inline-block의 특징으로 옳은 것은?',
+    choices: ['width/height 무시', 'width/height 적용 O, 한 줄에 나란히 배치', '화면에 보이지 않음', '부모의 크기만 상속'],
+    answer: 1, explain: 'inline-block = 크기 지정 가능 + 인라인처럼 나란히 배치.' },
+  { lec: '6강', star: 0, q: 'background-image를 반복하지 않게 하려면?',
+    choices: ['background-repeat: none;', 'background-repeat: no-repeat;', 'background-repeat: once;', 'background-repeat: off;'],
+    answer: 1, explain: 'no-repeat = 반복 없음. 기본값은 repeat.' },
+  { lec: '6강', star: 2, q: 'background-size: 100% 250px; 과 background-size: 100%, 250px; 의 차이는?',
+    choices: ['완전히 같다', '공백은 하나의 이미지 너비/높이, 쉼표는 두 이미지 각각의 크기', '공백은 두 이미지, 쉼표는 하나의 이미지', '둘 다 오류다'],
+    answer: 1, explain: '공백=하나 이미지의 너비·높이, 쉼표=여러 이미지 각각에 적용.' },
+  { lec: '6강', star: 0, q: '글자를 굵게(bold) 만드는 CSS 속성과 값은?',
+    choices: ['font-style: bold;', 'font-weight: bold;', 'font-size: bold;', 'text-decoration: bold;'],
+    answer: 1, explain: 'font-weight: bold (또는 700).' },
+  { lec: '6강', star: 0, q: '글자를 기울임(italic)으로 만드는 CSS 속성과 값은?',
+    choices: ['font-weight: italic;', 'font-style: italic;', 'text-style: italic;', 'font-decoration: italic;'],
+    answer: 1, explain: 'font-style: italic.' },
+  { lec: '6강', star: 0, q: '글자를 가운데 정렬하는 CSS 속성과 값은?',
+    choices: ['text-align: center;', 'vertical-align: center;', 'align: middle;', 'justify: center;'],
+    answer: 0, explain: 'text-align: center. left/right/justify도 있다.' },
+  { lec: '6강', star: 0, q: 'generic-family 글꼴에 속하지 않는 것은?',
+    choices: ['serif', 'sans-serif', 'monospace', 'italic'],
+    answer: 3, explain: 'generic family: serif(명조)·sans-serif(고딕)·monospace(고정폭). italic은 font-style.' },
+  { lec: '6강', star: 2, q: '아래 div의 전체 너비는?',
+    code: 'div {\n  width: 200px;\n  padding: 10px;\n  border: 5px solid;\n  margin: 20px;\n}',
+    choices: ['200px', '230px', '270px', '300px'],
+    answer: 2, explain: '200 + 2×(20+5+10) = 200 + 70 = 270px.' },
+  { lec: '6강', star: 0, q: '테두리 스타일 중 "점선"을 의미하는 값은?',
+    choices: ['solid', 'dashed', 'dotted', 'double'],
+    answer: 2, explain: 'solid=실선, dashed=파선, dotted=점선, double=이중선.' },
+  { lec: '6강', star: 0, q: '<span> 태그에 text-align이 적용되지 않는 이유는?',
+    choices: ['span은 블록 요소이기 때문', 'span은 인라인이라 "중앙"이라는 개념이 없기 때문', 'span은 CSS를 받지 않기 때문', 'text-align은 body에만 적용되기 때문'],
+    answer: 1, explain: 'span은 인라인. 인라인은 자기 글자 크기만큼만 차지하므로 "중앙"이 없음.' },
+
+  // ===== 7강. Position · Float · Shadow · Gradient (20문제) =====
+  { lec: '7강', star: 3, q: '자식 요소에 position: absolute 를 적용할 때, 부모가 반드시 갖춰야 하는 두 가지는?',
+    choices: ['width, height', 'height, position: relative', 'margin, padding', 'display: block, float: left'],
+    answer: 1, explain: '공식 1(height) + 공식 2(position: relative) — "부상자절".' },
+  { lec: '7강', star: 2, q: 'box-shadow: 10px 20px 5px red; 에서 각 값의 의미는?',
+    choices: ['왼쪽, 위, 선명도, 색', '오른쪽, 아래, 흐림도, 색상', '너비, 높이, 두께, 색', 'x반지름, y반지름, 흐림도, 색'],
+    answer: 1, explain: '오·아·흐·색 = 오른쪽(x)/아래(y)/흐림도(blur)/색상.' },
+  { lec: '7강', star: 1, q: 'div 3개에 float: right; 를 적용하면 화면 표시 순서는? (HTML에는 1, 2, 3 순서)',
+    choices: ['1, 2, 3', '3, 2, 1', '2, 1, 3', '1, 3, 2'],
+    answer: 1, explain: 'float: right는 오른쪽부터 쌓이므로 HTML 순서의 역순으로 표시.' },
+  { lec: '7강', star: 1, q: '-webkit- 벤더 프리픽스를 사용하는 브라우저로 올바른 것은?',
+    choices: ['Chrome, Safari', 'Firefox, Mozilla', 'Edge, Internet Explorer', 'Opera'],
+    answer: 0, explain: '-webkit-=Chrome/Safari, -moz-=Firefox, -ms-=Edge/IE, -o-=Opera.' },
+  { lec: '7강', star: 1, q: 'position 속성의 기본값(default)은?',
+    choices: ['relative', 'absolute', 'static', 'fixed'],
+    answer: 2, explain: 'static = 위에서 아래로 순서대로 배치되는 기본값.' },
+  { lec: '7강', star: 2, q: 'position: absolute 가 위치를 계산하는 기준으로 옳은 것은?',
+    choices: ['항상 body 기준', '항상 부모 태그 기준', '가장 가까운 position 지정 조상 기준', '뷰포트 기준'],
+    answer: 2, explain: 'absolute는 가장 가까운 position이 지정된 조상 기준(없으면 body).' },
+  { lec: '7강', star: 1, q: 'position: fixed 가 위치를 계산하는 기준은?',
+    choices: ['부모 요소', '화면(뷰포트)', '가장 가까운 조상', '페이지 전체 길이'],
+    answer: 1, explain: 'fixed는 뷰포트(브라우저 화면) 기준으로 고정 → 스크롤해도 움직이지 않음.' },
+  { lec: '7강', star: 1, q: 'position: relative 의 동작으로 옳은 것은?',
+    choices: ['화면에서 완전히 사라진다', '초기 위치에서 상하좌우로 위치 이동', '부모 기준 절대 위치로 이동', '스크롤해도 고정'],
+    answer: 1, explain: 'relative는 원래 자리를 기준으로 top/left 등으로 이동.' },
+  { lec: '7강', star: 1, q: '요소의 앞뒤(쌓임 순서)를 결정하는 속성은?',
+    choices: ['z-order', 'z-index', 'layer', 'stack'],
+    answer: 1, explain: 'z-index: 큰 값일수록 앞에 표시된다.' },
+  { lec: '7강', star: 1, q: 'overflow 속성 값 중 영역을 벗어나는 부분을 감추는 키워드는?',
+    choices: ['visible', 'scroll', 'hidden', 'auto'],
+    answer: 2, explain: 'hidden = 벗어나는 부분 감춤.' },
+  { lec: '7강', star: 1, q: 'overflow 속성 값 중 영역을 벗어날 때 항상 스크롤바를 보이는 키워드는?',
+    choices: ['hidden', 'scroll', 'visible', 'clip'],
+    answer: 1, explain: 'scroll = 항상 스크롤바 표시. auto는 필요할 때만.' },
+  { lec: '7강', star: 0, q: 'overflow 속성 값 중 "필요할 때만" 스크롤바가 생기는 키워드는?',
+    choices: ['scroll', 'auto', 'hidden', 'visible'],
+    answer: 1, explain: 'auto = 내용이 넘칠 때만 스크롤 자동 생성.' },
+  { lec: '7강', star: 1, q: 'float: left 를 이미지에 적용했을 때의 효과는?',
+    choices: ['이미지가 왼쪽에 붙고 뒤따르는 텍스트가 오른쪽으로 흐름', '이미지가 사라짐', '이미지가 중앙 정렬됨', '이미지 크기가 자동 조정됨'],
+    answer: 0, explain: 'float된 이미지 주변으로 텍스트가 흐른다(신문 레이아웃).' },
+  { lec: '7강', star: 0, q: 'float 해제(기본값)에 해당하는 값은?',
+    choices: ['left', 'right', 'none', 'clear'],
+    answer: 2, explain: 'float: none = 기본값(해제).' },
+  { lec: '7강', star: 1, q: 'text-shadow 값의 순서로 올바른 것은?',
+    choices: ['색상, x, y, 흐림도', 'x(오른쪽), y(아래), 흐림도, 색상', '흐림도, x, y, 색상', 'x, 흐림도, y, 색상'],
+    answer: 1, explain: '오·아·흐·색 = 오른쪽/아래/흐림도/색상.' },
+  { lec: '7강', star: 1, q: '한 요소에 여러 개의 그림자(중첩)를 적용할 때 구분 기호는?',
+    choices: ['세미콜론(;)', '쉼표(,)', '공백( )', '플러스(+)'],
+    answer: 1, explain: '쉼표(,)로 여러 그림자를 나열한다.' },
+  { lec: '7강', star: 1, q: 'linear-gradient(45deg, #f85032 0%, #e73827 100%) 에서 45deg의 의미는?',
+    choices: ['그레이디언트 지속 시간', '그레이디언트 방향(각도)', '색상 번호', '투명도'],
+    answer: 1, explain: '각도 = 그레이디언트 방향. 0deg=위, 90deg=오른쪽, 180deg=아래.' },
+  { lec: '7강', star: 1, q: 'Firefox(Mozilla)에서 사용하는 벤더 프리픽스는?',
+    choices: ['-webkit-', '-moz-', '-ms-', '-o-'],
+    answer: 1, explain: '-moz- = Mozilla = Firefox.' },
+  { lec: '7강', star: 0, q: 'Microsoft Edge(구 IE)에서 사용하는 벤더 프리픽스는?',
+    choices: ['-webkit-', '-moz-', '-ms-', '-e-'],
+    answer: 2, explain: '-ms- = Microsoft.' },
+  { lec: '7강', star: 1, q: '이미지를 정확한 "원형"으로 만들기 위한 CSS 속성과 값은?',
+    choices: ['border-radius: 50%;', 'border-radius: 100px;', 'shape: circle;', 'clip-path: round;'],
+    answer: 0, explain: 'border-radius: 50%로 정사각형 이미지를 원형으로.' },
+];
+
+// ============ 출제 설정 ============
+const PICK_PER_LEC = {
+  '1강': 4, '2강': 4, '3강': 5, '4강': 5, '5강': 6, '6강': 5, '7강': 4,
+};
+const LECTURES = ['1강', '2강', '3강', '4강', '5강', '6강', '7강'];
+
+// ============ 유틸 ============
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const escapeHtml = (s) => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const inlineCode = (s) => {
+  return escapeHtml(s)
+    .replace(/&lt;[^&]*?&gt;/g, m => `<code>${m}</code>`)
+    .replace(/(^|\s)(#\w+|\.\w+|:\w+(?:-\w+)*(?:\([^)]*\))?|[-\w]+: ?[^;,]+;?)(?=\s|$|,|\.)/g, (m, pre, code) => `${pre}<code>${code}</code>`);
+};
+
+// ============ 상태 ============
+const state = {
+  questions: [],     // 현재 세션에 뽑힌 33문제
+  answers: {},       // 인덱스 -> 선택한 choice index
+  revealed: {},      // 인덱스 -> boolean
+  filter: 'all',
+  seenIds: new Set(), // 이전 라운드에 출제된 문제 — 새 라운드에서 제외
+};
+
+// 보기(choices) 순서를 섞으면서 정답 인덱스를 재계산
+function shuffleChoices(q) {
+  const indexed = q.choices.map((c, idx) => ({ c, idx }));
+  const sh = shuffle(indexed);
+  return {
+    ...q,
+    choices: sh.map(x => x.c),
+    answer: sh.findIndex(x => x.idx === q.answer),
+  };
+}
+
+// ============ 문제 추첨 ============
+// 방금 나온 문제는 다음 라운드에서 제외. 해당 강의의 미출제 풀이 부족하면 그 강의만 히스토리 리셋.
+function pickQuestions() {
+  const picked = [];
+  for (const lec of LECTURES) {
+    const pool = POOL.filter(q => q.lec === lec);
+    let available = pool.filter(q => !state.seenIds.has(q.q));
+    if (available.length < PICK_PER_LEC[lec]) {
+      pool.forEach(q => state.seenIds.delete(q.q));
+      available = pool.slice();
+    }
+    const shuffled = shuffle(available);
+    const chosen = shuffled.slice(0, PICK_PER_LEC[lec]);
+    chosen.forEach(q => state.seenIds.add(q.q));
+    // 보기 순서도 매 라운드 섞음
+    picked.push(...chosen.map(shuffleChoices));
+  }
+  // 화면 표시 순서는 강 순서대로 유지 (각 강 내부도 이미 셔플된 상태)
+  return picked;
+}
+
+function newRound() {
+  state.questions = pickQuestions();
+  state.answers = {};
+  state.revealed = {};
+  state.filter = 'all';
+  document.getElementById('result-card').classList.remove('show');
+  renderFilters();
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ============ 렌더링 ============
+function render() {
+  const container = document.getElementById('quiz-container');
+  const list = state.filter === 'all'
+    ? state.questions.map((q, i) => ({ q, i }))
+    : state.questions.map((q, i) => ({ q, i })).filter(x => x.q.lec === state.filter);
+
+  container.innerHTML = list.map(({ q, i }) => {
+    const selected = state.answers[i];
+    const revealed = state.revealed[i];
+    const isCorrect = selected === q.answer;
+    const cardClass = revealed ? (isCorrect ? 'answered-correct' : 'answered-wrong') : '';
+    const stars = '⭐'.repeat(q.star);
+    const codeBlock = q.code ? `<pre class="q-codeblock">${escapeHtml(q.code)}</pre>` : '';
+
+    const choicesHtml = q.choices.map((c, ci) => {
+      let cls = 'choice';
+      if (revealed) {
+        cls += ' disabled';
+        if (ci === q.answer) cls += ' correct';
+        else if (ci === selected) cls += ' wrong';
+      } else if (selected === ci) {
+        cls += ' selected';
+      }
+      return `
+        <div class="${cls}" data-qi="${i}" data-ci="${ci}">
+          <div class="choice-num">${ci + 1}</div>
+          <div class="choice-text">${inlineCode(c)}</div>
+        </div>
+      `;
+    }).join('');
+
+    const explainHtml = revealed ? `
+      <div class="explain show">
+        <span class="explain-label">${isCorrect ? '✅ 정답!' : '❌ 오답'}</span>
+        ${escapeHtml(q.explain)}
+      </div>
+    ` : '';
+
+    return `
+      <div class="question-card ${cardClass}" id="q-${i}">
+        <div class="q-header">
+          <span class="q-num">Q${i + 1}</span>
+          <span class="q-tag">${q.lec}</span>
+          <span class="q-star">${stars}</span>
+        </div>
+        <div class="q-text">${inlineCode(q.q)}</div>
+        ${codeBlock}
+        <div class="choices">${choicesHtml}</div>
+        ${explainHtml}
+      </div>
+    `;
+  }).join('');
+
+  container.querySelectorAll('.choice').forEach(el => {
+    if (el.classList.contains('disabled')) return;
+    el.addEventListener('click', () => {
+      const qi = parseInt(el.dataset.qi);
+      const ci = parseInt(el.dataset.ci);
+      state.answers[qi] = ci;
+      state.revealed[qi] = true;
+      render();
+    });
+  });
+
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = state.questions.length;
+  const answered = Object.keys(state.revealed).length;
+  const correct = state.questions.filter((q, i) => state.answers[i] === q.answer).length;
+  document.getElementById('progress-text').textContent = `${answered} / ${total}`;
+  document.getElementById('progress-fill').style.width = `${(answered / total) * 100}%`;
+  document.getElementById('score-badge').textContent = `정답 ${correct}`;
+}
+
+function renderFilters() {
+  const bar = document.getElementById('filter-bar');
+  const items = ['all', ...LECTURES];
+  bar.innerHTML = items.map(l => {
+    const label = l === 'all' ? `전체 (${state.questions.length})` : `${l} (${state.questions.filter(q => q.lec === l).length})`;
+    const cls = state.filter === l ? 'filter-btn active' : 'filter-btn';
+    return `<button class="${cls}" data-filter="${l}">${label}</button>`;
+  }).join('');
+  bar.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.filter = btn.dataset.filter;
+      renderFilters();
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+}
+
+function renderPoolInfo() {
+  const info = document.getElementById('pool-info');
+  const perLec = LECTURES.map(l => `${l} ${POOL.filter(q => q.lec === l).length}`).join(' · ');
+  info.textContent = `전체 문제 풀: ${POOL.length}문제 (${perLec})`;
+}
+
+// ============ 이벤트 ============
+document.getElementById('submit-btn').addEventListener('click', () => {
+  const total = state.questions.length;
+  const answered = Object.keys(state.revealed).length;
+  const correct = state.questions.filter((q, i) => state.answers[i] === q.answer).length;
+  const percent = Math.round((correct / total) * 100);
+
+  const breakdown = LECTURES.map(l => {
+    const lecQs = state.questions.map((q, i) => ({ q, i })).filter(x => x.q.lec === l);
+    const lecCorrect = lecQs.filter(x => state.answers[x.i] === x.q.answer).length;
+    return `${l} ${lecCorrect}/${lecQs.length}`;
+  });
+
+  const card = document.getElementById('result-card');
+  document.getElementById('result-score').textContent = `${correct} / ${total}`;
+  document.getElementById('result-detail').textContent = `정답률 ${percent}% · 응답 ${answered}문제`;
+
+  let msg;
+  if (percent >= 90) msg = '🎉 완벽해요! 시험장 가셔도 됩니다';
+  else if (percent >= 75) msg = '👍 좋아요! 틀린 문제만 다시 복습하세요';
+  else if (percent >= 60) msg = '💪 조금만 더! 오답 해설 꼼꼼히 읽기';
+  else msg = '📚 기본 개념부터 다시 한 번 정리하세요';
+  document.getElementById('result-message').textContent = msg;
+  document.getElementById('result-breakdown').innerHTML = breakdown.map(b => `<span>${b}</span>`).join('');
+
+  card.classList.add('show');
+  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+document.getElementById('reset-btn').addEventListener('click', () => {
+  if (Object.keys(state.revealed).length === 0 || confirm('새 문제 33개를 랜덤으로 뽑아 다시 시작할까요?')) {
+    newRound();
+  }
+});
+
+// ============ 초기화 ============
+renderPoolInfo();
+newRound();
+</script>
+</body>
+</html>
