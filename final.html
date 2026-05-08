@@ -1,0 +1,1115 @@
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Internet Prog Quiz Final",
+  "schemaVersion": 1,
+  "description": "인터넷프로그래밍 기말고사 대비 인터랙티브 퀴즈 (8강 우선) — 8강 문제 풀에서 랜덤 30문제 출제"
+}
+</script>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4f46e5">
+<title>인터넷프로그래밍 기말고사 퀴즈</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 24px 16px 80px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+  background: #f7f8fa;
+  color: #1f2937;
+  line-height: 1.6;
+}
+.container { max-width: 760px; margin: 0 auto; }
+header {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: white;
+  padding: 24px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+header h1 { margin: 0 0 4px; font-size: 22px; font-weight: 700; }
+header p { margin: 0; font-size: 14px; opacity: 0.9; }
+header .pool-info { margin-top: 8px; font-size: 12px; opacity: 0.8; }
+
+.progress-bar {
+  position: sticky; top: 0;
+  background: white; padding: 12px 16px; border-radius: 12px;
+  margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  z-index: 10; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+.progress-track { flex: 1; min-width: 120px; background: #e5e7eb; height: 8px; border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #4f46e5, #7c3aed); transition: width 0.3s; width: 0%; }
+.progress-text { font-size: 13px; font-weight: 600; color: #4f46e5; white-space: nowrap; }
+.score-badge { background: #10b981; color: white; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+
+.filter-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.filter-btn {
+  padding: 6px 12px; border: 1.5px solid #e5e7eb; background: white;
+  border-radius: 999px; font-size: 12px; cursor: pointer;
+  color: #6b7280; font-weight: 500; transition: all 0.15s;
+}
+.filter-btn:hover { border-color: #4f46e5; color: #4f46e5; }
+.filter-btn.active { background: #4f46e5; border-color: #4f46e5; color: white; }
+
+.question-card {
+  background: white; border-radius: 14px; padding: 20px;
+  margin-bottom: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  border: 2px solid transparent; transition: border-color 0.2s;
+}
+.question-card.answered-correct { border-color: #10b981; }
+.question-card.answered-wrong { border-color: #ef4444; }
+
+.q-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.q-num { background: #eef2ff; color: #4f46e5; font-weight: 700; padding: 3px 10px; border-radius: 6px; font-size: 13px; }
+.q-tag { background: #f3f4f6; color: #6b7280; font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+.q-star { color: #f59e0b; font-size: 13px; }
+
+.q-text { font-size: 15px; font-weight: 500; margin: 0 0 14px; color: #111827; }
+.q-text code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-family: 'D2Coding', Menlo, Consolas, monospace; font-size: 13px; color: #be185d; }
+.q-codeblock {
+  background: #1f2937; color: #e5e7eb; padding: 12px 14px; border-radius: 8px;
+  font-family: 'D2Coding', Menlo, Consolas, monospace; font-size: 13px;
+  margin: 8px 0 14px; white-space: pre; overflow-x: auto;
+}
+
+.choices { display: flex; flex-direction: column; gap: 8px; }
+.choice {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 12px; border: 1.5px solid #e5e7eb; border-radius: 10px;
+  cursor: pointer; transition: all 0.15s; background: #fafafa;
+}
+.choice:hover { border-color: #a5b4fc; background: #eef2ff; }
+.choice.selected { border-color: #4f46e5; background: #eef2ff; }
+.choice.correct { border-color: #10b981; background: #ecfdf5; }
+.choice.wrong { border-color: #ef4444; background: #fef2f2; }
+.choice.disabled { cursor: default; }
+.choice.disabled:hover { border-color: #e5e7eb; background: #fafafa; }
+.choice.disabled.selected:hover { border-color: #4f46e5; background: #eef2ff; }
+.choice.disabled.correct:hover { border-color: #10b981; background: #ecfdf5; }
+.choice.disabled.wrong:hover { border-color: #ef4444; background: #fef2f2; }
+
+.choice-num {
+  flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+  border: 1.5px solid #cbd5e1; background: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: #64748b;
+}
+.choice.selected .choice-num { background: #4f46e5; border-color: #4f46e5; color: white; }
+.choice.correct .choice-num { background: #10b981; border-color: #10b981; color: white; }
+.choice.wrong .choice-num { background: #ef4444; border-color: #ef4444; color: white; }
+.choice-text { flex: 1; font-size: 14px; color: #374151; }
+.choice-text code { background: #f3f4f6; padding: 1px 5px; border-radius: 3px; font-family: 'D2Coding', Menlo, Consolas, monospace; font-size: 12px; color: #be185d; }
+
+.explain {
+  margin-top: 12px; padding: 12px 14px; background: #fefce8;
+  border-left: 4px solid #facc15; border-radius: 8px;
+  font-size: 13px; color: #78350f; display: none;
+}
+.explain.show { display: block; }
+.explain-label { font-weight: 700; margin-right: 6px; color: #a16207; }
+
+.controls {
+  display: flex; gap: 10px; justify-content: center;
+  margin-top: 24px; flex-wrap: wrap;
+}
+.btn {
+  padding: 10px 22px; border-radius: 10px; border: none;
+  font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.15s;
+}
+.btn-primary { background: #4f46e5; color: white; }
+.btn-primary:hover { background: #4338ca; }
+.btn-secondary { background: white; color: #4f46e5; border: 1.5px solid #c7d2fe; }
+.btn-secondary:hover { background: #eef2ff; }
+
+.result-card {
+  background: white; border-radius: 16px; padding: 22px;
+  margin-bottom: 16px; text-align: center; display: none;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+.result-card.show { display: block; }
+.result-score { font-size: 40px; font-weight: 800; color: #4f46e5; margin-bottom: 4px; }
+.result-detail { font-size: 14px; color: #6b7280; margin-bottom: 12px; }
+.result-message { font-size: 16px; font-weight: 600; color: #111827; }
+.result-breakdown { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 12px; }
+.result-breakdown span { background: #f3f4f6; color: #374151; padding: 4px 10px; border-radius: 999px; font-size: 12px; }
+
+footer { text-align: center; margin-top: 30px; font-size: 11px; color: #9ca3af; }
+
+/* 모바일 최적화 (≤640px) */
+@media (max-width: 640px) {
+  body { padding: 12px 10px 72px; font-size: 15px; line-height: 1.55; }
+  header { padding: 16px; border-radius: 12px; margin-bottom: 12px; }
+  header h1 { font-size: 18px; }
+  header p { font-size: 12.5px; }
+  header .pool-info { font-size: 11px; margin-top: 6px; }
+
+  .progress-bar { padding: 9px 11px; gap: 8px; border-radius: 10px; margin-bottom: 10px; }
+  .progress-track { min-width: 80px; }
+  .progress-text { font-size: 12px; }
+  .score-badge { font-size: 11px; padding: 3px 8px; }
+
+  .filter-bar { gap: 5px; margin-bottom: 12px; }
+  .filter-btn { padding: 5px 10px; font-size: 11.5px; }
+
+  .question-card { padding: 14px; border-radius: 12px; margin-bottom: 10px; }
+  .q-header { gap: 5px; margin-bottom: 8px; }
+  .q-num { font-size: 12px; padding: 2px 8px; }
+  .q-tag { font-size: 10.5px; padding: 2px 6px; }
+  .q-text { font-size: 14.5px; margin-bottom: 12px; }
+  .q-text code { font-size: 12.5px; }
+  .q-codeblock { padding: 10px 12px; font-size: 12px; border-radius: 7px; }
+
+  .choice { padding: 9px 11px; gap: 9px; border-radius: 9px; }
+  .choice-num { width: 20px; height: 20px; font-size: 11.5px; }
+  .choice-text { font-size: 13.5px; }
+  .choice-text code { font-size: 11.5px; }
+
+  .explain { padding: 10px 11px; font-size: 12.5px; }
+
+  .controls { gap: 8px; margin-top: 18px; }
+  .btn { padding: 10px 16px; font-size: 13.5px; flex: 1 1 auto; }
+
+  .result-card { padding: 18px; border-radius: 14px; }
+  .result-score { font-size: 32px; }
+  .result-detail { font-size: 13px; }
+  .result-message { font-size: 14.5px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>📗 인터넷프로그래밍 기말고사</h1>
+    <p>8강 레이아웃 구성 · 8강 문제 풀에서 랜덤 30문제 · 인하대 소프트웨어융합공학과</p>
+    <div class="pool-info" id="pool-info"></div>
+  </header>
+
+  <div class="progress-bar">
+    <span class="progress-text" id="progress-text">0 / 30</span>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <span class="score-badge" id="score-badge">정답 0</span>
+  </div>
+
+  <div class="filter-bar" id="filter-bar"></div>
+
+  <div class="result-card" id="result-card">
+    <div class="result-score" id="result-score">0 / 30</div>
+    <div class="result-detail" id="result-detail">정답률 0%</div>
+    <div class="result-message" id="result-message"></div>
+    <div class="result-breakdown" id="result-breakdown"></div>
+  </div>
+
+  <div id="quiz-container"></div>
+
+  <div class="controls">
+    <button class="btn btn-secondary" id="reset-btn">🎲 새 문제로 다시 풀기</button>
+    <button class="btn btn-primary" id="submit-btn">📊 결과 보기</button>
+  </div>
+
+  <footer>담당교수: 서원준 · 교재: HTML5 웹 프로그래밍 입문(4판, 윤인성)</footer>
+</div>
+
+<script>
+// ============ 문제 풀 (8강. 레이아웃 구성) ============
+const POOL = [
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "radial-gradient()의 기본 문법에서 shape size at position 뒤에 이어지는 것은?",
+    "choices": [
+      "border 값",
+      "color-stop 목록",
+      "display 값",
+      "font-size 값"
+    ],
+    "answer": 1,
+    "explain": "8강 문법은 background: radial-gradient(shape size at position, color-stop1, color-stop2, ...); 형태이다."
+  },
+  {
+    "lec": "8강",
+    "star": 0,
+    "q": "radial-gradient()에서 shape를 생략했을 때 기본값은?",
+    "choices": [
+      "circle",
+      "ellipse",
+      "polygon",
+      "line"
+    ],
+    "answer": 1,
+    "explain": "shape는 circle 또는 ellipse를 사용할 수 있으며, 기본값은 ellipse이다."
+  },
+  {
+    "lec": "8강",
+    "star": 0,
+    "q": "radial-gradient()의 shape 값 중 circle에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "타원형 그라디언트를 만든다",
+      "원형 그라디언트를 만든다",
+      "선형 그라디언트를 만든다",
+      "그라디언트 중심을 지정한다"
+    ],
+    "answer": 1,
+    "explain": "circle은 원형, ellipse는 타원형 그라디언트를 의미한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "radial-gradient()의 size 키워드 중 기본값은?",
+    "choices": [
+      "closest-side",
+      "closest-corner",
+      "farthest-side",
+      "farthest-corner"
+    ],
+    "answer": 3,
+    "explain": "슬라이드에서 farthest-corner는 가장 먼 모서리까지를 반지름으로 사용하는 기본값으로 설명된다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "closest-corner의 의미로 가장 적절한 것은?",
+    "choices": [
+      "가장 가까운 모서리까지를 기준으로 크기를 잡는다",
+      "가장 먼 모서리까지를 기준으로 크기를 잡는다",
+      "가장 가까운 변까지를 기준으로 크기를 잡는다",
+      "가장 먼 변까지를 기준으로 크기를 잡는다"
+    ],
+    "answer": 0,
+    "explain": "closest-corner는 중심에서 가장 가까운 모서리까지의 거리를 기준으로 그라디언트 크기를 잡는다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "farthest-side의 의미로 가장 적절한 것은?",
+    "choices": [
+      "가장 가까운 모서리까지",
+      "가장 먼 모서리까지",
+      "가장 가까운 변까지",
+      "가장 먼 변까지"
+    ],
+    "answer": 3,
+    "explain": "farthest-side는 중심에서 가장 먼 변까지를 기준으로 크기를 잡는다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "ellipse에서 size를 계산할 때 맞는 설명은?",
+    "choices": [
+      "반지름 r 하나만 계산한다",
+      "rx와 ry를 독립적으로 계산한다",
+      "항상 px 단위만 사용할 수 있다",
+      "중심 위치와 무관하게 동일하다"
+    ],
+    "answer": 1,
+    "explain": "타원형은 가로 반지름 rx와 세로 반지름 ry를 각각 독립적으로 계산한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "radial-gradient(ellipse 60% 40% at 50% 50%, red, blue)에서 60%와 40%가 의미하는 것은?",
+    "choices": [
+      "중심의 x, y 좌표",
+      "색상 전환 위치",
+      "타원의 rx, ry",
+      "투명도 시작과 끝"
+    ],
+    "answer": 2,
+    "explain": "ellipse에서 크기를 직접 지정하면 rx ry 순서로 가로/세로 반지름을 지정한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "radial-gradient(circle at 30% 70%, red, blue)에서 at 30% 70%가 지정하는 것은?",
+    "choices": [
+      "원/타원의 중심 위치",
+      "첫 번째 색상의 투명도",
+      "반지름의 최소/최대값",
+      "배경 이미지 반복 위치"
+    ],
+    "answer": 0,
+    "explain": "at 뒤의 position은 원 또는 타원의 중심 위치를 지정한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "radial-gradient(circle at top left, red, blue)의 중심은 어디인가?",
+    "choices": [
+      "가운데",
+      "왼쪽 위",
+      "오른쪽 아래",
+      "왼쪽 아래"
+    ],
+    "answer": 1,
+    "explain": "position에 top left를 쓰면 중심이 왼쪽 위로 이동한다."
+  },
+  {
+    "lec": "8강",
+    "star": 2,
+    "q": "radial-gradient(circle, red 40%, blue 40%)처럼 두 색상의 위치를 같은 40%로 지정하면 어떤 효과가 나는가?",
+    "choices": [
+      "색상이 흐릿하게 오래 섞인다",
+      "경계가 sharp하게 끊긴다",
+      "두 색상이 모두 투명해진다",
+      "그라디언트가 반복된다"
+    ],
+    "answer": 1,
+    "explain": "같은 위치에 color-stop을 두면 특정 지점까지 단색을 유지하다가 경계가 날카롭게 전환된다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "radial-gradient(circle, rgba(255,0,0,0.8), transparent)의 주된 효과는?",
+    "choices": [
+      "중심에서 바깥으로 투명해지는 효과",
+      "수평 메뉴 정렬",
+      "고정 바 생성",
+      "글자 생략 표시"
+    ],
+    "answer": 0,
+    "explain": "rgba 색상과 transparent를 함께 쓰면 투명도를 활용한 방사형 배경 효과를 만들 수 있다."
+  },
+  {
+    "lec": "8강",
+    "star": 2,
+    "q": "background-image에 여러 배경을 쉼표로 나열할 때 각 배경의 background-repeat, background-size, background-position 값은 어떻게 지정하는가?",
+    "choices": [
+      "첫 번째 배경에만 지정한다",
+      "쉼표로 나열해 배경 레이어 순서에 맞춘다",
+      "항상 하나의 값만 지정할 수 있다",
+      "HTML 속성으로 따로 지정한다"
+    ],
+    "answer": 1,
+    "explain": "다중 배경 이미지는 background-image뿐 아니라 repeat, size, position도 쉼표로 각 레이어에 대응시켜 지정할 수 있다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "수평 정렬 레이아웃에서 float를 적용한 자손을 부모가 감싸도록 하기 위해 슬라이드에서 사용한 부모 속성은?",
+    "choices": [
+      "overflow: hidden;",
+      "display: inline;",
+      "position: fixed;",
+      "text-overflow: ellipsis;"
+    ],
+    "answer": 0,
+    "explain": "수평 정렬 레이아웃은 자손에게 float를 주고 부모의 overflow 속성에 hidden을 적용하는 방식으로 설명된다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "floatWithOverflow_1.html 예제에서 메뉴 항목 div.item에 적용된 float 값은?",
+    "choices": [
+      "right",
+      "left",
+      "none",
+      "both"
+    ],
+    "answer": 1,
+    "explain": "예제의 div.item은 float: left;로 지정되어 메뉴들이 왼쪽부터 수평으로 나란히 배치된다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "float된 자식 요소만 들어 있는 부모에 overflow: hidden이 없으면 대표적으로 어떤 문제가 생기는가?",
+    "choices": [
+      "부모가 float 자손의 높이를 제대로 감싸지 못한다",
+      "모든 글자가 자동으로 생략된다",
+      "요소가 무조건 화면 중앙에 배치된다",
+      "position 값이 fixed로 바뀐다"
+    ],
+    "answer": 0,
+    "explain": "float 자손은 일반 흐름에서 빠지므로 부모 높이가 무너질 수 있다. overflow: hidden은 이를 감싸게 하는 방법으로 사용된다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "clear: both를 사용하는 목적은?",
+    "choices": [
+      "양쪽 float의 영향을 해제해 다음 내용이 아래로 내려가게 하기",
+      "텍스트를 한 줄로 강제하기",
+      "요소를 브라우저 중앙에 고정하기",
+      "배경 이미지를 여러 장 겹치기"
+    ],
+    "answer": 0,
+    "explain": "clear: both는 왼쪽/오른쪽 float 영향을 모두 피해서 해당 요소가 float 아래에 배치되도록 한다."
+  },
+  {
+    "lec": "8강",
+    "star": 2,
+    "q": "clear 예제에서 수평 정렬 대상 아래에 추가한 div.clear에 들어간 CSS는?",
+    "choices": [
+      "float: left;",
+      "clear: both;",
+      "overflow: scroll;",
+      "position: absolute;"
+    ],
+    "answer": 1,
+    "explain": "슬라이드는 수평 정렬 대상 아래에 div.clear를 배치하고, CSS에서 div.clear { clear: both; }를 지정한다고 설명한다."
+  },
+  {
+    "lec": "8강",
+    "star": 0,
+    "q": "중앙 정렬 레이아웃에서 중앙 정렬할 태그에 함께 지정하는 대표 조합은?",
+    "choices": [
+      "width와 margin: 0 auto",
+      "height와 float: left",
+      "border와 clear: both",
+      "text-overflow와 position: fixed"
+    ],
+    "answer": 0,
+    "explain": "중앙 정렬할 태그에 width를 주고 margin을 0 auto로 입력한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "marginWidth.html 예제에서 body를 중앙 정렬하기 위해 사용한 CSS로 맞는 것은?",
+    "code": "body {\n  margin: 0 auto;\n  width: 960px;\n}",
+    "choices": [
+      "margin: 0 auto; width: 960px;",
+      "float: left; width: 960px;",
+      "position: absolute; width: 960px;",
+      "clear: both; width: 960px;"
+    ],
+    "answer": 0,
+    "explain": "예제는 body에 width: 960px과 margin: 0 auto를 적용해 문서 전체를 중앙 정렬한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "One True 레이아웃 예제에서 전체 공간을 먼저 나눈 세 행은?",
+    "choices": [
+      "header, nav, aside",
+      "top, middle, bottom",
+      "left, center, right",
+      "main, article, footer"
+    ],
+    "answer": 1,
+    "explain": "One True 레이아웃은 먼저 top, middle, bottom 세 행으로 공간을 분할한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "One True 레이아웃에서 middle 행 내부에 들어가는 두 열은?",
+    "choices": [
+      "top과 bottom",
+      "left와 right",
+      "gnb와 rank",
+      "red와 blue"
+    ],
+    "answer": 1,
+    "explain": "middle 안에 left와 right를 배치해 가운데 행을 두 열로 구성한다."
+  },
+  {
+    "lec": "8강",
+    "star": 2,
+    "q": "One True 레이아웃 구성 순서로 가장 적절한 것은?",
+    "choices": [
+      "부모 고정 너비 지정 → 부모 overflow: hidden → 자손 너비와 float 지정",
+      "자손 position: fixed → 부모 text-overflow → width 제거",
+      "부모 clear: both → 자손 margin: 0 auto → 배경 제거",
+      "자손 white-space 지정 → 부모 border-radius 지정 → clear 제거"
+    ],
+    "answer": 0,
+    "explain": "슬라이드는 부모 태그에 고정 너비를 지정하고, 수평 정렬하는 부모의 overflow에 hidden을 적용한 뒤, 자손에 너비와 float를 적용한다고 정리한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "oneTrueLayout.html 예제에서 body에 지정한 너비와 margin은?",
+    "choices": [
+      "width: 960px; margin: 0 auto;",
+      "width: 500px; margin: 10px auto;",
+      "width: 1080px; margin: 8px auto;",
+      "width: 300px; margin: 0;"
+    ],
+    "answer": 1,
+    "explain": "예제의 body는 width: 500px; margin: 10px auto;로 중앙에 배치된다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "oneTrueLayout.html 예제에서 #middle에 적용된 핵심 속성은?",
+    "choices": [
+      "overflow: hidden;",
+      "position: fixed;",
+      "white-space: nowrap;",
+      "text-overflow: ellipsis;"
+    ],
+    "answer": 0,
+    "explain": "#middle은 내부의 float된 #left, #right를 감싸기 위해 overflow: hidden을 적용한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "oneTrueLayout.html 예제에서 #left와 #right의 너비 조합은?",
+    "choices": [
+      "150px와 350px",
+      "250px와 250px",
+      "740px와 332px",
+      "50px와 1080px"
+    ],
+    "answer": 0,
+    "explain": "#left는 width: 150px, #right는 width: 350px이고, body의 전체 폭 500px을 채운다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "oneTrueLayout.html 예제에서 #left와 #right의 float 방향으로 옳은 것은?",
+    "choices": [
+      "#left: left, #right: right",
+      "#left: right, #right: left",
+      "둘 다 none",
+      "둘 다 fixed"
+    ],
+    "answer": 0,
+    "explain": "#left는 float: left, #right는 float: right로 지정한다."
+  },
+  {
+    "lec": "8강",
+    "star": 2,
+    "q": "컬럼 높이를 같아 보이게 만드는 보정 기법으로 슬라이드에서 강조한 조합은?",
+    "choices": [
+      "큰 padding-bottom과 같은 크기의 음수 margin-bottom, 그리고 부모 overflow: hidden",
+      "text-overflow와 white-space만 지정",
+      "left와 top을 50%로만 지정",
+      "border-radius와 background-repeat만 지정"
+    ],
+    "answer": 0,
+    "explain": "큰 padding-bottom으로 배경을 아래까지 늘리고 같은 크기의 음수 margin-bottom으로 실제 흐름을 상쇄한 뒤, 부모 overflow: hidden으로 잘라낸다."
+  },
+  {
+    "lec": "8강",
+    "star": 2,
+    "q": "페이지 29 예제에서 컬럼 높이 보정을 위해 사용한 값으로 옳은 것은?",
+    "code": "#left, #right {\n  padding-bottom: 30000px;\n  margin-bottom: -30000px;\n}",
+    "choices": [
+      "padding-bottom: 30000px; margin-bottom: -30000px;",
+      "padding-top: -30000px; margin-top: 30000px;",
+      "height: 30000px; overflow: visible;",
+      "line-height: 30000px; clear: both;"
+    ],
+    "answer": 0,
+    "explain": "슬라이드 이미지 기준으로 #left와 #right 모두 padding-bottom: 30000px, margin-bottom: -30000px가 강조되어 있다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "절대 위치를 사용해 자손 요소를 배치하려면 부모 요소에 어떤 position 값을 주어야 하는가?",
+    "choices": [
+      "relative",
+      "static",
+      "fixed",
+      "sticky"
+    ],
+    "answer": 0,
+    "explain": "자손의 position에 absolute를 적용하려면 기준이 되는 부모의 position 속성에 relative를 적용한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "absolutePosition.html 예제에서 #container에 적용된 position 값은?",
+    "choices": [
+      "absolute",
+      "relative",
+      "fixed",
+      "static"
+    ],
+    "answer": 1,
+    "explain": "#container는 width/height/border/overflow와 함께 position: relative를 가진다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "absolutePosition.html 예제에서 .circle에 공통으로 적용된 속성으로 옳은 것은?",
+    "choices": [
+      "position: absolute; width: 100px; height: 100px;",
+      "position: fixed; width: 50px; height: 50px;",
+      "float: left; width: 150px;",
+      "white-space: nowrap; width: 300px;"
+    ],
+    "answer": 0,
+    "explain": ".circle은 position: absolute, width와 height 100px, border-radius 50% 50%를 공통으로 적용한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "absolutePosition.html 예제에서 빨간 원 #red의 위치 지정은?",
+    "choices": [
+      "left: 20px; top: 20px;",
+      "right: 20px; top: 20px;",
+      "right: 20px; bottom: 20px;",
+      "left: 20px; bottom: 20px;"
+    ],
+    "answer": 0,
+    "explain": "#red는 왼쪽 위에 배치되므로 left: 20px; top: 20px를 사용한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "absolutePosition.html 예제에서 파란 원 #blue의 위치 지정은?",
+    "choices": [
+      "left: 20px; top: 20px;",
+      "right: 20px; top: 20px;",
+      "right: 20px; bottom: 20px;",
+      "left: 20px; bottom: 20px;"
+    ],
+    "answer": 2,
+    "explain": "#blue는 오른쪽 아래에 배치되므로 right: 20px; bottom: 20px를 사용한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "absolutePosition.html 예제에서 노란 원 #yellow의 위치 지정은?",
+    "choices": [
+      "left: 20px; top: 20px;",
+      "right: 20px; top: 20px;",
+      "right: 20px; bottom: 20px;",
+      "left: 20px; bottom: 20px;"
+    ],
+    "answer": 3,
+    "explain": "#yellow는 왼쪽 아래에 배치되므로 left: 20px; bottom: 20px를 사용한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "요소를 화면 중앙에 배치하는 absolute 기법의 1단계로 맞는 것은?",
+    "choices": [
+      "position: absolute와 left/top: 50% 지정",
+      "float: left와 clear: both 지정",
+      "text-overflow: ellipsis 지정",
+      "background-repeat: no-repeat 지정"
+    ],
+    "answer": 0,
+    "explain": "중앙 정렬하려는 div에 position: absolute를 주고 left와 top을 모두 50%로 지정한다."
+  },
+  {
+    "lec": "8강",
+    "star": 2,
+    "q": "500px × 250px 요소를 absolute 방식으로 정확히 중앙 배치할 때 필요한 margin 보정값은?",
+    "choices": [
+      "margin-left: -250px; margin-top: -125px;",
+      "margin-left: 250px; margin-top: 125px;",
+      "margin-left: -500px; margin-top: -250px;",
+      "margin-left: 0; margin-top: 0;"
+    ],
+    "answer": 0,
+    "explain": "left/top 50%는 요소의 왼쪽 위 모서리를 중앙에 놓으므로, 요소 너비/높이의 절반만큼 음수 margin을 적용한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "fixedBar.html 예제의 .top_bar에 들어간 position 값은?",
+    "choices": [
+      "absolute",
+      "relative",
+      "fixed",
+      "static"
+    ],
+    "answer": 2,
+    "explain": "고정 바 예제에서 .top_bar와 .left_bar는 모두 position: fixed를 사용한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "fixedBar.html 예제에서 .top_bar의 위치와 크기 지정으로 옳은 것은?",
+    "choices": [
+      "left: 0; top: 0; right: 0; height: 50px;",
+      "left: 0; top: 50px; bottom: 0; width: 50px;",
+      "left: 50%; top: 50%; width: 500px;",
+      "right: 20px; bottom: 20px; height: 100px;"
+    ],
+    "answer": 0,
+    "explain": ".top_bar는 화면 위쪽 전체에 고정되도록 left: 0, top: 0, right: 0, height: 50px를 사용한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "fixedBar.html 예제에서 .left_bar의 위치와 크기 지정으로 옳은 것은?",
+    "choices": [
+      "left: 0; top: 0; right: 0; height: 50px;",
+      "left: 0; top: 50px; bottom: 0; width: 50px;",
+      "left: 50%; top: 50%; width: 500px;",
+      "right: 20px; bottom: 20px; height: 100px;"
+    ],
+    "answer": 1,
+    "explain": ".left_bar는 상단 바 아래부터 왼쪽에 고정되므로 left: 0, top: 50px, bottom: 0, width: 50px를 사용한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "fixedBar.html 예제에서 본문 .container에 margin-top과 margin-left를 50px씩 준 이유는?",
+    "choices": [
+      "고정된 상단/왼쪽 바에 본문이 가려지지 않게 하려고",
+      "글자를 자동 생략하려고",
+      "float를 해제하려고",
+      "배경 이미지를 반복하려고"
+    ],
+    "answer": 0,
+    "explain": "고정 바는 화면에 붙어 있으므로 본문이 겹치지 않게 .container에 위/왼쪽 여백을 준다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "글자 생략 예제에서 말줄임표를 표시하는 핵심 CSS 속성은?",
+    "choices": [
+      "text-overflow: ellipsis;",
+      "clear: both;",
+      "position: fixed;",
+      "background-size: cover;"
+    ],
+    "answer": 0,
+    "explain": "말줄임표 자체는 text-overflow: ellipsis로 지정한다."
+  },
+  {
+    "lec": "8강",
+    "star": 2,
+    "q": "text-overflow: ellipsis가 동작하도록 함께 쓰는 속성 조합으로 가장 적절한 것은?",
+    "choices": [
+      "width 지정, white-space: nowrap, overflow: hidden",
+      "float: left, clear: both, margin: auto",
+      "position: relative, border-radius, right: 20px",
+      "background-image, background-repeat, background-position"
+    ],
+    "answer": 0,
+    "explain": "예제는 h1, p에 width: 300px를 주고 .ellipsis에 white-space: nowrap, overflow: hidden, text-overflow: ellipsis를 적용한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "ellipsis.html 예제에서 h1과 p에 공통으로 지정한 너비는?",
+    "choices": [
+      "100px",
+      "300px",
+      "500px",
+      "1080px"
+    ],
+    "answer": 1,
+    "explain": "예제의 h1, p 선택자에는 width: 300px가 지정되어 있다."
+  },
+  {
+    "lec": "8강",
+    "star": 2,
+    "q": "연습문제 Step1에서 .container에 지정해야 하는 너비와 정렬은?",
+    "choices": [
+      "width: 1080px; margin: 0 auto;",
+      "width: 960px; float: left;",
+      "width: 500px; position: absolute;",
+      "width: 300px; overflow: hidden;"
+    ],
+    "answer": 0,
+    "explain": "Step1 힌트는 1080px 컨테이너를 만들고 중앙 정렬하라고 제시한다."
+  },
+  {
+    "lec": "8강",
+    "star": 2,
+    "q": "연습문제 Step1에서 .left와 .right의 크기로 맞는 것은?",
+    "choices": [
+      ".left 740×428, .right 332×428",
+      ".left 332×428, .right 740×428",
+      ".left 150×350, .right 350×150",
+      ".left 300×80, .right 300×80"
+    ],
+    "answer": 0,
+    "explain": "Step1은 왼쪽 영역을 740px × 428px, 오른쪽 영역을 332px × 428px로 잡도록 한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "연습문제 Step1에서 .left와 .right의 float 방향은?",
+    "choices": [
+      ".left는 left, .right는 right",
+      ".left는 right, .right는 left",
+      "둘 다 left",
+      "둘 다 none"
+    ],
+    "answer": 0,
+    "explain": "힌트는 div.left를 왼쪽에 붙이고 div.right를 오른쪽에 붙이라고 한다."
+  },
+  {
+    "lec": "8강",
+    "star": 2,
+    "q": "연습문제 Step2에서 ul.gnb와 ul.rank의 float 방향으로 옳은 것은?",
+    "choices": [
+      "gnb는 left, rank는 right",
+      "gnb는 right, rank는 left",
+      "둘 다 right",
+      "둘 다 none"
+    ],
+    "answer": 0,
+    "explain": "Step2는 ul.gnb를 왼쪽에 붙이고 ul.rank를 오른쪽에 붙이는 네비게이션 레이아웃이다."
+  },
+  {
+    "lec": "8강",
+    "star": 2,
+    "q": "연습문제 Step2에서 메뉴 li들을 가로로 나란히 배치하기 위해 적용할 속성은?",
+    "choices": [
+      "float: left;",
+      "position: fixed;",
+      "clear: both;",
+      "text-overflow: ellipsis;"
+    ],
+    "answer": 0,
+    "explain": "힌트는 내부 li 태그들을 왼쪽으로 붙여서 나란하게 만들라고 한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "연습문제 Step2에서 내부 li 태그의 목록 점을 제거하는 속성은?",
+    "choices": [
+      "list-style-type: none;",
+      "white-space: nowrap;",
+      "background-size: cover;",
+      "border-radius: 50%;"
+    ],
+    "answer": 0,
+    "explain": "Step2 힌트는 내부 li 태그들의 list-style-type을 none으로 지정하라고 한다."
+  },
+  {
+    "lec": "8강",
+    "star": 2,
+    "q": "연습문제 Step2에서 메뉴 li의 왼쪽 padding은 기본적으로 16px이지만 첫 번째 요소는 어떻게 해야 하는가?",
+    "choices": [
+      "padding-left를 0px로 준다",
+      "padding-left를 32px로 준다",
+      "float를 제거한다",
+      "display를 none으로 준다"
+    ],
+    "answer": 0,
+    "explain": "힌트는 내부 li에는 padding-left: 16px를 주고 첫 번째 요소는 padding-left: 0px로 지정하라고 한다."
+  },
+  {
+    "lec": "8강",
+    "star": 1,
+    "q": "연습문제 Step3에서 마지막에 추가하는 footer 영역의 높이는?",
+    "choices": [
+      "50px",
+      "80px",
+      "300px",
+      "428px"
+    ],
+    "answer": 1,
+    "explain": "Step3 힌트는 추가하는 footer div의 높이를 80px로 지정했다고 설명한다."
+  }
+];
+
+// ============ 출제 설정 ============
+const PICK_PER_LEC = {
+  '8강': 30,
+};
+const LECTURES = ['8강'];
+
+// ============ 유틸 ============
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const escapeHtml = (s) => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const inlineCode = (s) => {
+  return escapeHtml(s)
+    .replace(/&lt;[^&]*?&gt;/g, m => `<code>${m}</code>`)
+    .replace(/(^|\s)(#\w+|\.\w+|:\w+(?:-\w+)*(?:\([^)]*\))?|[-\w]+: ?[^;,]+;?)(?=\s|$|,|\.)/g, (m, pre, code) => `${pre}<code>${code}</code>`);
+};
+
+// ============ 상태 ============
+const state = {
+  questions: [],     // 현재 세션에 뽑힌 문제
+  answers: {},       // 인덱스 -> 선택한 choice index
+  revealed: {},      // 인덱스 -> boolean
+  filter: 'all',
+  seenIds: new Set(), // 이전 라운드에 출제된 문제 — 새 라운드에서 제외
+};
+
+// 보기(choices) 순서를 섞으면서 정답 인덱스를 재계산
+function shuffleChoices(q) {
+  const indexed = q.choices.map((c, idx) => ({ c, idx }));
+  const sh = shuffle(indexed);
+  return {
+    ...q,
+    choices: sh.map(x => x.c),
+    answer: sh.findIndex(x => x.idx === q.answer),
+  };
+}
+
+// ============ 문제 추첨 ============
+// 방금 나온 문제는 다음 라운드에서 제외. 해당 강의의 미출제 풀이 부족하면 그 강의만 히스토리 리셋.
+function pickQuestions() {
+  const picked = [];
+  for (const lec of LECTURES) {
+    const pool = POOL.filter(q => q.lec === lec);
+    let available = pool.filter(q => !state.seenIds.has(q.q));
+    if (available.length < PICK_PER_LEC[lec]) {
+      pool.forEach(q => state.seenIds.delete(q.q));
+      available = pool.slice();
+    }
+    const shuffled = shuffle(available);
+    const chosen = shuffled.slice(0, PICK_PER_LEC[lec]);
+    chosen.forEach(q => state.seenIds.add(q.q));
+    // 보기 순서도 매 라운드 섞음
+    picked.push(...chosen.map(shuffleChoices));
+  }
+  // 화면 표시 순서는 강 순서대로 유지 (각 강 내부도 이미 셔플된 상태)
+  return picked;
+}
+
+function newRound() {
+  state.questions = pickQuestions();
+  state.answers = {};
+  state.revealed = {};
+  state.filter = 'all';
+  document.getElementById('result-card').classList.remove('show');
+  renderFilters();
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ============ 렌더링 ============
+function render() {
+  const container = document.getElementById('quiz-container');
+  const list = state.filter === 'all'
+    ? state.questions.map((q, i) => ({ q, i }))
+    : state.questions.map((q, i) => ({ q, i })).filter(x => x.q.lec === state.filter);
+
+  container.innerHTML = list.map(({ q, i }) => {
+    const selected = state.answers[i];
+    const revealed = state.revealed[i];
+    const isCorrect = selected === q.answer;
+    const cardClass = revealed ? (isCorrect ? 'answered-correct' : 'answered-wrong') : '';
+    const stars = '⭐'.repeat(q.star);
+    const codeBlock = q.code ? `<pre class="q-codeblock">${escapeHtml(q.code)}</pre>` : '';
+
+    const choicesHtml = q.choices.map((c, ci) => {
+      let cls = 'choice';
+      if (revealed) {
+        cls += ' disabled';
+        if (ci === q.answer) cls += ' correct';
+        else if (ci === selected) cls += ' wrong';
+      } else if (selected === ci) {
+        cls += ' selected';
+      }
+      return `
+        <div class="${cls}" data-qi="${i}" data-ci="${ci}">
+          <div class="choice-num">${ci + 1}</div>
+          <div class="choice-text">${inlineCode(c)}</div>
+        </div>
+      `;
+    }).join('');
+
+    const explainHtml = revealed ? `
+      <div class="explain show">
+        <span class="explain-label">${isCorrect ? '✅ 정답!' : '❌ 오답'}</span>
+        ${escapeHtml(q.explain)}
+      </div>
+    ` : '';
+
+    return `
+      <div class="question-card ${cardClass}" id="q-${i}">
+        <div class="q-header">
+          <span class="q-num">Q${i + 1}</span>
+          <span class="q-tag">${q.lec}</span>
+          <span class="q-star">${stars}</span>
+        </div>
+        <div class="q-text">${inlineCode(q.q)}</div>
+        ${codeBlock}
+        <div class="choices">${choicesHtml}</div>
+        ${explainHtml}
+      </div>
+    `;
+  }).join('');
+
+  container.querySelectorAll('.choice').forEach(el => {
+    if (el.classList.contains('disabled')) return;
+    el.addEventListener('click', () => {
+      const qi = parseInt(el.dataset.qi);
+      const ci = parseInt(el.dataset.ci);
+      state.answers[qi] = ci;
+      state.revealed[qi] = true;
+      render();
+    });
+  });
+
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = state.questions.length;
+  const answered = Object.keys(state.revealed).length;
+  const correct = state.questions.filter((q, i) => state.answers[i] === q.answer).length;
+  document.getElementById('progress-text').textContent = `${answered} / ${total}`;
+  document.getElementById('progress-fill').style.width = `${(answered / total) * 100}%`;
+  document.getElementById('score-badge').textContent = `정답 ${correct}`;
+}
+
+function renderFilters() {
+  const bar = document.getElementById('filter-bar');
+  const items = ['all', ...LECTURES];
+  bar.innerHTML = items.map(l => {
+    const label = l === 'all' ? `전체 (${state.questions.length})` : `${l} (${state.questions.filter(q => q.lec === l).length})`;
+    const cls = state.filter === l ? 'filter-btn active' : 'filter-btn';
+    return `<button class="${cls}" data-filter="${l}">${label}</button>`;
+  }).join('');
+  bar.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.filter = btn.dataset.filter;
+      renderFilters();
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+}
+
+function renderPoolInfo() {
+  const info = document.getElementById('pool-info');
+  const perLec = LECTURES.map(l => `${l} ${POOL.filter(q => q.lec === l).length}`).join(' · ');
+  info.textContent = `전체 문제 풀: ${POOL.length}문제 (${perLec})`;
+}
+
+// ============ 이벤트 ============
+document.getElementById('submit-btn').addEventListener('click', () => {
+  const total = state.questions.length;
+  const answered = Object.keys(state.revealed).length;
+  const correct = state.questions.filter((q, i) => state.answers[i] === q.answer).length;
+  const percent = Math.round((correct / total) * 100);
+
+  const breakdown = LECTURES.map(l => {
+    const lecQs = state.questions.map((q, i) => ({ q, i })).filter(x => x.q.lec === l);
+    const lecCorrect = lecQs.filter(x => state.answers[x.i] === x.q.answer).length;
+    return `${l} ${lecCorrect}/${lecQs.length}`;
+  });
+
+  const card = document.getElementById('result-card');
+  document.getElementById('result-score').textContent = `${correct} / ${total}`;
+  document.getElementById('result-detail').textContent = `정답률 ${percent}% · 응답 ${answered}문제`;
+
+  let msg;
+  if (percent >= 90) msg = '🎉 완벽해요! 시험장 가셔도 됩니다';
+  else if (percent >= 75) msg = '👍 좋아요! 틀린 문제만 다시 복습하세요';
+  else if (percent >= 60) msg = '💪 조금만 더! 오답 해설 꼼꼼히 읽기';
+  else msg = '📚 기본 개념부터 다시 한 번 정리하세요';
+  document.getElementById('result-message').textContent = msg;
+  document.getElementById('result-breakdown').innerHTML = breakdown.map(b => `<span>${b}</span>`).join('');
+
+  card.classList.add('show');
+  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+document.getElementById('reset-btn').addEventListener('click', () => {
+  if (Object.keys(state.revealed).length === 0 || confirm(`새 문제 ${state.questions.length}개를 랜덤으로 뽑아 다시 시작할까요?`)) {
+    newRound();
+  }
+});
+
+// ============ 초기화 ============
+renderPoolInfo();
+newRound();
+</script>
+</body>
+</html>
