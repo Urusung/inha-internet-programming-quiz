@@ -2,7 +2,7 @@
 {
   "name": "Internet Prog Quiz Final",
   "schemaVersion": 1,
-  "description": "인터넷프로그래밍 기말고사 대비 인터랙티브 퀴즈 (8강 우선) — 8강 문제 풀에서 랜덤 30문제 출제"
+  "description": "인터넷프로그래밍 기말고사 대비 인터랙티브 퀴즈 (8~9강) — 강별 15문제씩 총 30문제 출제"
 }
 </script>
 <html lang="ko">
@@ -184,7 +184,7 @@ footer { text-align: center; margin-top: 30px; font-size: 11px; color: #9ca3af; 
 <div class="container">
   <header>
     <h1>📗 인터넷프로그래밍 기말고사</h1>
-    <p>8강 레이아웃 구성 · 8강 문제 풀에서 랜덤 30문제 · 인하대 소프트웨어융합공학과</p>
+    <p>8~9강 레이아웃 구성 · 강별 랜덤 15문제씩 총 30문제 · 인하대 소프트웨어융합공학과</p>
     <div class="pool-info" id="pool-info"></div>
   </header>
 
@@ -214,7 +214,7 @@ footer { text-align: center; margin-top: 30px; font-size: 11px; color: #9ca3af; 
 </div>
 
 <script>
-// ============ 문제 풀 (8강. 레이아웃 구성) ============
+// ============ 문제 풀 (8~9강. 레이아웃 구성 / Flex·Grid) ============
 const POOL = [
   {
     "lec": "8강",
@@ -893,14 +893,628 @@ const POOL = [
     ],
     "answer": 1,
     "explain": "Step3 힌트는 추가하는 footer div의 높이를 80px로 지정했다고 설명한다."
+  },
+
+  // ===== 9강. Flex / Grid (47문제) =====
+  {
+    "lec": "9강",
+    "star": 0,
+    "q": "Flex 레이아웃을 적용하기 위해 부모 컨테이너에 지정하는 핵심 속성은?",
+    "choices": [
+      "display: flex;",
+      "position: absolute;",
+      "float: left;",
+      "grid-area: auto;"
+    ],
+    "answer": 0,
+    "explain": "9강 첫 예제는 부모 .flex_container에 display: flex;를 적용해 자식 요소를 Flex item으로 배치한다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "display: flex를 적용했을 때 기본 flex-direction 값은?",
+    "choices": [
+      "column",
+      "row",
+      "row-reverse",
+      "column-reverse"
+    ],
+    "answer": 1,
+    "explain": "슬라이드는 Flex 적용의 기본 flex-direction이 row라고 설명한다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "justify-content 속성의 역할로 가장 적절한 것은?",
+    "choices": [
+      "Flex 요소들을 주축선 상에 정렬한다",
+      "Flex 요소들의 HTML 태그명을 바꾼다",
+      "Grid 행의 개수를 자동으로 삭제한다",
+      "요소의 글자 아래 라인을 기준으로 높이를 계산한다"
+    ],
+    "answer": 0,
+    "explain": "justify-content는 Flex 요소들을 주축(main axis) 방향으로 정렬한다. 기본 row에서는 가로 방향 정렬이다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "flex-direction이 row일 때 justify-content: flex-start의 결과는?",
+    "choices": [
+      "요소들이 컨테이너의 왼쪽으로 정렬된다",
+      "요소들이 컨테이너의 오른쪽으로 정렬된다",
+      "요소들이 여러 줄의 세로 간격을 동일하게 나눈다",
+      "요소들이 컨테이너 높이에 맞게 늘어난다"
+    ],
+    "answer": 0,
+    "explain": "주축이 가로(row)일 때 flex-start는 시작점인 왼쪽에 요소들을 붙인다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "flex-direction이 row일 때 justify-content: flex-end의 결과는?",
+    "choices": [
+      "요소들이 컨테이너의 꼭대기로 정렬된다",
+      "요소들이 컨테이너의 오른쪽으로 정렬된다",
+      "요소들이 컨테이너 전체 높이만큼 늘어난다",
+      "요소들이 다음 줄로 넘어간다"
+    ],
+    "answer": 1,
+    "explain": "row 방향에서 flex-end는 주축의 끝점인 오른쪽으로 요소들을 정렬한다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "justify-content: center의 설명으로 옳은 것은?",
+    "choices": [
+      "요소들을 컨테이너의 가운데로 정렬한다",
+      "요소들을 컨테이너의 왼쪽으로 정렬한다",
+      "요소들의 표시 순서를 숫자로 지정한다",
+      "요소들을 다음 줄로 넘긴다"
+    ],
+    "answer": 0,
+    "explain": "center는 Flex 요소들을 주축선 상의 가운데로 정렬한다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "justify-content: space-between의 의미로 가장 적절한 것은?",
+    "choices": [
+      "요소들 사이에 동일한 간격을 둔다",
+      "요소들 주위 양쪽에 동일한 간격을 둔다",
+      "요소들을 컨테이너 높이에 맞게 늘린다",
+      "요소들의 글자 기준선을 맞춘다"
+    ],
+    "answer": 0,
+    "explain": "space-between은 첫 요소와 마지막 요소를 양끝에 두고 요소 사이 간격을 동일하게 분배한다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "justify-content: space-around의 의미로 가장 적절한 것은?",
+    "choices": [
+      "요소들 사이에만 동일한 간격을 둔다",
+      "요소들 주위에 동일한 간격을 둔다",
+      "요소들의 순서를 반대로 바꾼다",
+      "요소들을 한 줄에 강제로 배치한다"
+    ],
+    "answer": 1,
+    "explain": "space-around는 각 요소의 주변 공간을 동일하게 나눠 배치한다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "align-items 속성의 역할로 가장 적절한 것은?",
+    "choices": [
+      "Flex 요소들을 교차축선 상에 정렬한다",
+      "Flex 요소들의 주축 방향 간격만 정한다",
+      "Grid 영역 이름을 지정한다",
+      "HTML 목록의 점을 제거한다"
+    ],
+    "answer": 0,
+    "explain": "align-items는 Flex 요소들을 교차축(cross axis) 방향으로 정렬한다. 기본 row에서는 세로 방향 정렬이다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "align-items: flex-start의 설명으로 옳은 것은?",
+    "choices": [
+      "요소들을 컨테이너의 꼭대기로 정렬한다",
+      "요소들을 컨테이너의 바닥으로 정렬한다",
+      "요소들을 여러 줄 사이에 동일한 간격으로 배치한다",
+      "요소들을 텍스트 반대 방향으로 정렬한다"
+    ],
+    "answer": 0,
+    "explain": "align-items의 flex-start는 교차축 시작점, 기본 row에서는 컨테이너의 위쪽에 요소들을 정렬한다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "align-items: flex-end의 설명으로 옳은 것은?",
+    "choices": [
+      "요소들을 컨테이너의 왼쪽으로 정렬한다",
+      "요소들을 컨테이너의 바닥으로 정렬한다",
+      "요소들의 표시 순서를 0으로 초기화한다",
+      "요소들을 다음 줄로 넘긴다"
+    ],
+    "answer": 1,
+    "explain": "align-items의 flex-end는 교차축 끝점, 기본 row에서는 컨테이너의 아래쪽에 요소들을 정렬한다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "align-items: center의 설명으로 옳은 것은?",
+    "choices": [
+      "요소들을 컨테이너의 세로선 상의 가운데로 정렬한다",
+      "요소들을 컨테이너의 오른쪽으로 정렬한다",
+      "여러 줄을 컨테이너 꼭대기에 붙인다",
+      "Grid 선 번호를 1부터 다시 센다"
+    ],
+    "answer": 0,
+    "explain": "align-items: center는 교차축 방향의 가운데에 Flex 요소들을 정렬한다."
+  },
+  {
+    "lec": "9강",
+    "star": 2,
+    "q": "align-items에서 flex-start와 baseline의 차이로 옳은 것은?",
+    "choices": [
+      "flex-start는 아이템 외곽 상단, baseline은 아이템 안의 글자 아래 라인을 기준으로 정렬한다",
+      "flex-start는 글자 아래 라인, baseline은 컨테이너의 오른쪽을 기준으로 정렬한다",
+      "둘 다 여러 줄 사이 간격만 조절한다",
+      "둘 다 Grid 영역 이름을 기준으로 정렬한다"
+    ],
+    "answer": 0,
+    "explain": "슬라이드는 flex-start는 margin box 상단, baseline은 아이템 안의 글자 아래 라인을 기준으로 정렬한다고 비교한다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "align-items: stretch의 설명으로 옳은 것은?",
+    "choices": [
+      "요소들을 컨테이너에 맞도록 늘린다",
+      "요소들을 텍스트 반대 방향으로 정렬한다",
+      "요소들을 한 줄에 강제로만 배치한다",
+      "Grid 행 번호를 지정한다"
+    ],
+    "answer": 0,
+    "explain": "stretch는 교차축 방향으로 Flex 요소들을 컨테이너에 맞도록 늘린다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "flex-direction: row의 설명으로 옳은 것은?",
+    "choices": [
+      "요소들을 텍스트 방향과 동일하게 정렬하는 기본값이다",
+      "요소들을 위에서 아래로 정렬한다",
+      "요소들을 아래에서 위로 정렬한다",
+      "요소들을 여러 줄 사이에 동일한 간격으로 배치한다"
+    ],
+    "answer": 0,
+    "explain": "row는 요소를 텍스트 방향과 동일하게 정렬하는 flex-direction의 기본값이다."
+  },
+  {
+    "lec": "9강",
+    "star": 2,
+    "q": "flex-direction: row-reverse를 사용할 때 주의할 점으로 옳은 것은?",
+    "choices": [
+      "요소 방향뿐 아니라 시작 지점도 반대로 바뀐다",
+      "요소가 반드시 다음 줄로 넘어간다",
+      "align-content가 자동으로 center가 된다",
+      "Grid 선 번호가 0부터 시작한다"
+    ],
+    "answer": 0,
+    "explain": "row-reverse는 요소를 텍스트 반대 방향으로 정렬하며 시작 지점도 바뀌므로 justify-content와 함께 쓸 때 주의해야 한다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "flex-direction: column의 설명으로 옳은 것은?",
+    "choices": [
+      "요소들을 위에서 아래로 정렬한다",
+      "요소들을 왼쪽에서 오른쪽으로 정렬한다",
+      "요소들을 오른쪽에서 왼쪽으로 정렬한다",
+      "요소들을 컨테이너 밖으로 숨긴다"
+    ],
+    "answer": 0,
+    "explain": "column은 Flex 요소들을 위에서 아래 방향으로 정렬한다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "flex-direction: column-reverse의 설명으로 옳은 것은?",
+    "choices": [
+      "요소들을 위에서 아래로 정렬하되 반대 순서로 배치한다",
+      "요소들을 왼쪽에서 오른쪽으로만 배치한다",
+      "요소들을 컨테이너 높이에 맞춰 늘리기만 한다",
+      "요소들을 Grid의 1번 선부터 3번 선까지 배치한다"
+    ],
+    "answer": 0,
+    "explain": "column-reverse는 세로 방향 정렬을 사용하되 시작 지점과 순서가 반대로 바뀐다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "Flex item의 order 속성에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "Flex 요소의 표시 순서를 지정한다",
+      "Grid 열의 개수를 지정한다",
+      "부모 컨테이너의 너비를 고정한다",
+      "목록의 기본 점을 제거한다"
+    ],
+    "answer": 0,
+    "explain": "order는 Flex item의 순서를 지정하는 속성이다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "Flex item의 order 기본값은?",
+    "choices": [
+      "-1",
+      "0",
+      "1",
+      "auto"
+    ],
+    "answer": 1,
+    "explain": "order의 기본값은 0이며, 음수도 사용할 수 있다."
+  },
+  {
+    "lec": "9강",
+    "star": 2,
+    "q": "1번 item만 order: 1이고 나머지 item의 order를 지정하지 않았다면 표시 순서는 어떻게 되는가?",
+    "choices": [
+      "1번이 가장 먼저 나온다",
+      "1번이 order 0인 나머지 뒤에 나온다",
+      "모든 item이 사라진다",
+      "브라우저가 문법 오류로 처리한다"
+    ],
+    "answer": 1,
+    "explain": "지정하지 않은 item은 모두 order: 0이므로 order: 1인 item은 그 뒤에 배치된다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "flex-wrap 속성의 역할로 가장 적절한 것은?",
+    "choices": [
+      "Flex item들이 부모 컨테이너 너비를 넘었을 때 다음 줄로 넘길지 결정한다",
+      "Flex item들의 글자 기준선을 맞춘다",
+      "Grid 행과 열의 이름을 지정한다",
+      "요소를 화면에 고정한다"
+    ],
+    "answer": 0,
+    "explain": "flex-wrap은 item들이 컨테이너 너비를 넘었을 때 줄바꿈 처리 방식을 결정한다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "flex-wrap의 기본값 nowrap에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "아이템들을 한 줄에 강제로 배치하며 컨테이너를 벗어날 수 있다",
+      "너비가 부족하면 아이템을 다음 줄로 넘긴다",
+      "아이템을 아래에서 위로 줄바꿈한다",
+      "여러 줄 사이 간격을 동일하게 둔다"
+    ],
+    "answer": 0,
+    "explain": "nowrap은 기본값이며 item들을 한 줄에 강제로 배치하므로 컨테이너를 벗어날 수 있다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "flex-wrap: wrap의 설명으로 옳은 것은?",
+    "choices": [
+      "너비가 부족하면 아이템을 다음 줄로 넘긴다",
+      "아이템을 한 줄에 강제로만 배치한다",
+      "아이템을 텍스트 반대 방향으로 배치한다",
+      "Grid 영역을 직사각형으로 제한한다"
+    ],
+    "answer": 0,
+    "explain": "wrap은 너비가 부족할 때 item을 다음 줄로 넘기며, 기본 흐름은 위에서 아래 방향이다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "flex-wrap: wrap-reverse의 설명으로 옳은 것은?",
+    "choices": [
+      "아이템을 다음 줄로 넘기지만 아래에서 위로 배치한다",
+      "아이템을 절대 위치로 배치한다",
+      "아이템을 컨테이너 왼쪽으로만 정렬한다",
+      "아이템 순서를 HTML 순서와 무관하게 모두 0으로 만든다"
+    ],
+    "answer": 0,
+    "explain": "wrap-reverse는 줄바꿈을 하되 줄의 쌓이는 방향이 반대가 된다."
+  },
+  {
+    "lec": "9강",
+    "star": 2,
+    "q": "align-content 속성이 의미 있게 동작하는 대표 상황은?",
+    "choices": [
+      "flex-wrap으로 item들이 두 줄 이상이 되었을 때",
+      "item이 한 줄뿐이고 줄바꿈이 전혀 없을 때",
+      "부모가 display: block만 가지고 있을 때",
+      "Grid template을 전혀 나누지 않았을 때"
+    ],
+    "answer": 0,
+    "explain": "align-content는 flex-wrap에 의해 item들이 두 줄 이상이 되었을 때 줄들 사이의 간격을 분배한다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "align-content: stretch의 설명으로 옳은 것은?",
+    "choices": [
+      "여러 줄들을 컨테이너에 맞도록 늘리며 기본값이다",
+      "여러 줄들을 컨테이너 바닥에만 붙인다",
+      "요소 하나의 글자 기준선을 맞춘다",
+      "Grid item이 차지할 열 번호를 지정한다"
+    ],
+    "answer": 0,
+    "explain": "align-content의 stretch는 여러 줄들을 컨테이너에 맞도록 늘리는 값이며 슬라이드에서 기본값으로 설명된다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "align-content: space-between의 의미로 가장 적절한 것은?",
+    "choices": [
+      "여러 줄들 사이에 동일한 간격을 둔다",
+      "각 요소의 order 값을 1씩 증가시킨다",
+      "요소들을 한 줄에 강제로 배치한다",
+      "Grid 영역을 이름으로 지정한다"
+    ],
+    "answer": 0,
+    "explain": "align-content의 space-between은 여러 줄들 사이 간격을 동일하게 분배한다."
+  },
+  {
+    "lec": "9강",
+    "star": 0,
+    "q": "Grid 레이아웃에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "가로와 세로 두 방향을 함께 다루는 2차원 레이아웃 시스템이다",
+      "오직 한 줄의 가로 정렬만 다룬다",
+      "float를 해제하는 전용 속성이다",
+      "텍스트 생략 표시 전용 속성이다"
+    ],
+    "answer": 0,
+    "explain": "Grid는 2차원, 즉 가로와 세로 방향의 레이아웃을 동시에 나눌 수 있는 시스템이다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "Grid에서 열과 행을 나눌 때 사용하는 속성의 짝으로 옳은 것은?",
+    "choices": [
+      "grid-template-columns / grid-template-rows",
+      "justify-content / align-items",
+      "flex-direction / flex-wrap",
+      "text-overflow / white-space"
+    ],
+    "answer": 0,
+    "explain": "grid-template-columns는 열을, grid-template-rows는 행을 나누는 속성이다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "Grid의 fr 단위에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "고정 수치를 먼저 할당한 뒤 남은 공간을 비율로 나눈다",
+      "항상 1px과 같은 고정 길이다",
+      "글자의 기준선을 의미한다",
+      "Flex item의 표시 순서를 의미한다"
+    ],
+    "answer": 0,
+    "explain": "fr은 fraction의 약자로, 고정 크기를 먼저 배치한 뒤 남은 공간을 비율로 나눈다."
+  },
+  {
+    "lec": "9강",
+    "star": 2,
+    "q": "grid-template-columns: 200px 1fr 1fr에서 1fr 1fr의 의미로 옳은 것은?",
+    "choices": [
+      "200px을 먼저 제외한 남은 공간을 두 열이 같은 비율로 나눈다",
+      "전체 공간을 무조건 200px씩 세 칸으로 나눈다",
+      "첫 번째 열만 남은 공간을 모두 차지한다",
+      "두 번째와 세 번째 열이 각각 1px이 된다"
+    ],
+    "answer": 0,
+    "explain": "fr은 남은 공간의 비율이다. 200px 고정 열을 먼저 할당하고 남은 영역을 1:1로 나눈다."
+  },
+  {
+    "lec": "9강",
+    "star": 2,
+    "q": "Grid에서 item 배치는 무엇을 기준으로 지정하는가?",
+    "choices": [
+      "칸이 아니라 선을 기준으로 하며 첫 선 번호는 1번이다",
+      "항상 칸 이름만 기준으로 하며 선 번호는 사용하지 않는다",
+      "첫 선 번호는 0번이다",
+      "HTML 작성 순서만 기준으로 하고 CSS로 바꿀 수 없다"
+    ],
+    "answer": 0,
+    "explain": "슬라이드는 Grid가 칸이 아니라 선을 기준으로 하며 첫 선의 번호가 1번이라고 강조한다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "grid-column-start와 grid-row-start의 의미로 옳은 것은?",
+    "choices": [
+      "아이템이 시작되는 열/행 방향 선의 번호",
+      "아이템이 끝나는 열/행 방향 선의 번호",
+      "Grid 컨테이너의 총 칸 수",
+      "Flex item의 표시 순서"
+    ],
+    "answer": 0,
+    "explain": "start 속성들은 item이 시작되는 Grid 선 번호를 지정한다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "grid-column-end와 grid-row-end의 의미로 옳은 것은?",
+    "choices": [
+      "아이템이 시작되는 선의 번호",
+      "아이템이 끝나는 선의 번호",
+      "컨테이너를 flex로 바꾸는 값",
+      "여러 줄 사이 간격"
+    ],
+    "answer": 1,
+    "explain": "end 속성들은 item 배치가 끝나는 Grid 선 번호를 지정한다."
+  },
+  {
+    "lec": "9강",
+    "star": 2,
+    "q": ".item { grid-column-start: 1; grid-column-end: 3; }와 같은 역할을 하는 단축형은?",
+    "choices": [
+      ".item { grid-column: 1 / 3; }",
+      ".item { grid-row: 1 / 3; }",
+      ".item { grid-area: red1; }",
+      ".item { flex-wrap: wrap; }"
+    ],
+    "answer": 0,
+    "explain": "grid-column: 1 / 3;은 column 시작 선 1, 끝 선 3을 의미하는 단축형이다."
+  },
+  {
+    "lec": "9강",
+    "star": 2,
+    "q": ".item { grid-row-start: 1; grid-row-end: 3; }와 같은 역할을 하는 단축형은?",
+    "choices": [
+      ".item { grid-row: 1 / 3; }",
+      ".item { grid-column: 1 / 3; }",
+      ".item { justify-content: center; }",
+      ".item { order: 1; }"
+    ],
+    "answer": 0,
+    "explain": "grid-row: 1 / 3;은 row 시작 선 1, 끝 선 3을 의미하는 단축형이다."
+  },
+  {
+    "lec": "9강",
+    "star": 2,
+    "q": "Grid를 나눠 놓지 않았을 때 발생할 수 있는 현상으로 옳은 것은?",
+    "choices": [
+      "모든 요소를 한 칸(1fr)에 몰아넣으려고 시도한다",
+      "자동으로 12열 Grid가 만들어진다",
+      "모든 요소가 display: none이 된다",
+      "Flex item처럼 반드시 한 줄로만 배치된다"
+    ],
+    "answer": 0,
+    "explain": "부모 요소에 칸이 나뉘어 있어야 한다. Grid를 나누지 않으면 모든 요소를 한 칸에 몰아넣으려고 시도한다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "repeat() 함수의 사용 예로 옳은 것은?",
+    "choices": [
+      "grid-template-columns: repeat(5, 1fr);",
+      "justify-content: repeat(5, 1fr);",
+      "flex-direction: repeat(5, row);",
+      "order: repeat(5, 1fr);"
+    ],
+    "answer": 0,
+    "explain": "repeat(반복횟수, 크기)는 Grid 행/열 크기를 반복해서 작성할 때 사용한다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "grid-template-columns: repeat(5, 1fr);과 같은 의미는?",
+    "choices": [
+      "grid-template-columns: 1fr 1fr 1fr 1fr 1fr;",
+      "grid-template-columns: 5fr;",
+      "grid-template-rows: 1fr 5px;",
+      "grid-area: 5 / 1 / 5 / 1;"
+    ],
+    "answer": 0,
+    "explain": "repeat(5, 1fr)는 1fr을 5번 반복한다는 뜻이다."
+  },
+  {
+    "lec": "9강",
+    "star": 2,
+    "q": "grid-area: [row-start] / [column-start] / [row-end] / [column-end];의 순서로 옳은 것은?",
+    "choices": [
+      "행 시작 / 열 시작 / 행 끝 / 열 끝",
+      "열 시작 / 행 시작 / 열 끝 / 행 끝",
+      "행 끝 / 열 끝 / 행 시작 / 열 시작",
+      "이름 / 행 개수 / 열 개수 / 반복 횟수"
+    ],
+    "answer": 0,
+    "explain": "grid-area의 숫자 방식은 row-start / column-start / row-end / column-end 순서로 작성한다."
+  },
+  {
+    "lec": "9강",
+    "star": 2,
+    "q": "grid-area: 1 / 2 / 3 / 4;의 의미로 옳은 것은?",
+    "choices": [
+      "row-start 1, column-start 2, row-end 3, column-end 4",
+      "column-start 1, row-start 2, column-end 3, row-end 4",
+      "1행부터 2칸, 3열부터 4칸을 차지한다",
+      "Flex item의 order 값을 1, 2, 3, 4로 지정한다"
+    ],
+    "answer": 0,
+    "explain": "grid-area의 숫자 순서는 행 시작, 열 시작, 행 끝, 열 끝이다."
+  },
+  {
+    "lec": "9강",
+    "star": 2,
+    "q": "grid-area: 1 / 2 / span 2 / span 3;의 설명으로 옳은 것은?",
+    "choices": [
+      "1행부터 2칸, 2열부터 3칸을 차지한다",
+      "1열부터 2칸, 2행부터 3칸을 차지한다",
+      "1번 item의 order를 2로 지정한다",
+      "모든 item을 3줄로 wrap한다"
+    ],
+    "answer": 0,
+    "explain": "span은 끝 선 번호 대신 몇 칸을 차지할지 표시한다. 예시는 1행부터 2칸, 2열부터 3칸이다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "Grid 영역 이름을 사용하는 방식으로 옳은 설명은?",
+    "choices": [
+      "자식 요소에 grid-area로 이름을 짓고 부모에서 grid-template-areas로 배치한다",
+      "부모 요소에 order로 이름을 짓고 자식에서 flex-wrap으로 배치한다",
+      "자식 요소에 justify-content로 이름을 짓고 부모에서 align-items로 배치한다",
+      "부모 요소에 text-overflow로 이름을 짓고 자식에서 white-space로 배치한다"
+    ],
+    "answer": 0,
+    "explain": "이름 방식은 자식에 grid-area 이름을 지정하고 부모 컨테이너에서 grid-template-areas를 사용해 레이아웃을 잡는다."
+  },
+  {
+    "lec": "9강",
+    "star": 2,
+    "q": "grid-template-areas에서 같은 이름으로 지정된 영역이 반드시 만족해야 하는 조건은?",
+    "choices": [
+      "직사각형을 이루어야 한다",
+      "ㄱ자 형태로 꺾여야 한다",
+      "항상 한 칸만 차지해야 한다",
+      "반드시 첫 번째 줄에만 있어야 한다"
+    ],
+    "answer": 0,
+    "explain": "슬라이드는 grid-area로 지정된 영역은 무조건 직사각형이어야 하며 ㄱ자처럼 꺾이면 브라우저가 무효 처리한다고 설명한다."
+  },
+  {
+    "lec": "9강",
+    "star": 1,
+    "q": "9강 연습문제의 요구사항으로 옳은 것은?",
+    "choices": [
+      "지난 주 과제의 레이아웃을 Flex/Grid를 사용하여 리메이크한다",
+      "지난 주 과제의 float 코드를 그대로 유지한다",
+      "모든 요소를 position: absolute로만 다시 만든다",
+      "레이아웃 없이 텍스트만 작성한다"
+    ],
+    "answer": 0,
+    "explain": "연습문제는 지난 주 과제의 레이아웃을 Flex/Grid를 사용해 리메이크하라고 제시한다."
+  },
+  {
+    "lec": "9강",
+    "star": 2,
+    "q": "지난 주 레이아웃을 Flex/Grid로 리메이크할 때 가장 적절한 구성은?",
+    "choices": [
+      "전체 영역은 Grid로 나누고, 메뉴 줄은 Flex로 양쪽 정렬한다",
+      "모든 영역에 float와 clear만 계속 사용한다",
+      "모든 영역을 text-overflow로 배치한다",
+      "부모 너비를 없애고 item을 nowrap으로 강제한다"
+    ],
+    "answer": 0,
+    "explain": "9강 주제에 맞게 큰 레이아웃은 Grid, 가로 메뉴와 검색 순위 줄은 Flex로 구성하면 지난 주 과제를 float 없이 리메이크할 수 있다."
   }
 ];
 
 // ============ 출제 설정 ============
 const PICK_PER_LEC = {
-  '8강': 30,
+  '8강': 15,
+  '9강': 15,
 };
-const LECTURES = ['8강'];
+const LECTURES = ['8강', '9강'];
 
 // ============ 유틸 ============
 function shuffle(arr) {

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week09 연습문제 Flex/Grid 리메이크</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    padding: 8px;
+    font-family: Arial, "Noto Sans KR", sans-serif;
+    background: white;
+    color: black;
+  }
+
+  .page {
+    width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-areas:
+      "logo"
+      "nav"
+      "main"
+      "footer";
+    row-gap: 8px;
+  }
+
+  .logo {
+    grid-area: logo;
+  }
+
+  .nav {
+    grid-area: nav;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .gnb,
+  .rank {
+    margin: 0;
+    padding: 8px 0;
+  }
+
+  .gnb {
+    display: flex;
+    gap: 16px;
+    list-style-type: none;
+    background: green;
+  }
+
+  .rank {
+    list-style-type: none;
+    background: yellow;
+  }
+
+  .main {
+    grid-area: main;
+    display: grid;
+    grid-template-columns: 740px 332px;
+    column-gap: 8px;
+    height: 428px;
+  }
+
+  .left {
+    background: red;
+  }
+
+  .right {
+    background: blue;
+  }
+
+  .footer {
+    grid-area: footer;
+    height: 80px;
+    background: yellow;
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header class="logo">
+      <h1>Logo</h1>
+    </header>
+
+    <nav class="nav">
+      <ul class="gnb">
+        <li>메일</li>
+        <li>카페</li>
+        <li>블로그</li>
+        <li>쇼핑</li>
+        <li>사전</li>
+        <li>뉴스</li>
+        <li>증권</li>
+        <li>부동산</li>
+        <li>지도</li>
+      </ul>
+
+      <ul class="rank">
+        <li>실시간 검색 순위</li>
+      </ul>
+    </nav>
+
+    <main class="main">
+      <section class="left"></section>
+      <aside class="right"></aside>
+    </main>
+
+    <footer class="footer"></footer>
+  </div>
+</body>
+</html>
