@@ -2,7 +2,7 @@
 {
   "name": "Internet Prog Quiz Final",
   "schemaVersion": 1,
-  "description": "인터넷프로그래밍 기말고사 대비 인터랙티브 퀴즈 (8~9강) — 강별 15문제씩 총 30문제 출제"
+  "description": "인터넷프로그래밍 기말고사 대비 인터랙티브 퀴즈 (8~10강) — 강별 15문제씩 총 45문제 출제"
 }
 </script>
 <html lang="ko">
@@ -184,12 +184,12 @@ footer { text-align: center; margin-top: 30px; font-size: 11px; color: #9ca3af; 
 <div class="container">
   <header>
     <h1>📗 인터넷프로그래밍 기말고사</h1>
-    <p>8~9강 레이아웃 구성 · 강별 랜덤 15문제씩 총 30문제 · 인하대 소프트웨어융합공학과</p>
+    <p>8~10강 레이아웃 구성/Flex/Grid/반응형 웹 · 강별 랜덤 15문제씩 총 45문제 · 인하대 소프트웨어융합공학과</p>
     <div class="pool-info" id="pool-info"></div>
   </header>
 
   <div class="progress-bar">
-    <span class="progress-text" id="progress-text">0 / 30</span>
+    <span class="progress-text" id="progress-text">0 / 45</span>
     <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
     <span class="score-badge" id="score-badge">정답 0</span>
   </div>
@@ -197,7 +197,7 @@ footer { text-align: center; margin-top: 30px; font-size: 11px; color: #9ca3af; 
   <div class="filter-bar" id="filter-bar"></div>
 
   <div class="result-card" id="result-card">
-    <div class="result-score" id="result-score">0 / 30</div>
+    <div class="result-score" id="result-score">0 / 45</div>
     <div class="result-detail" id="result-detail">정답률 0%</div>
     <div class="result-message" id="result-message"></div>
     <div class="result-breakdown" id="result-breakdown"></div>
@@ -214,7 +214,7 @@ footer { text-align: center; margin-top: 30px; font-size: 11px; color: #9ca3af; 
 </div>
 
 <script>
-// ============ 문제 풀 (8~9강. 레이아웃 구성 / Flex·Grid) ============
+// ============ 문제 풀 (8~10강. 레이아웃 구성 / Flex·Grid / 반응형 웹) ============
 const POOL = [
   {
     "lec": "8강",
@@ -1506,6 +1506,683 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "9강 주제에 맞게 큰 레이아웃은 Grid, 가로 메뉴와 검색 순위 줄은 Flex로 구성하면 지난 주 과제를 float 없이 리메이크할 수 있다."
+  },
+  // ===== 10강. 반응형 웹 (52문제) =====
+  {
+    "lec": "10강",
+    "star": 0,
+    "q": "10강의 학습목표로 옳은 것은?",
+    "choices": [
+      "미디어 쿼리와 반응형 웹 구현 방법을 이해한다",
+      "서버 데이터베이스 정규화를 수행한다",
+      "자바스크립트 이벤트 루프를 구현한다",
+      "캔버스 3D 렌더링만 학습한다"
+    ],
+    "answer": 0,
+    "explain": "10강은 반응형 웹 단원으로, 미디어 쿼리와 반응형 웹 구현 방법을 학습목표로 제시한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "viewport meta 태그에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "name 속성에 viewport가 입력된 meta 태그이다",
+      "이미지를 서버에 업로드하는 form 태그이다",
+      "CSS 파일을 선택하는 선택자 이름이다",
+      "브라우저의 인쇄 색상을 정하는 속성이다"
+    ],
+    "answer": 0,
+    "explain": "슬라이드는 viewport meta 태그를 name 속성에 viewport가 입력된 meta 태그라고 설명한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "viewport meta 태그의 content 속성에 여러 값을 넣는 방식으로 옳은 것은?",
+    "choices": [
+      "key=value 형태의 값을 쉼표로 구분한다",
+      "CSS 선택자를 세미콜론 없이 나열한다",
+      "HTML 태그 이름만 공백으로 나열한다",
+      "JavaScript 함수를 콜론으로 연결한다"
+    ],
+    "answer": 0,
+    "explain": "예시는 content=\"user-scalable=no,initial-scale=1,maximum-scale=1\"처럼 여러 설정을 쉼표로 구분한다."
+  },
+  {
+    "lec": "10강",
+    "star": 0,
+    "q": "viewport meta 태그에서 width 값의 의미는?",
+    "choices": [
+      "화면 너비",
+      "화면 높이",
+      "초기 확대 비율",
+      "최대 확대 비율"
+    ],
+    "answer": 0,
+    "explain": "표 8-1은 width를 화면 너비로 설명하고 예시로 width=240을 제시한다."
+  },
+  {
+    "lec": "10강",
+    "star": 0,
+    "q": "viewport meta 태그에서 height 값의 의미는?",
+    "choices": [
+      "화면 높이",
+      "화면 너비",
+      "DPI 지정",
+      "확대/축소 가능 여부"
+    ],
+    "answer": 0,
+    "explain": "표 8-1은 height를 화면 높이로 설명하고 예시로 height=800을 제시한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "viewport meta 태그에서 initial-scale은 무엇을 지정하는가?",
+    "choices": [
+      "초기 확대 비율",
+      "장치 색상 비트",
+      "CSS 파일 이름",
+      "목록 기호 종류"
+    ],
+    "answer": 0,
+    "explain": "initial-scale은 페이지가 처음 표시될 때의 확대 비율을 지정한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "viewport meta 태그에서 user-scalable 값의 의미는?",
+    "choices": [
+      "확대 및 축소 가능 여부",
+      "장치의 실제 너비",
+      "프린터 출력 여부",
+      "화면 회전 방향"
+    ],
+    "answer": 0,
+    "explain": "user-scalable은 사용자가 확대/축소를 할 수 있는지 여부를 지정한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "viewport meta 태그에서 minimum-scale과 maximum-scale의 역할로 옳은 것은?",
+    "choices": [
+      "최소 축소 비율과 최대 확대 비율을 지정한다",
+      "최소 색상 수와 최대 색상 수를 지정한다",
+      "최소 글자 수와 최대 글자 수를 지정한다",
+      "최소 행 수와 최대 열 수를 지정한다"
+    ],
+    "answer": 0,
+    "explain": "표 8-1은 minimum-scale을 최소 축소 비율, maximum-scale을 최대 확대 비율로 설명한다."
+  },
+  {
+    "lec": "10강",
+    "star": 0,
+    "q": "viewport meta 태그에서 target-densitydpi는 무엇을 지정하는가?",
+    "choices": [
+      "DPI",
+      "목록 스타일",
+      "float 방향",
+      "media type"
+    ],
+    "answer": 0,
+    "explain": "표 8-1에서 target-densitydpi는 DPI 지정 값으로 제시된다."
+  },
+  {
+    "lec": "10강",
+    "star": 2,
+    "q": "스마트폰 브라우저에서 사용자의 확대/축소를 막고 초기 배율을 1로 고정하려는 viewport 설정으로 가장 적절한 것은?",
+    "choices": [
+      "user-scalable=no, initial-scale=1, maximum-scale=1",
+      "float=none, width=auto, height=auto",
+      "media=print, screen=none, color=red",
+      "list-style=none, border=1px, padding=24px"
+    ],
+    "answer": 0,
+    "explain": "슬라이드 예시는 user-scalable=no, initial-scale=1, maximum-scale=1을 viewport content에 넣어 확대/축소와 배율을 제어한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "@media 규칙의 기본 형태로 옳은 것은?",
+    "choices": [
+      "@media (<미디어 쿼리>) { <CSS 코드> }",
+      "@viewport { <HTML 코드> }",
+      "@query <script> { <JS 코드> }",
+      "@responsive link href media"
+    ],
+    "answer": 0,
+    "explain": "슬라이드는 스타일시트 내부에서 특정한 규칙을 표현할 때 @media (<미디어 쿼리>) { <CSS 코드> } 형태를 사용한다고 설명한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "link 태그의 media 속성에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "해당 미디어 쿼리 조건에 맞는 장치에서만 CSS 파일을 불러온다",
+      "항상 모든 CSS 파일을 강제로 다운로드하지 못하게 한다",
+      "HTML 문서의 제목을 바꾼다",
+      "브라우저의 URL을 다른 페이지로 이동시킨다"
+    ],
+    "answer": 0,
+    "explain": "media 속성은 link 태그에 입력해 조건에 맞는 장치에서만 CSS 파일을 불러오게 한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "media 타입 screen의 의미로 옳은 것은?",
+    "choices": [
+      "화면",
+      "프린터",
+      "프로젝터",
+      "음성 장치"
+    ],
+    "answer": 0,
+    "explain": "지원하는 미디어 타입 표에서 screen은 화면을 의미한다."
+  },
+  {
+    "lec": "10강",
+    "star": 0,
+    "q": "media 타입 print의 의미로 옳은 것은?",
+    "choices": [
+      "프린터",
+      "화면",
+      "텔레비전",
+      "터미널"
+    ],
+    "answer": 0,
+    "explain": "지원하는 미디어 타입 표에서 print는 프린터를 의미한다."
+  },
+  {
+    "lec": "10강",
+    "star": 0,
+    "q": "media 타입 all의 의미로 옳은 것은?",
+    "choices": [
+      "모든 장치",
+      "음성 장치",
+      "표시 전용 점자 장치",
+      "손으로 들고 다니는 작은 장치"
+    ],
+    "answer": 0,
+    "explain": "지원하는 미디어 타입 표에서 all은 모든 장치를 의미한다."
+  },
+  {
+    "lec": "10강",
+    "star": 0,
+    "q": "media 타입 handheld의 의미로 옳은 것은?",
+    "choices": [
+      "손으로 들고 다니는 작은 장치",
+      "프린터",
+      "프로젝터",
+      "텔레비전"
+    ],
+    "answer": 0,
+    "explain": "지원하는 미디어 타입 표에서 handheld는 손으로 들고 다니는 작은 장치를 의미한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "미디어 타입 연산자 only의 의미로 옳은 것은?",
+    "choices": [
+      "해당 장치에서만 나타냄",
+      "해당 장치를 제외함",
+      "모든 장치를 선택함",
+      "인쇄 장치만 제외함"
+    ],
+    "answer": 0,
+    "explain": "표 8-3에서 only는 해당 장치에서만 나타냄을 의미한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "미디어 타입 연산자 not의 의미로 옳은 것은?",
+    "choices": [
+      "해당 장치를 제외함",
+      "해당 장치에서만 나타냄",
+      "항상 모든 장치를 포함함",
+      "화면 너비만 검사함"
+    ],
+    "answer": 0,
+    "explain": "표 8-3에서 not은 해당 장치를 제외함을 의미한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "미디어 특징 width와 height가 의미하는 것은?",
+    "choices": [
+      "화면 너비와 화면 높이",
+      "장치 너비와 장치 높이",
+      "장치 색상 비트와 해상도",
+      "최소 축소 비율과 최대 확대 비율"
+    ],
+    "answer": 0,
+    "explain": "표 8-4에서 width는 화면 너비, height는 화면 높이로 설명된다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "미디어 특징 device-width와 device-height가 의미하는 것은?",
+    "choices": [
+      "장치 너비와 장치 높이",
+      "화면 너비와 화면 높이",
+      "CSS 파일 너비와 높이",
+      "문서 본문 너비와 높이"
+    ],
+    "answer": 0,
+    "explain": "표 8-4에서 device-width는 장치 너비, device-height는 장치 높이를 의미한다."
+  },
+  {
+    "lec": "10강",
+    "star": 0,
+    "q": "미디어 특징 orientation은 무엇을 구분하는가?",
+    "choices": [
+      "장치 방향",
+      "장치 해상도",
+      "장치 색상 비트",
+      "지원 글꼴"
+    ],
+    "answer": 0,
+    "explain": "표 8-4에서 orientation은 장치 방향을 의미한다."
+  },
+  {
+    "lec": "10강",
+    "star": 0,
+    "q": "미디어 특징 resolution은 무엇을 의미하는가?",
+    "choices": [
+      "장치 해상도",
+      "장치 방향",
+      "화면 비율",
+      "최대 색상 개수"
+    ],
+    "answer": 0,
+    "explain": "표 8-4에서 resolution은 장치 해상도를 의미한다."
+  },
+  {
+    "lec": "10강",
+    "star": 2,
+    "q": "강의 예시에서 화면이면서 최대 너비가 767px일 때 phone.css를 불러오는 media 조건은?",
+    "choices": [
+      "screen and (max-width: 767px)",
+      "print and (min-width: 767px)",
+      "screen and (min-width: 960px)",
+      "all and (orientation: landscape)"
+    ],
+    "answer": 0,
+    "explain": "슬라이드는 화면이면서 최대 너비가 767px일 때 phone.css를 불러오는 예시를 제시한다."
+  },
+  {
+    "lec": "10강",
+    "star": 2,
+    "q": "강의 예시에서 태블릿PC 구간으로 사용한 media 조건은?",
+    "choices": [
+      "screen and (min-width: 768px) and (max-width: 959px)",
+      "screen and (max-width: 767px)",
+      "screen and (min-width: 960px)",
+      "print and (orientation: portrait)"
+    ],
+    "answer": 0,
+    "explain": "태블릿PC 예시는 최소 너비 768px, 최대 너비 959px일 때 tablet.css를 불러온다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "강의 예시에서 데스크톱 구간으로 사용한 조건은?",
+    "choices": [
+      "screen and (min-width: 960px)",
+      "screen and (max-width: 767px)",
+      "screen and (max-width: 959px)",
+      "handheld and (max-width: 240px)"
+    ],
+    "answer": 0,
+    "explain": "데스크톱 예시는 화면이면서 최소 너비가 960px일 때 desktop.css를 불러오는 조건을 사용한다."
+  },
+  {
+    "lec": "10강",
+    "star": 2,
+    "q": "스마트폰, 태블릿PC, 데스크톱을 구분하는 기본 예제에서 배경색 연결로 옳은 것은?",
+    "choices": [
+      "스마트폰 red, 태블릿PC green, 데스크톱 blue",
+      "스마트폰 blue, 태블릿PC red, 데스크톱 green",
+      "스마트폰 green, 태블릿PC blue, 데스크톱 red",
+      "모든 장치 black"
+    ],
+    "answer": 0,
+    "explain": "코드 8-7은 max-width: 767px에서 red, 768~959px에서 green, min-width: 960px에서 blue를 적용한다."
+  },
+  {
+    "lec": "10강",
+    "star": 2,
+    "q": "화면 방향 전환 예제에서 portrait와 landscape에 적용한 배경색으로 옳은 것은?",
+    "choices": [
+      "portrait는 red, landscape는 green",
+      "portrait는 green, landscape는 red",
+      "portrait는 blue, landscape는 yellow",
+      "두 방향 모두 white"
+    ],
+    "answer": 0,
+    "explain": "코드 8-8은 orientation: portrait일 때 red, orientation: landscape일 때 green을 적용한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "미디어 쿼리를 사용하는 방법으로 옳은 것을 고르면?",
+    "choices": [
+      "스타일시트 내부의 @media 규칙 또는 link 태그의 media 속성을 사용한다",
+      "HTML 주석만 사용한다",
+      "img 태그의 alt 속성만 사용한다",
+      "table 태그의 border 속성만 사용한다"
+    ],
+    "answer": 0,
+    "explain": "강의는 @media 규칙과 link 태그의 media 속성을 미디어 쿼리 설정 방법으로 제시한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "반응형 웹 패턴을 설명한 내용으로 옳은 것은?",
+    "choices": [
+      "데스크톱에서 좌우에 있던 메뉴를 모바일에서 위쪽 또는 아래쪽으로 이동시킬 수 있다",
+      "모바일에서는 반드시 모든 메뉴를 삭제해야 한다",
+      "데스크톱에서는 CSS를 사용할 수 없다",
+      "모든 화면에서 position: fixed만 사용해야 한다"
+    ],
+    "answer": 0,
+    "explain": "10강은 화면 너비에 따라 메뉴 위치를 바꾸는 네 가지 반응형 웹 패턴을 소개한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "반응형 웹 패턴 1의 위치 변화로 옳은 것은?",
+    "choices": [
+      "데스크톱에서는 메뉴가 왼쪽, 모바일에서는 메뉴가 위쪽",
+      "데스크톱에서는 메뉴가 오른쪽, 모바일에서는 메뉴가 아래쪽",
+      "데스크톱과 모바일 모두 메뉴가 오른쪽",
+      "데스크톱과 모바일 모두 메뉴가 숨김"
+    ],
+    "answer": 0,
+    "explain": "슬라이드는 패턴 1을 넓은 화면에서는 메뉴가 왼쪽, 좁은 화면에서는 메뉴가 위쪽인 구조로 설명한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "반응형 웹 패턴 2의 위치 변화로 옳은 것은?",
+    "choices": [
+      "데스크톱에서는 메뉴가 오른쪽, 모바일에서는 메뉴가 위쪽",
+      "데스크톱에서는 메뉴가 왼쪽, 모바일에서는 메뉴가 아래쪽",
+      "데스크톱에서는 메뉴가 위쪽, 모바일에서는 메뉴가 오른쪽",
+      "데스크톱과 모바일 모두 메뉴가 아래쪽"
+    ],
+    "answer": 0,
+    "explain": "슬라이드는 패턴 2를 넓은 화면에서는 메뉴가 오른쪽, 좁은 화면에서는 메뉴가 위쪽인 구조로 설명한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "반응형 웹 패턴 3의 위치 변화로 옳은 것은?",
+    "choices": [
+      "데스크톱에서는 메뉴가 왼쪽, 모바일에서는 메뉴가 아래쪽",
+      "데스크톱에서는 메뉴가 오른쪽, 모바일에서는 메뉴가 위쪽",
+      "데스크톱에서는 메뉴가 아래쪽, 모바일에서는 메뉴가 왼쪽",
+      "데스크톱과 모바일 모두 메뉴가 위쪽"
+    ],
+    "answer": 0,
+    "explain": "슬라이드는 패턴 3을 넓은 화면에서는 메뉴가 왼쪽, 좁은 화면에서는 메뉴가 아래쪽인 구조로 설명한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "반응형 웹 패턴 4의 위치 변화로 옳은 것은?",
+    "choices": [
+      "데스크톱에서는 메뉴가 오른쪽, 모바일에서는 메뉴가 아래쪽",
+      "데스크톱에서는 메뉴가 왼쪽, 모바일에서는 메뉴가 위쪽",
+      "데스크톱에서는 메뉴가 위쪽, 모바일에서는 메뉴가 왼쪽",
+      "데스크톱과 모바일 모두 메뉴가 숨김"
+    ],
+    "answer": 0,
+    "explain": "슬라이드는 패턴 4를 넓은 화면에서는 메뉴가 오른쪽, 좁은 화면에서는 메뉴가 아래쪽인 구조로 설명한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "강의에서 반응형 웹 패턴의 HTML 태그 구성 기준으로 제시한 것은?",
+    "choices": [
+      "모바일 장치를 기준으로 구성한다",
+      "프린터 장치를 기준으로 구성한다",
+      "테이블 레이아웃만 기준으로 구성한다",
+      "데스크톱의 고정 폭만 기준으로 구성한다"
+    ],
+    "answer": 0,
+    "explain": "슬라이드는 HTML 태그 구성은 모바일 장치를 기준으로 하는 모바일 퍼스트 방식이라고 설명한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "반응형 웹 패턴 예제에서 적당한 위치 배치를 위해 활용한 CSS 속성은?",
+    "choices": [
+      "float의 left와 right",
+      "text-shadow만 사용",
+      "border-radius만 사용",
+      "font-style만 사용"
+    ],
+    "answer": 0,
+    "explain": "슬라이드는 float 태그의 left와 right를 활용해 메뉴와 본문을 적당한 위치에 놓는다고 설명한다."
+  },
+  {
+    "lec": "10강",
+    "star": 2,
+    "q": "반응형 웹 패턴 예제에서 데스크톱 기본 body 스타일로 옳은 것은?",
+    "choices": [
+      "width: 960px; margin: 0 auto; overflow: hidden;",
+      "width: auto; margin: 24px; overflow: visible;",
+      "display: grid; height: 100vh; color: red;",
+      "position: fixed; top: 0; left: 0;"
+    ],
+    "answer": 0,
+    "explain": "패턴 예제들은 데스크톱 기본값으로 body의 width를 960px, margin을 0 auto, overflow를 hidden으로 둔다."
+  },
+  {
+    "lec": "10강",
+    "star": 2,
+    "q": "반응형 웹 패턴 예제에서 데스크톱의 #menu와 #section 너비로 옳은 것은?",
+    "choices": [
+      "#menu 260px, #section 700px",
+      "#menu 700px, #section 260px",
+      "#menu 30%, #section 70%",
+      "#menu auto, #section auto"
+    ],
+    "answer": 0,
+    "explain": "패턴 코드에서 #menu는 260px, #section은 700px을 사용해 합계 960px 레이아웃을 만든다."
+  },
+  {
+    "lec": "10강",
+    "star": 2,
+    "q": "패턴 예제에서 스마트폰 크기(max-width: 767px)일 때 공통으로 해제하는 값은?",
+    "choices": [
+      "body, #menu, #section의 고정 width와 float",
+      "모든 li의 텍스트 내용",
+      "viewport meta 태그 전체",
+      "HTML 문서의 title"
+    ],
+    "answer": 0,
+    "explain": "스마트폰 사이즈에서는 body width를 auto로 바꾸고 #menu와 #section도 width: auto, float: none으로 해제한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "스마트폰 사이즈에서 #menu와 #section에 float: none을 적용하는 이유로 가장 적절한 것은?",
+    "choices": [
+      "좌우 배치를 해제해 세로로 자연스럽게 쌓이게 하기 위해서",
+      "텍스트를 투명하게 만들기 위해서",
+      "미디어 쿼리를 비활성화하기 위해서",
+      "viewport meta 태그를 삭제하기 위해서"
+    ],
+    "answer": 0,
+    "explain": "모바일 폭에서는 좌우 float 배치를 해제해야 메뉴와 본문이 한 줄 폭으로 위아래 배치된다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "10강 연습문제의 핵심 요구사항으로 옳은 것은?",
+    "choices": [
+      "스마트폰 회전을 사용한 레이아웃을 만든다",
+      "마우스 드래그로 이미지를 회전한다",
+      "데이터베이스 테이블을 정규화한다",
+      "자바스크립트로 Ajax 요청을 보낸다"
+    ],
+    "answer": 0,
+    "explain": "연습문제는 스마트폰 회전을 사용한 레이아웃을 만들라고 요구한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "10강 연습문제에서 JS를 아직 배우지 않았기 때문에 요구한 화면 구성은?",
+    "choices": [
+      "세로 화면에서는 내용만, 가로 화면에서는 목록과 내용을 함께 출력",
+      "세로 화면에서는 목록만, 가로 화면에서는 아무것도 출력하지 않음",
+      "모든 화면에서 팝업창만 출력",
+      "프린터 화면에서만 목록과 내용을 출력"
+    ],
+    "answer": 0,
+    "explain": "연습문제는 세로 화면에서는 내용을, 가로 화면에서는 목록과 내용을 함께 출력하는 간단한 웹페이지 형태를 요구한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "10강 연습문제 기본 코드의 viewport meta 태그로 옳은 것은?",
+    "choices": [
+      "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+      "<meta name=\"screen\" content=\"print\">",
+      "<link name=\"viewport\" href=\"device.css\">",
+      "<style viewport=\"device-width\">"
+    ],
+    "answer": 0,
+    "explain": "연습문제 기본 코드는 width=device-width와 initial-scale=1.0을 지정한 viewport meta 태그를 포함한다."
+  },
+  {
+    "lec": "10강",
+    "star": 0,
+    "q": "10강 연습문제에서 div.right 내부의 p 태그에 글자를 많이 입력하라고 한 이유는?",
+    "choices": [
+      "페이지 레이아웃을 확인하기 위해서",
+      "브라우저 오류를 강제로 만들기 위해서",
+      "CSS 파일을 자동 생성하기 위해서",
+      "목록 점을 복구하기 위해서"
+    ],
+    "answer": 0,
+    "explain": "슬라이드는 div.right 태그 내의 p 태그에는 글자를 많이 입력해서 페이지 레이아웃을 확인하라고 지시한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "10강 연습문제의 초기화 단계로 옳은 것은?",
+    "choices": [
+      "모든 태그(*)의 margin과 padding을 0으로 지정한다",
+      "모든 태그(*)의 display를 none으로 지정한다",
+      "모든 태그(*)의 position을 absolute로 지정한다",
+      "모든 태그(*)의 color를 transparent로 지정한다"
+    ],
+    "answer": 0,
+    "explain": "연습문제 초기화 단계의 첫 번째 지시는 모든 태그의 margin과 padding을 0으로 지정하는 것이다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "10강 연습문제에서 li 태그의 목록 점을 없애기 위해 지정하는 속성은?",
+    "choices": [
+      "list-style-type: none",
+      "float: none",
+      "orientation: portrait",
+      "width: auto"
+    ],
+    "answer": 0,
+    "explain": "연습문제 초기화 단계는 li 태그의 list-style-type을 none으로 지정하라고 한다."
+  },
+  {
+    "lec": "10강",
+    "star": 2,
+    "q": "10강 연습문제에서 세로 상태의 div.left 처리로 옳은 것은?",
+    "choices": [
+      "보이지 않게 만든다",
+      "너비 30%로 왼쪽에 붙인다",
+      "너비 70%로 오른쪽에 붙인다",
+      "아래쪽 테두리를 지정한다"
+    ],
+    "answer": 0,
+    "explain": "반응형 웹 지시의 첫 번째 항목은 세로 상태에서 div.left 태그가 보이지 않게 만드는 것이다."
+  },
+  {
+    "lec": "10강",
+    "star": 2,
+    "q": "10강 연습문제에서 가로 상태의 div.left 처리로 옳은 것은?",
+    "choices": [
+      "너비의 30%를 차지하고 왼쪽에 붙게 만든다",
+      "너비의 70%를 차지하고 오른쪽에 붙게 만든다",
+      "display: none으로 숨긴다",
+      "아래쪽 테두리를 1px solid로 만든다"
+    ],
+    "answer": 0,
+    "explain": "가로 상태에서는 div.left가 너비의 30%를 차지하고 왼쪽에 붙게 하라고 지시한다."
+  },
+  {
+    "lec": "10강",
+    "star": 2,
+    "q": "10강 연습문제에서 가로 상태의 div.right 처리로 옳은 것은?",
+    "choices": [
+      "너비의 70%를 차지하고 오른쪽에 붙게 만든다",
+      "너비의 30%를 차지하고 왼쪽에 붙게 만든다",
+      "항상 보이지 않게 만든다",
+      "list-style-type을 none으로 지정한다"
+    ],
+    "answer": 0,
+    "explain": "가로 상태에서는 div.right가 너비의 70%를 차지하고 오른쪽에 붙게 하라고 지시한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "10강 연습문제에서 div.content의 padding 값은?",
+    "choices": [
+      "16px",
+      "24px",
+      "30%",
+      "70%"
+    ],
+    "answer": 0,
+    "explain": "기본 콘텐츠 구성 단계는 div.content 태그의 padding을 16px로 지정하라고 한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "10강 연습문제에서 li 태그의 위아래 padding 값은?",
+    "choices": [
+      "24px",
+      "16px",
+      "1px",
+      "70%"
+    ],
+    "answer": 0,
+    "explain": "기본 콘텐츠 구성 단계는 li 태그의 위아래 padding 속성을 24px로 지정하라고 한다."
+  },
+  {
+    "lec": "10강",
+    "star": 1,
+    "q": "10강 연습문제에서 li 태그의 아래쪽 테두리 값으로 옳은 것은?",
+    "choices": [
+      "1px solid #c7c7c7",
+      "24px dotted #c7c7c7",
+      "16px solid red",
+      "none"
+    ],
+    "answer": 0,
+    "explain": "기본 콘텐츠 구성 단계는 li 태그의 아래쪽 테두리를 1px solid #c7c7c7로 지정하라고 한다."
+  },
+  {
+    "lec": "10강",
+    "star": 0,
+    "q": "크롬에서 스마트폰 회전을 시뮬레이션하는 방법에 포함되지 않는 것은?",
+    "choices": [
+      "데이터베이스 서버를 실행한다",
+      "F12로 개발자 도구를 실행한다",
+      "toggle device toolbar를 클릭한다",
+      "Rotate 버튼을 눌러 회전한다"
+    ],
+    "answer": 0,
+    "explain": "슬라이드는 크롬 실행, F12 개발자 도구, toggle device toolbar, 장치 설정, Rotate 버튼을 안내하며 데이터베이스 서버 실행은 포함하지 않는다."
   }
 ];
 
@@ -1513,8 +2190,9 @@ const POOL = [
 const PICK_PER_LEC = {
   '8강': 15,
   '9강': 15,
+  '10강': 15,
 };
-const LECTURES = ['8강', '9강'];
+const LECTURES = ['8강', '9강', '10강'];
 
 // ============ 유틸 ============
 function shuffle(arr) {
