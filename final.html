@@ -2,7 +2,7 @@
 {
   "name": "Internet Prog Quiz Final",
   "schemaVersion": 1,
-  "description": "인터넷프로그래밍 기말고사 대비 인터랙티브 퀴즈 (8~10강) — 강별 15문제씩 총 45문제 출제"
+  "description": "인터넷프로그래밍 기말고사 대비 인터랙티브 퀴즈 (8~12강) — 강별 15문제씩 총 75문제 출제"
 }
 </script>
 <html lang="ko">
@@ -184,12 +184,12 @@ footer { text-align: center; margin-top: 30px; font-size: 11px; color: #9ca3af; 
 <div class="container">
   <header>
     <h1>📗 인터넷프로그래밍 기말고사</h1>
-    <p>8~10강 레이아웃 구성/Flex/Grid/반응형 웹 · 강별 랜덤 15문제씩 총 45문제 · 인하대 소프트웨어융합공학과</p>
+    <p>8~12강 레이아웃/Flex/Grid/반응형 웹/JavaScript/DOM · 강별 랜덤 15문제씩 총 75문제 · 인하대 소프트웨어융합공학과</p>
     <div class="pool-info" id="pool-info"></div>
   </header>
 
   <div class="progress-bar">
-    <span class="progress-text" id="progress-text">0 / 45</span>
+    <span class="progress-text" id="progress-text">0 / 75</span>
     <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
     <span class="score-badge" id="score-badge">정답 0</span>
   </div>
@@ -197,7 +197,7 @@ footer { text-align: center; margin-top: 30px; font-size: 11px; color: #9ca3af; 
   <div class="filter-bar" id="filter-bar"></div>
 
   <div class="result-card" id="result-card">
-    <div class="result-score" id="result-score">0 / 45</div>
+    <div class="result-score" id="result-score">0 / 75</div>
     <div class="result-detail" id="result-detail">정답률 0%</div>
     <div class="result-message" id="result-message"></div>
     <div class="result-breakdown" id="result-breakdown"></div>
@@ -214,7 +214,7 @@ footer { text-align: center; margin-top: 30px; font-size: 11px; color: #9ca3af; 
 </div>
 
 <script>
-// ============ 문제 풀 (8~10강. 레이아웃 구성 / Flex·Grid / 반응형 웹) ============
+// ============ 문제 풀 (8~12강. 레이아웃 / Flex·Grid / 반응형 웹 / JavaScript / DOM) ============
 const POOL = [
   {
     "lec": "8강",
@@ -2183,6 +2183,1334 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "슬라이드는 크롬 실행, F12 개발자 도구, toggle device toolbar, 장치 설정, Rotate 버튼을 안내하며 데이터베이스 서버 실행은 포함하지 않는다."
+  },
+  // ===== 11강. 자바스크립트 기본문법 (56문제) =====
+  {
+    "lec": "11강",
+    "star": 0,
+    "q": "11강의 주제로 옳은 것은?",
+    "choices": [
+      "자바스크립트 기본문법",
+      "CSS Grid 전용 레이아웃",
+      "반응형 웹 패턴",
+      "데이터베이스 정규화"
+    ],
+    "answer": 0,
+    "explain": "11강은 자바스크립트 기본 용어, 자료형과 변수, 조건문과 반복문, 함수, 객체를 다룬다."
+  },
+  {
+    "lec": "11강",
+    "star": 0,
+    "q": "11강 학습목표에 포함되지 않는 것은?",
+    "choices": [
+      "CSS 미디어 쿼리로 스마트폰 방향을 전환한다",
+      "자바스크립트 기본 용어를 이해한다",
+      "조건문과 반복문으로 프로그램 흐름을 제어한다",
+      "객체의 속성과 메서드를 구분한다"
+    ],
+    "answer": 0,
+    "explain": "미디어 쿼리와 스마트폰 방향 전환은 10강 반응형 웹 내용이다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "자바스크립트에서 표현식에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "값을 만들어 내는 간단한 코드",
+      "항상 중괄호로 감싸는 코드 블록",
+      "브라우저의 화면 너비를 지정하는 태그",
+      "CSS 파일을 연결하는 HTML 태그"
+    ],
+    "answer": 0,
+    "explain": "슬라이드는 표현식을 값을 만들어 내는 간단한 코드로 설명한다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "문장에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "표현식과 키워드 등으로 만든 실행할 수 있는 코드의 최소 단위",
+      "문자 하나만 저장하는 자료형",
+      "CSS에서 선택자를 의미하는 단어",
+      "HTML 문서의 루트 요소"
+    ],
+    "answer": 0,
+    "explain": "문장은 실행 가능한 코드의 최소 단위이며, 문장 마지막에 세미콜론을 붙여 문장을 끝낼 수 있다."
+  },
+  {
+    "lec": "11강",
+    "star": 0,
+    "q": "자바스크립트 키워드에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "자바스크립트가 처음 만들어질 때 정해진 특별한 의미가 부여된 단어",
+      "개발자가 마음대로 변수명으로 쓰도록 예약된 단어",
+      "브라우저 주소창에 입력하는 URL 조각",
+      "HTML 태그의 닫는 태그 이름"
+    ],
+    "answer": 0,
+    "explain": "키워드는 자바스크립트 언어에서 특별한 의미를 갖도록 미리 정해진 단어이다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "다음 중 자바스크립트 키워드가 아닌 것은?",
+    "choices": [
+      "myScore",
+      "if",
+      "return",
+      "function"
+    ],
+    "answer": 0,
+    "explain": "if, return, function은 키워드이며 myScore는 개발자가 붙일 수 있는 식별자이다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "식별자 뒤에 괄호가 없고 단독으로 사용하는 식별자는 일반적으로 무엇을 나타내는가?",
+    "choices": [
+      "변수",
+      "함수",
+      "메서드",
+      "HTML 주석"
+    ],
+    "answer": 0,
+    "explain": "식별자 구분 표에서 단독으로 쓰이고 뒤에 괄호가 없는 식별자는 변수로 분류한다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "식별자 뒤에 괄호가 있고 단독으로 사용하는 식별자는 일반적으로 무엇인가?",
+    "choices": [
+      "함수",
+      "속성",
+      "변수",
+      "키워드"
+    ],
+    "answer": 0,
+    "explain": "alert('Hello World')처럼 단독으로 사용하면서 괄호가 있으면 함수로 본다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "다른 식별자와 함께 사용되고 괄호가 없는 식별자는 일반적으로 무엇인가?",
+    "choices": [
+      "속성",
+      "함수",
+      "변수",
+      "주석"
+    ],
+    "answer": 0,
+    "explain": "Array.length, Math.PI처럼 다른 식별자 뒤에 붙고 괄호가 없으면 속성으로 분류한다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "다른 식별자와 함께 사용되고 괄호가 있는 식별자는 일반적으로 무엇인가?",
+    "choices": [
+      "메서드",
+      "속성",
+      "변수",
+      "예약어"
+    ],
+    "answer": 0,
+    "explain": "Math.abs(-273)처럼 객체나 식별자 뒤에 붙고 괄호가 있으면 메서드로 분류한다."
+  },
+  {
+    "lec": "11강",
+    "star": 0,
+    "q": "한 행 주석을 작성하는 기호는?",
+    "choices": [
+      "//",
+      "/* */",
+      "<!-- -->",
+      "#{}"
+    ],
+    "answer": 0,
+    "explain": "자바스크립트 한 행 주석은 //로 작성한다."
+  },
+  {
+    "lec": "11강",
+    "star": 0,
+    "q": "여러 행 주석을 작성하는 형태로 옳은 것은?",
+    "choices": [
+      "/* 주석문 */",
+      "// 주석문 //",
+      "<comment>주석문</comment>",
+      "@media 주석문"
+    ],
+    "answer": 0,
+    "explain": "여러 행 주석은 /*로 시작하고 */로 끝낸다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "주석에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "코드 실행에 영향을 주지 않는다",
+      "항상 화면에 출력된다",
+      "반드시 alert보다 먼저 실행된다",
+      "변수 선언을 대신한다"
+    ],
+    "answer": 0,
+    "explain": "슬라이드 예시는 주석은 코드 실행에 영향을 주지 않는다고 설명한다."
+  },
+  {
+    "lec": "11강",
+    "star": 0,
+    "q": "alert('메시지')의 동작으로 옳은 것은?",
+    "choices": [
+      "경고창에 메시지를 출력한다",
+      "콘솔 탭에만 값을 출력한다",
+      "HTML 태그를 새로 만든다",
+      "CSS 선택자를 실행한다"
+    ],
+    "answer": 0,
+    "explain": "alert()는 브라우저 경고창을 띄워 메시지를 보여 주는 출력 방법이다."
+  },
+  {
+    "lec": "11강",
+    "star": 0,
+    "q": "개발자 도구 Console 탭에서 실행 결과를 확인할 때 주로 사용하는 출력 함수는?",
+    "choices": [
+      "console.log()",
+      "document.querySelector()",
+      "Math.abs()",
+      "parseInt()"
+    ],
+    "answer": 0,
+    "explain": "console.log()는 개발자 도구 Console 탭에 값을 출력해 실행 결과를 확인할 때 사용한다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "자바스크립트 number 타입에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "정수와 실수를 구분하지 않는 단일 숫자 타입이다",
+      "정수만 저장하고 실수는 저장하지 못한다",
+      "문자열 전용 타입이다",
+      "객체의 주소만 저장하는 타입이다"
+    ],
+    "answer": 0,
+    "explain": "PDF의 원시 타입 표는 number를 정수·실수 구분 없는 단일 숫자 타입으로 설명한다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "자바스크립트에서 1 / 0의 결과로 옳은 것은?",
+    "choices": [
+      "Infinity",
+      "0",
+      "false",
+      "undefined"
+    ],
+    "answer": 0,
+    "explain": "숫자를 0으로 나누면 무한을 나타내는 Infinity 값이 된다."
+  },
+  {
+    "lec": "11강",
+    "star": 0,
+    "q": "나머지 연산자에 해당하는 기호는?",
+    "choices": [
+      "%",
+      "/",
+      "**",
+      "&&"
+    ],
+    "answer": 0,
+    "explain": "% 연산자는 좌변을 우변으로 나눈 나머지를 구한다."
+  },
+  {
+    "lec": "11강",
+    "star": 0,
+    "q": "문자열 자료형에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "문자의 집합이다",
+      "참과 거짓만 저장한다",
+      "DOM 노드만 저장한다",
+      "정수만 저장한다"
+    ],
+    "answer": 0,
+    "explain": "문자열은 문자들의 집합이며 작은따옴표나 큰따옴표로 만들 수 있다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "문자열에서 \\n의 의미는?",
+    "choices": [
+      "행 바꿈",
+      "수평 탭",
+      "역 슬래시",
+      "큰따옴표"
+    ],
+    "answer": 0,
+    "explain": "이스케이프 문자 표에서 \\n은 행 바꿈을 의미한다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "문자열에서 \\t의 의미는?",
+    "choices": [
+      "수평 탭",
+      "행 바꿈",
+      "작은따옴표",
+      "불 값 반전"
+    ],
+    "answer": 0,
+    "explain": "이스케이프 문자 표에서 \\t는 수평 탭을 의미한다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "문자열 안에서 역슬래시 자체를 표현하는 이스케이프 문자는?",
+    "choices": [
+      "\\\\",
+      "\\n",
+      "\\t",
+      "\\'"
+    ],
+    "answer": 0,
+    "explain": "\\\\는 문자열 안에서 역슬래시를 표현할 때 사용한다."
+  },
+  {
+    "lec": "11강",
+    "star": 0,
+    "q": "불(boolean) 자료형이 가질 수 있는 값으로 옳은 것은?",
+    "choices": [
+      "true와 false",
+      "left와 right",
+      "block과 inline",
+      "red와 green"
+    ],
+    "answer": 0,
+    "explain": "boolean은 논리값이며 true와 false를 값으로 가진다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "비교 연산자 >=의 의미로 옳은 것은?",
+    "choices": [
+      "좌변이 우변보다 크거나 같음",
+      "좌변과 우변이 다름",
+      "논리 부정",
+      "둘 다 참이어야 참"
+    ],
+    "answer": 0,
+    "explain": ">=는 좌변이 우변보다 크거나 같은지 비교한다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "비교 연산자 !=의 의미로 옳은 것은?",
+    "choices": [
+      "좌변과 우변이 다름",
+      "좌변과 우변이 같음",
+      "좌변이 우변보다 큼",
+      "좌변이 우변보다 작음"
+    ],
+    "answer": 0,
+    "explain": "!=는 좌변과 우변이 다른지 비교한다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "논리 연산자 !의 의미로 옳은 것은?",
+    "choices": [
+      "참이면 거짓, 거짓이면 참으로 바꾼다",
+      "둘 다 참일 때만 참이다",
+      "둘 중 하나만 참이어도 참이다",
+      "숫자를 문자열로 바꾼다"
+    ],
+    "answer": 0,
+    "explain": "!는 논리 부정 연산자이다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "논리곱 &&의 결과가 true가 되는 경우는?",
+    "choices": [
+      "양쪽이 모두 true일 때",
+      "양쪽 중 하나만 true일 때",
+      "양쪽이 모두 false일 때",
+      "왼쪽이 false일 때만"
+    ],
+    "answer": 0,
+    "explain": "&&는 둘 다 참이어야 참이다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "논리합 ||의 결과가 true가 되는 경우로 옳은 것은?",
+    "choices": [
+      "양쪽 중 하나만 true여도 true",
+      "양쪽이 모두 true일 때만 true",
+      "양쪽이 모두 false일 때 true",
+      "항상 false"
+    ],
+    "answer": 0,
+    "explain": "||는 둘 중 하나만 참이어도 참이다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "다음 중 원시 타입이 아닌 것은?",
+    "choices": [
+      "Array",
+      "number",
+      "string",
+      "boolean"
+    ],
+    "answer": 0,
+    "explain": "Array는 참조 타입이며 number, string, boolean은 원시 타입이다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "undefined에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "값이 아직 할당되지 않은 상태",
+      "의도적으로 없음이라고 지정한 값",
+      "임의 정밀도 정수",
+      "고유하고 변경 불가능한 식별자"
+    ],
+    "answer": 0,
+    "explain": "undefined는 값이 아직 할당되지 않은 상태를 의미한다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "null에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "의도적으로 없음을 나타내는 값",
+      "값이 아직 할당되지 않은 상태",
+      "정수와 실수 구분 없는 숫자",
+      "호출 가능한 객체"
+    ],
+    "answer": 0,
+    "explain": "null은 개발자가 의도적으로 값이 없음을 나타낼 때 사용하는 값이다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "참조 타입에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "heap에 저장되고 변수에는 참조가 담긴다",
+      "값 자체가 변수에 저장되고 항상 불변이다",
+      "문자 하나만 저장한다",
+      "true 또는 false만 저장한다"
+    ],
+    "answer": 0,
+    "explain": "PDF는 참조 타입을 heap에 저장되고 변수에는 참조(주소)가 담기는 타입으로 설명한다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "let pi = 3.14159265;에서 pi에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "변수 이름",
+      "키워드",
+      "문자열 값",
+      "메서드 이름"
+    ],
+    "answer": 0,
+    "explain": "let은 변수를 선언하는 키워드이고 pi는 변수 이름이다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "변수 초기화에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "변수를 선언하면서 처음 값을 할당하는 것",
+      "변수를 삭제하는 것",
+      "주석을 여러 줄로 쓰는 것",
+      "함수를 호출하지 못하게 막는 것"
+    ],
+    "answer": 0,
+    "explain": "변수 선언과 동시에 값을 넣는 과정을 초기화라고 볼 수 있다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "const 키워드로 선언한 상수의 특징으로 옳은 것은?",
+    "choices": [
+      "선언 이후 같은 식별자에 새 값을 다시 할당할 수 없다",
+      "항상 문자열만 저장한다",
+      "선언하지 않아도 자동으로 만들어진다",
+      "조건문 내부에서만 사용할 수 있다"
+    ],
+    "answer": 0,
+    "explain": "const로 선언한 상수는 재할당할 수 없으므로 한 번 정한 값을 유지할 때 사용한다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "if 조건문의 기본 형태로 옳은 것은?",
+    "choices": [
+      "if (조건) { 문장 }",
+      "for (조건) { 초기화 }",
+      "function if() { 조건 }",
+      "switch if 조건"
+    ],
+    "answer": 0,
+    "explain": "if 조건문은 괄호 안의 조건이 참일 때 중괄호 안의 문장을 실행한다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "if else 조건문에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "조건이 참이면 첫 번째 블록, 거짓이면 else 블록을 실행한다",
+      "조건이 거짓이어도 항상 두 블록을 모두 실행한다",
+      "반복 횟수를 자동으로 증가시킨다",
+      "객체의 속성을 모두 출력한다"
+    ],
+    "answer": 0,
+    "explain": "if else는 조건 결과에 따라 두 실행 흐름 중 하나를 선택한다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "중첩 조건문이란?",
+    "choices": [
+      "조건문 안에 또 다른 조건문을 넣는 것",
+      "반복문 없이 배열을 순회하는 것",
+      "함수 없이 객체를 생성하는 것",
+      "주석 안에 코드를 넣는 것"
+    ],
+    "answer": 0,
+    "explain": "조건문 내부에 다시 if 문을 넣으면 중첩 조건문이 된다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "if else if 조건문을 사용하는 대표적인 상황은?",
+    "choices": [
+      "서로 다른 여러 조건 중 하나를 선택해야 할 때",
+      "항상 같은 문장을 무한히 반복할 때",
+      "HTML 태그를 닫지 않을 때",
+      "문자열 이스케이프 문자를 제거할 때"
+    ],
+    "answer": 0,
+    "explain": "if else if는 여러 조건을 위에서부터 검사해 맞는 분기를 실행할 때 사용한다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "while 반복문의 동작으로 옳은 것은?",
+    "choices": [
+      "조건이 true인 동안 문장을 반복 실행한다",
+      "조건과 관계없이 반드시 한 번만 실행한다",
+      "배열만 만들고 실행하지 않는다",
+      "함수 선언을 객체로 바꾼다"
+    ],
+    "answer": 0,
+    "explain": "while 문은 조건이 참인 동안 반복한다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "for 반복문의 일반적인 구성 요소로 옳은 것은?",
+    "choices": [
+      "초기식, 조건식, 종결식",
+      "선택자, 속성, 값",
+      "태그, 속성, 텍스트",
+      "키, 값, 메서드"
+    ],
+    "answer": 0,
+    "explain": "for 반복문은 보통 초기식, 조건식, 종결식을 한 줄에 작성해 반복 흐름을 만든다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "배열의 모든 요소를 순회할 때 자주 사용하는 속성은?",
+    "choices": [
+      "length",
+      "innerHTML",
+      "backgroundColor",
+      "onclick"
+    ],
+    "answer": 0,
+    "explain": "배열 반복 예제는 array.length를 사용해 배열 요소 개수만큼 반복한다."
+  },
+  {
+    "lec": "11강",
+    "star": 2,
+    "q": "function f() { } 형태에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "이름이 있는 함수 선언문이다",
+      "익명 함수를 변수에 할당한 것이다",
+      "객체 리터럴이다",
+      "배열 리터럴이다"
+    ],
+    "answer": 0,
+    "explain": "function 함수명() { } 형태는 이름이 있는 함수 선언문이다."
+  },
+  {
+    "lec": "11강",
+    "star": 2,
+    "q": "const f = function () { }; 형태에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "익명 함수를 변수에 할당한 함수 표현식이다",
+      "함수 선언문이므로 항상 먼저 호출할 수 있다",
+      "객체의 메서드를 호출한 것이다",
+      "배열의 길이를 구한 것이다"
+    ],
+    "answer": 0,
+    "explain": "이름 없는 function을 변수에 할당하면 함수 표현식으로 사용할 수 있다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "화살표 함수의 기본 형태로 옳은 것은?",
+    "choices": [
+      "const 함수명 = (매개변수) => { return 반환값; };",
+      "function => 함수명(return) {}",
+      "if (함수명) => return;",
+      "object -> method -> return"
+    ],
+    "answer": 0,
+    "explain": "슬라이드는 ES6부터 추가된 화살표 함수의 기본 문법을 const 함수명 = (매개변수) => { return 반환값; }; 형태로 제시한다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "화살표 함수에서 본문이 한 줄의 반환식이면 생략할 수 있는 것은?",
+    "choices": [
+      "중괄호와 return",
+      "함수 이름과 매개변수 전체",
+      "const 키워드와 대입 연산자",
+      "모든 괄호와 모든 연산자"
+    ],
+    "answer": 0,
+    "explain": "본문이 한 줄이면 const add = (a, b) => a + b;처럼 중괄호와 return을 생략할 수 있다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "화살표 함수에서 매개변수가 하나일 때 가능한 축약은?",
+    "choices": [
+      "매개변수 괄호를 생략할 수 있다",
+      "화살표를 생략할 수 있다",
+      "함수 본문을 반드시 여러 줄로 써야 한다",
+      "return 값을 반드시 객체로 만들어야 한다"
+    ],
+    "answer": 0,
+    "explain": "매개변수가 하나면 const double = x => x * 2;처럼 괄호를 생략할 수 있다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "화살표 함수에서 매개변수가 없을 때 옳은 작성 방식은?",
+    "choices": [
+      "()를 반드시 사용한다",
+      "매개변수 자리를 완전히 비운다",
+      "function 키워드를 반드시 붙인다",
+      "return을 사용할 수 없다"
+    ],
+    "answer": 0,
+    "explain": "매개변수가 없으면 const hello = () => '안녕하세요';처럼 ()가 필요하다."
+  },
+  {
+    "lec": "11강",
+    "star": 2,
+    "q": "화살표 함수에서 객체 리터럴을 바로 반환할 때 필요한 처리는?",
+    "choices": [
+      "객체를 괄호로 감싼다",
+      "객체 앞에 if를 붙인다",
+      "객체 뒤에 while을 붙인다",
+      "모든 속성을 배열로 바꾼다"
+    ],
+    "answer": 0,
+    "explain": "객체를 바로 반환할 때는 ({ name: name })처럼 괄호로 감싸야 블록과 구분된다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "함수의 매개변수에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "함수를 호출할 때 전달받는 값을 담는 변수",
+      "반드시 HTML 태그 이름이어야 하는 값",
+      "객체의 모든 속성을 삭제하는 명령",
+      "브라우저의 기본 이벤트를 제거하는 값"
+    ],
+    "answer": 0,
+    "explain": "매개변수는 함수 호출 시 전달되는 값을 함수 내부에서 사용하기 위한 이름이다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "함수의 반환값에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "return으로 호출한 쪽에 돌려주는 값",
+      "함수를 호출하기 전 반드시 입력하는 주석",
+      "조건문을 무한 반복하게 하는 값",
+      "문자열의 따옴표 종류"
+    ],
+    "answer": 0,
+    "explain": "return 문은 함수 실행 결과를 호출한 곳으로 반환한다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "객체에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "키와 값으로 구성된 자료의 집합",
+      "true와 false만 저장하는 자료형",
+      "반드시 숫자만 저장하는 자료형",
+      "CSS 미디어 쿼리 조건"
+    ],
+    "answer": 0,
+    "explain": "객체는 이름이 있는 속성에 값을 저장하는 키-값 쌍의 컬렉션이다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "객체의 속성에 접근하는 방법으로 옳은 것은?",
+    "choices": [
+      "product['제품명'] 또는 product.제품명",
+      "product < 제품명 >",
+      "product::제품명()",
+      "product media 제품명"
+    ],
+    "answer": 0,
+    "explain": "객체 속성은 대괄호 표기법이나 점 표기법으로 접근할 수 있다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "객체와 for in 반복문에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "객체의 키를 순회할 때 사용할 수 있다",
+      "배열 길이를 항상 0으로 만든다",
+      "함수 선언문을 먼저 실행하지 못하게 한다",
+      "문자열의 줄바꿈을 제거한다"
+    ],
+    "answer": 0,
+    "explain": "for in 반복문은 객체의 속성 이름을 순회할 때 활용할 수 있다."
+  },
+  {
+    "lec": "11강",
+    "star": 1,
+    "q": "객체의 메서드에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "객체의 속성 중 함수 자료형인 속성",
+      "객체에 들어 있는 숫자 값만 의미",
+      "객체의 키를 모두 삭제하는 연산자",
+      "HTML 문서의 최상위 노드"
+    ],
+    "answer": 0,
+    "explain": "객체 내부의 함수 속성을 메서드라고 부른다."
+  },
+  {
+    "lec": "11강",
+    "star": 2,
+    "q": "객체 메서드 안에서 this가 가리키는 것은?",
+    "choices": [
+      "메서드를 가진 현재 객체",
+      "항상 window 객체",
+      "항상 document 객체",
+      "가장 마지막 배열 요소"
+    ],
+    "answer": 0,
+    "explain": "메서드 내부에서 this는 그 메서드를 호출한 객체를 가리켜 객체의 다른 속성에 접근할 수 있게 한다."
+  },
+  // ===== 12강. 문서 객체 모델 (46문제) =====
+  {
+    "lec": "12강",
+    "star": 0,
+    "q": "12강의 주제로 옳은 것은?",
+    "choices": [
+      "문서 객체 모델(DOM)",
+      "CSS 박스 모델",
+      "반응형 웹 미디어 쿼리",
+      "SQL 조인"
+    ],
+    "answer": 0,
+    "explain": "12강은 문서 객체 모델(DOM), 문서 객체 선택과 조작, 이벤트를 다룬다."
+  },
+  {
+    "lec": "12강",
+    "star": 0,
+    "q": "12강 학습목표에 포함되지 않는 것은?",
+    "choices": [
+      "Flexbox의 main axis와 cross axis를 구분한다",
+      "문서 객체와 문서 객체 모델의 개념을 이해한다",
+      "문서 객체를 선택하고 조작할 수 있다",
+      "이벤트를 문서 객체에 연결한다"
+    ],
+    "answer": 0,
+    "explain": "Flexbox 축 개념은 9강 내용이며, 12강은 DOM과 이벤트가 중심이다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "문서 객체 모델(DOM)에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "웹 브라우저가 HTML 페이지를 인식하는 방식",
+      "CSS 파일을 압축하는 방식",
+      "서버에서 데이터베이스를 설계하는 방식",
+      "이미지 파일을 다운로드하는 방식"
+    ],
+    "answer": 0,
+    "explain": "슬라이드는 DOM을 웹 브라우저가 HTML 페이지를 인식하는 방식으로 설명한다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "HTML 태그는 DOM에서 주로 어떤 노드로 표현되는가?",
+    "choices": [
+      "요소 노드",
+      "텍스트 노드",
+      "색상 노드",
+      "미디어 노드"
+    ],
+    "answer": 0,
+    "explain": "DOM 트리에서 HTML 태그는 요소 노드가 된다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "태그 내부의 일반 텍스트는 DOM에서 주로 어떤 노드로 표현되는가?",
+    "choices": [
+      "텍스트 노드",
+      "요소 노드",
+      "이벤트 노드",
+      "스타일 노드"
+    ],
+    "answer": 0,
+    "explain": "태그 사이의 문자열은 텍스트 노드로 표현된다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "웹 페이지가 처음 실행될 때 HTML 태그로 생성하는 문서 객체를 무엇이라고 하는가?",
+    "choices": [
+      "정적 생성 문서 객체",
+      "동적 생성 문서 객체",
+      "이벤트 객체",
+      "익명 함수"
+    ],
+    "answer": 0,
+    "explain": "웹 페이지 실행 시 HTML 태그로 생성되는 문서 객체는 정적 생성 문서 객체이다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "웹 페이지 실행 중 자바스크립트로 생성하는 문서 객체를 무엇이라고 하는가?",
+    "choices": [
+      "동적 생성 문서 객체",
+      "정적 생성 문서 객체",
+      "원시 타입",
+      "미디어 타입"
+    ],
+    "answer": 0,
+    "explain": "자바스크립트로 실행 중에 새로 만드는 문서 객체는 동적 생성 문서 객체이다."
+  },
+  {
+    "lec": "12강",
+    "star": 2,
+    "q": "head에 있는 script가 body의 h1보다 먼저 실행되어 h1을 바로 선택하면 생길 수 있는 문제는?",
+    "choices": [
+      "아직 문서 객체가 생성되지 않아 선택 결과가 null이 될 수 있다",
+      "h1이 자동으로 img 태그로 바뀐다",
+      "브라우저가 CSS를 모두 삭제한다",
+      "querySelectorAll이 숫자를 반환한다"
+    ],
+    "answer": 0,
+    "explain": "스크립트 실행 시점에 대상 문서 객체가 아직 생성되지 않았으면 선택할 수 없어 null 문제가 발생한다."
+  },
+  {
+    "lec": "12강",
+    "star": 2,
+    "q": "문서 객체 생성이 끝난 뒤 코드를 실행하기 위해 강의 예시에서 사용한 방식은?",
+    "choices": [
+      "window.onload = function () { ... }",
+      "Math.abs(function) { ... }",
+      "media=\"screen\"",
+      "float: none"
+    ],
+    "answer": 0,
+    "explain": "강의 예시는 window.onload에 함수를 연결해 문서 객체가 준비된 뒤 선택과 조작을 수행한다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "id 값으로 문서 객체 하나를 선택하는 메서드는?",
+    "choices": [
+      "document.getElementById()",
+      "document.getElementsByClassName()",
+      "document.querySelectorAll()",
+      "window.onload()"
+    ],
+    "answer": 0,
+    "explain": "getElementById()는 id 선택자로 문서 객체 하나를 선택한다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "class 이름으로 문서 객체들을 선택하는 메서드는?",
+    "choices": [
+      "document.getElementsByClassName()",
+      "document.getElementById()",
+      "document.getElementsByName()",
+      "document.createTextNode()"
+    ],
+    "answer": 0,
+    "explain": "getElementsByClassName()은 class 이름에 맞는 문서 객체들을 선택한다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "태그 이름으로 문서 객체들을 선택하는 메서드는?",
+    "choices": [
+      "document.getElementsByTagName()",
+      "document.getElementById()",
+      "document.querySelector()",
+      "document.setAttribute()"
+    ],
+    "answer": 0,
+    "explain": "getElementsByTagName()은 태그 이름에 맞는 문서 객체들을 선택한다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "CSS 선택자를 사용해 조건에 맞는 첫 번째 문서 객체를 선택하는 메서드는?",
+    "choices": [
+      "document.querySelector()",
+      "document.querySelectorAll()",
+      "document.getElementsByTagName()",
+      "document.writeAll()"
+    ],
+    "answer": 0,
+    "explain": "querySelector()는 CSS 선택자를 사용해 일치하는 첫 번째 문서 객체를 반환한다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "CSS 선택자를 사용해 조건에 맞는 모든 문서 객체를 선택하는 메서드는?",
+    "choices": [
+      "document.querySelectorAll()",
+      "document.querySelector()",
+      "document.getElementById()",
+      "window.alertAll()"
+    ],
+    "answer": 0,
+    "explain": "querySelectorAll()은 CSS 선택자에 맞는 문서 객체 목록을 선택한다."
+  },
+  {
+    "lec": "12강",
+    "star": 2,
+    "q": "h1 태그가 여러 개 있을 때 document.querySelector('h1')의 결과로 옳은 것은?",
+    "choices": [
+      "첫 번째 h1 하나만 선택한다",
+      "모든 h1을 배열로 선택한다",
+      "마지막 h1만 선택한다",
+      "항상 null을 반환한다"
+    ],
+    "answer": 0,
+    "explain": "querySelector()는 조건에 맞는 첫 번째 문서 객체 하나만 선택한다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "textContent 속성에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "문서 객체 내부 글자를 순수 텍스트 형식으로 가져오거나 변경한다",
+      "문서 객체 내부 HTML 태그를 해석해서 변경한다",
+      "문서 객체의 CSS 속성만 변경한다",
+      "문서 객체의 이벤트를 제거한다"
+    ],
+    "answer": 0,
+    "explain": "textContent는 내부 글자를 텍스트로 다룬다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "innerHTML 속성에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "문서 객체 내부 HTML 태그를 해석해 가져오거나 변경한다",
+      "문서 객체의 순수 텍스트만 저장한다",
+      "문서 객체의 id만 변경한다",
+      "브라우저 창 크기만 변경한다"
+    ],
+    "answer": 0,
+    "explain": "innerHTML은 내부 HTML을 문자열로 다루며 태그를 HTML로 해석한다."
+  },
+  {
+    "lec": "12강",
+    "star": 2,
+    "q": "element.textContent = '<b>Hi</b>'를 실행했을 때 일반적인 결과로 옳은 것은?",
+    "choices": [
+      "<b>Hi</b>가 글자 그대로 표시된다",
+      "Hi가 굵은 글씨로 표시된다",
+      "문서 객체가 삭제된다",
+      "이벤트가 자동 연결된다"
+    ],
+    "answer": 0,
+    "explain": "textContent는 HTML 태그를 해석하지 않고 텍스트로 표시한다."
+  },
+  {
+    "lec": "12강",
+    "star": 2,
+    "q": "element.innerHTML = '<b>Hi</b>'를 실행했을 때 일반적인 결과로 옳은 것은?",
+    "choices": [
+      "Hi가 굵은 글씨로 표시된다",
+      "<b>Hi</b>가 글자 그대로 표시된다",
+      "항상 오류가 발생한다",
+      "브라우저가 종료된다"
+    ],
+    "answer": 0,
+    "explain": "innerHTML은 HTML 태그를 해석하므로 b 태그 효과가 적용된다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "자바스크립트에서 문서 객체의 배경색을 바꾸는 style 속성 이름으로 옳은 것은?",
+    "choices": [
+      "backgroundColor",
+      "background-color",
+      "background_color",
+      "background color"
+    ],
+    "answer": 0,
+    "explain": "CSS의 background-color는 자바스크립트 style 객체에서 backgroundColor처럼 camelCase로 사용한다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "자바스크립트 style 조작에서 CSS의 border-radius에 대응하는 속성 이름은?",
+    "choices": [
+      "borderRadius",
+      "border-radius",
+      "border_radius",
+      "radiusBorder"
+    ],
+    "answer": 0,
+    "explain": "하이픈이 있는 CSS 속성은 자바스크립트에서 camelCase 형식으로 접근한다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "HTML 속성 값을 가져올 때 사용하는 메서드는?",
+    "choices": [
+      "getAttribute()",
+      "setAttribute()",
+      "querySelectorAll()",
+      "addEventListener()"
+    ],
+    "answer": 0,
+    "explain": "getAttribute()는 문서 객체의 HTML 속성 값을 가져올 때 사용한다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "HTML 속성 값을 지정하거나 변경할 때 사용하는 메서드는?",
+    "choices": [
+      "setAttribute()",
+      "getAttribute()",
+      "textContent()",
+      "preventAttribute()"
+    ],
+    "answer": 0,
+    "explain": "setAttribute()는 특정 속성의 값을 지정하거나 변경할 때 사용한다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "img 태그의 표시 이미지를 자바스크립트로 바꿀 때 주로 변경하는 속성은?",
+    "choices": [
+      "src",
+      "onclick",
+      "length",
+      "innerHTML"
+    ],
+    "answer": 0,
+    "explain": "이미지 태그는 src 속성을 바꾸면 표시되는 이미지 파일을 변경할 수 있다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "사용자 정의 데이터 속성 data-custom의 값을 다룰 때 관련 있는 개념은?",
+    "choices": [
+      "data-* 속성과 dataset",
+      "float와 clear",
+      "grid-template-areas",
+      "media type"
+    ],
+    "answer": 0,
+    "explain": "data-* 속성은 HTML 요소에 사용자 정의 데이터를 저장할 때 사용하며 dataset으로 접근할 수 있다."
+  },
+  {
+    "lec": "12강",
+    "star": 2,
+    "q": "setInterval()을 사용해 시계를 만드는 예제에서 핵심 동작은?",
+    "choices": [
+      "일정 시간마다 현재 시간을 다시 표시한다",
+      "한 번만 코드를 실행하고 멈춘다",
+      "이벤트 연결을 모두 제거한다",
+      "CSS 파일을 새로 다운로드한다"
+    ],
+    "answer": 0,
+    "explain": "setInterval()은 지정한 간격마다 함수를 반복 실행하므로 현재 시간을 주기적으로 갱신할 수 있다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "이벤트에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "키보드 누르기, 마우스 클릭처럼 사용자의 동작이나 상태 변화로 발생하는 것",
+      "문자열을 줄바꿈하는 이스케이프 문자",
+      "CSS 파일을 연결하는 link 속성",
+      "객체의 키만 반복하는 문법"
+    ],
+    "answer": 0,
+    "explain": "슬라이드는 키보드 누르기, 마우스 클릭 등 어떤 현상이 프로그램에 영향을 미치는 것을 이벤트로 설명한다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "이벤트 모델이란?",
+    "choices": [
+      "문서 객체에 이벤트를 연결하는 방식",
+      "DOM 트리에서 텍스트 노드를 만드는 방식",
+      "반응형 웹에서 메뉴 위치를 바꾸는 방식",
+      "숫자를 문자열로 변환하는 방식"
+    ],
+    "answer": 0,
+    "explain": "이벤트 모델은 문서 객체에 이벤트를 연결하는 방식이다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "DOM 레벨 0 이벤트 모델에 포함되는 것은?",
+    "choices": [
+      "인라인 이벤트 모델과 고전 이벤트 모델",
+      "표준 이벤트 모델만",
+      "CSS Grid 이벤트 모델",
+      "미디어 쿼리 이벤트 모델"
+    ],
+    "answer": 0,
+    "explain": "표 10-5는 DOM 레벨 0에 인라인 이벤트 모델과 고전 이벤트 모델이 포함된다고 정리한다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "HTML 태그 내부에 onclick=\"...\"처럼 직접 이벤트 코드를 작성하는 방식은?",
+    "choices": [
+      "인라인 이벤트 모델",
+      "표준 이벤트 모델",
+      "참조 타입 모델",
+      "그리드 이벤트 모델"
+    ],
+    "answer": 0,
+    "explain": "태그의 이벤트 속성에 자바스크립트 코드를 직접 넣는 방식은 인라인 이벤트 모델이다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "button.onclick = function () { ... } 형태의 이벤트 연결 방식은?",
+    "choices": [
+      "고전 이벤트 모델",
+      "인라인 이벤트 모델",
+      "미디어 이벤트 모델",
+      "데이터 속성 모델"
+    ],
+    "answer": 0,
+    "explain": "문서 객체의 onclick 속성에 함수를 대입하는 방식은 고전 이벤트 모델이다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "이벤트가 발생했을 때 실행되는 함수를 무엇이라고 하는가?",
+    "choices": [
+      "이벤트 리스너",
+      "텍스트 노드",
+      "미디어 타입",
+      "원시 타입"
+    ],
+    "answer": 0,
+    "explain": "이벤트가 발생하면 연결된 이벤트 리스너 함수가 실행된다."
+  },
+  {
+    "lec": "12강",
+    "star": 2,
+    "q": "고전 이벤트 모델 예제에서 button.onclick에 연결된 함수 내부의 this는 무엇을 가리키는가?",
+    "choices": [
+      "이벤트가 발생한 button 문서 객체",
+      "항상 document 객체",
+      "항상 window 객체",
+      "첫 번째 h1 태그"
+    ],
+    "answer": 0,
+    "explain": "슬라이드의 이벤트 발생 객체 예제는 this.textContent를 사용해 클릭된 버튼 자신의 글자를 변경한다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "이벤트 리스너의 매개변수 event로 얻을 수 있는 것은?",
+    "choices": [
+      "이벤트와 관련한 정보",
+      "문서의 모든 CSS 파일",
+      "브라우저의 전체 히스토리",
+      "객체의 모든 메서드 이름"
+    ],
+    "answer": 0,
+    "explain": "이벤트 객체를 사용하면 이벤트와 관련한 정보를 알아낼 수 있다."
+  },
+  {
+    "lec": "12강",
+    "star": 2,
+    "q": "a 태그의 기본 이동 동작을 고전 이벤트 모델에서 막기 위해 예제에서 사용한 방법은?",
+    "choices": [
+      "이벤트 리스너에서 return false를 반환한다",
+      "href를 반드시 빈 문자열로 둔다",
+      "textContent를 null로 만든다",
+      "style.backgroundColor를 지운다"
+    ],
+    "answer": 0,
+    "explain": "기본 이벤트 제거 예제는 onclick 이벤트 리스너에서 return false를 반환해 링크의 기본 이동을 막는다."
+  },
+  {
+    "lec": "12강",
+    "star": 2,
+    "q": "연습문제 1 코드에서 오류가 나는 직접적인 이유는?",
+    "choices": [
+      "script가 h1 요소 생성 전에 document.getElementById('element')를 실행한다",
+      "id 속성 이름에는 element를 사용할 수 없다",
+      "style.color에는 red를 사용할 수 없다",
+      "innerHTML에는 문자열을 넣을 수 없다"
+    ],
+    "answer": 0,
+    "explain": "head의 script가 먼저 실행되어 body의 h1이 아직 없으므로 getElementById() 결과가 null이 되고 style 접근에서 문제가 생긴다."
+  },
+  {
+    "lec": "12강",
+    "star": 2,
+    "q": "연습문제 1의 해결 방법으로 가장 적절한 것은?",
+    "choices": [
+      "script를 h1 뒤로 옮기거나 window.onload/DOMContentLoaded 이후 실행한다",
+      "id를 class로 바꾸기만 한다",
+      "red를 blue로 바꾸기만 한다",
+      "DOCTYPE을 삭제한다"
+    ],
+    "answer": 0,
+    "explain": "대상 문서 객체가 생성된 뒤 선택해야 하므로 script 위치를 뒤로 옮기거나 로드 이후 실행되게 해야 한다."
+  },
+  {
+    "lec": "12강",
+    "star": 2,
+    "q": "연습문제 1이 정상 수정되면 h1의 글자색과 내용은 어떻게 되는가?",
+    "choices": [
+      "글자색은 red, 내용은 From JavaScript",
+      "글자색은 white, 내용은 Header - 1",
+      "글자색은 black, 내용은 Lorem ipsum 그대로",
+      "요소가 화면에서 사라진다"
+    ],
+    "answer": 0,
+    "explain": "코드는 element.style.color = 'red';와 element.innerHTML = 'From JavaScript';를 실행하려는 내용이다."
+  },
+  {
+    "lec": "12강",
+    "star": 2,
+    "q": "연습문제 2에서 document.querySelector('h1')가 선택하는 대상은?",
+    "choices": [
+      "Header - 1",
+      "Header - 2",
+      "Header - 3",
+      "세 개의 h1 전체"
+    ],
+    "answer": 0,
+    "explain": "querySelector('h1')는 첫 번째 h1인 Header - 1만 선택한다."
+  },
+  {
+    "lec": "12강",
+    "star": 2,
+    "q": "연습문제 2 코드 실행 결과로 옳은 것은?",
+    "choices": [
+      "첫 번째 Header - 1만 흰 글자와 검은 배경으로 바뀐다",
+      "세 개의 h1이 모두 흰 글자와 검은 배경으로 바뀐다",
+      "마지막 Header - 3만 바뀐다",
+      "아무 h1도 선택되지 않는다"
+    ],
+    "answer": 0,
+    "explain": "querySelector()가 첫 번째 h1만 반환하므로 Header - 1에만 color와 backgroundColor가 적용된다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "여러 h1 모두를 선택해 같은 스타일을 적용하려면 어떤 선택 메서드가 더 적절한가?",
+    "choices": [
+      "querySelectorAll('h1')",
+      "querySelector('h1')",
+      "getElementById('h1')",
+      "window.onload('h1')"
+    ],
+    "answer": 0,
+    "explain": "여러 요소 전체를 선택하려면 querySelectorAll()로 목록을 얻은 뒤 반복해서 조작한다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "문서 객체 조작의 대표 범주로 가장 적절한 것은?",
+    "choices": [
+      "글자 조작, 스타일 조작, 속성 조작",
+      "서버 조작, 데이터베이스 조작, 네트워크 조작",
+      "컴파일 조작, 링크 조작, 패키지 조작",
+      "정규화 조작, 인덱스 조작, 조인 조작"
+    ],
+    "answer": 0,
+    "explain": "12강 문서 객체 조작 단원은 글자, 스타일, 속성 조작을 주요 예제로 다룬다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "DOM 조작 코드에서 대상을 먼저 선택해야 하는 이유로 옳은 것은?",
+    "choices": [
+      "선택한 문서 객체를 기준으로 글자, 스타일, 속성을 변경하기 위해서",
+      "선택하지 않아도 모든 조작이 자동으로 적용되기 때문에",
+      "선택자는 CSS에서만 쓰이고 DOM과 무관하기 때문에",
+      "선택하면 이벤트가 항상 제거되기 때문에"
+    ],
+    "answer": 0,
+    "explain": "DOM 조작은 먼저 대상 문서 객체를 선택하고 그 객체의 속성이나 메서드를 사용해 변경하는 흐름이다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "window.onload 이벤트를 사용하는 이유로 가장 적절한 것은?",
+    "choices": [
+      "문서 객체가 모두 준비된 뒤 안전하게 선택하고 조작하기 위해서",
+      "숫자를 자동으로 Infinity로 만들기 위해서",
+      "CSS의 float를 자동 해제하기 위해서",
+      "HTML 태그를 모두 주석 처리하기 위해서"
+    ],
+    "answer": 0,
+    "explain": "window.onload는 페이지 로드가 끝난 뒤 실행되므로 문서 객체 선택 시점 문제를 줄일 수 있다."
+  },
+  {
+    "lec": "12강",
+    "star": 1,
+    "q": "고전 이벤트 모델에서 같은 이벤트 속성에 새 함수를 다시 대입하면 일반적으로 어떻게 되는가?",
+    "choices": [
+      "기존 이벤트 리스너가 새 함수로 덮어써진다",
+      "항상 두 함수가 모두 순서대로 실행된다",
+      "브라우저가 자동으로 오류를 낸다",
+      "HTML 요소가 삭제된다"
+    ],
+    "answer": 0,
+    "explain": "onclick 같은 이벤트 속성에 함수를 대입하는 방식은 속성 값이므로 같은 속성에 다시 대입하면 덮어써진다."
+  },
+  {
+    "lec": "12강",
+    "star": 0,
+    "q": "12강에서 이벤트 사용 예제로 다룬 기본 이벤트 제거 대상에 해당하는 HTML 태그는?",
+    "choices": [
+      "a",
+      "meta",
+      "style",
+      "title"
+    ],
+    "answer": 0,
+    "explain": "기본 이벤트 제거 예제는 href가 있는 a 태그의 기본 이동을 막는 형태로 제시된다."
   }
 ];
 
@@ -2191,8 +3519,10 @@ const PICK_PER_LEC = {
   '8강': 15,
   '9강': 15,
   '10강': 15,
+  '11강': 15,
+  '12강': 15,
 };
-const LECTURES = ['8강', '9강', '10강'];
+const LECTURES = ['8강', '9강', '10강', '11강', '12강'];
 
 // ============ 유틸 ============
 function shuffle(arr) {
