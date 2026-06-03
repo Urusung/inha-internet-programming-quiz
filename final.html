@@ -2,7 +2,7 @@
 {
   "name": "Internet Prog Quiz Final",
   "schemaVersion": 1,
-  "description": "인터넷프로그래밍 기말고사 대비 인터랙티브 퀴즈 (8~12강) — 강별 15문제씩 총 75문제 출제"
+  "description": "인터넷프로그래밍 기말고사 대비 인터랙티브 퀴즈 (8~13강) — 강별 15문제씩 총 90문제 출제"
 }
 </script>
 <html lang="ko">
@@ -184,12 +184,12 @@ footer { text-align: center; margin-top: 30px; font-size: 11px; color: #9ca3af; 
 <div class="container">
   <header>
     <h1>📗 인터넷프로그래밍 기말고사</h1>
-    <p>8~12강 레이아웃/Flex/Grid/반응형 웹/JavaScript/DOM · 강별 랜덤 15문제씩 총 75문제 · 인하대 소프트웨어융합공학과</p>
+    <p>8~13강 레이아웃/Flex/Grid/반응형 웹/JavaScript/DOM/jQuery · 강별 랜덤 15문제씩 총 90문제 · 인하대 소프트웨어융합공학과</p>
     <div class="pool-info" id="pool-info"></div>
   </header>
 
   <div class="progress-bar">
-    <span class="progress-text" id="progress-text">0 / 75</span>
+    <span class="progress-text" id="progress-text">0 / 90</span>
     <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
     <span class="score-badge" id="score-badge">정답 0</span>
   </div>
@@ -197,7 +197,7 @@ footer { text-align: center; margin-top: 30px; font-size: 11px; color: #9ca3af; 
   <div class="filter-bar" id="filter-bar"></div>
 
   <div class="result-card" id="result-card">
-    <div class="result-score" id="result-score">0 / 75</div>
+    <div class="result-score" id="result-score">0 / 90</div>
     <div class="result-detail" id="result-detail">정답률 0%</div>
     <div class="result-message" id="result-message"></div>
     <div class="result-breakdown" id="result-breakdown"></div>
@@ -214,7 +214,7 @@ footer { text-align: center; margin-top: 30px; font-size: 11px; color: #9ca3af; 
 </div>
 
 <script>
-// ============ 문제 풀 (8~12강. 레이아웃 / Flex·Grid / 반응형 웹 / JavaScript / DOM) ============
+// ============ 문제 풀 (8~13강. 레이아웃 / Flex·Grid / 반응형 웹 / JavaScript / DOM / jQuery) ============
 const POOL = [
   {
     "lec": "8강",
@@ -3511,6 +3511,716 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "기본 이벤트 제거 예제는 href가 있는 a 태그의 기본 이동을 막는 형태로 제시된다."
+  },
+  // ===== 13강. jQuery 라이브러리 (54문제) =====
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "13강의 주제로 옳은 것은?",
+    "choices": [
+      "jQuery 라이브러리",
+      "CSS Grid 배치",
+      "반응형 웹 패턴",
+      "자바스크립트 기본 자료형"
+    ],
+    "answer": 0,
+    "explain": "13강은 jQuery 라이브러리 설정, 문서 객체 선택과 조작, 이벤트, 시각 효과를 다룬다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "13강 학습목표에 포함되지 않는 것은?",
+    "choices": [
+      "CSS Flexbox의 주축과 교차축을 설명한다",
+      "HTML 페이지에 jQuery 라이브러리를 추가한다",
+      "jQuery로 문서 객체를 조작한다",
+      "jQuery로 문서 객체에 효과를 부여한다"
+    ],
+    "answer": 0,
+    "explain": "Flexbox 축 개념은 9강 내용이고, 13강 학습목표는 jQuery 추가, 조작, 효과, 플러그인 활용이다."
+  },
+  {
+    "lec": "13강",
+    "star": 0,
+    "q": "jQuery 라이브러리를 2006년 BarCamp NYC에서 발표한 사람은?",
+    "choices": [
+      "존 레식(John Resig)",
+      "팀 버너스리(Tim Berners-Lee)",
+      "브렌던 아이크(Brendan Eich)",
+      "하콘 비움 리(Hakon Wium Lie)"
+    ],
+    "answer": 0,
+    "explain": "강의안은 jQuery가 2006년 존 레식에 의해 발표되었다고 소개한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "jQuery 라이브러리의 사용 목적으로 가장 거리가 먼 것은?",
+    "choices": [
+      "HTML 태그를 컴파일해 실행 파일로 만드는 것",
+      "문서 객체 모델 관련 처리를 쉽게 구현하는 것",
+      "일관된 이벤트 연결을 쉽게 구현하는 것",
+      "시각적 효과와 Ajax 응용 프로그램 개발을 쉽게 하는 것"
+    ],
+    "answer": 0,
+    "explain": "jQuery는 DOM 처리, 이벤트, 효과, Ajax 구현을 쉽게 하기 위한 라이브러리이지 HTML 컴파일러가 아니다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "강의안에서 제시한 jQuery 라이브러리 추가 방법으로 옳은 것은?",
+    "choices": [
+      "파일을 내려받아 외부 자바스크립트로 추가하거나 CDN 호스트를 사용한다",
+      "CSS 파일의 @media 규칙 안에 jQuery 코드를 넣는다",
+      "HTML의 <body> 태그를 jQuery 태그로 바꾼다",
+      "브라우저 주소창에 jQuery 코드를 직접 입력한다"
+    ],
+    "answer": 0,
+    "explain": "jQuery는 내려받은 파일을 script로 연결하거나 CDN URL을 script src에 연결해 사용할 수 있다."
+  },
+  {
+    "lec": "13강",
+    "star": 0,
+    "q": "CDN 호스트를 이용해 jQuery를 추가할 때 주로 복사해 사용하는 것은?",
+    "choices": [
+      "jQuery 파일의 링크 주소",
+      "CSS 선택자의 우선순위 표",
+      "브라우저의 방문 기록",
+      "HTML 문서의 viewport 값"
+    ],
+    "answer": 0,
+    "explain": "강의안 예시는 CDN 페이지에서 링크 주소를 복사해 script 태그의 src 값으로 붙여 넣는다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "jQuery CDN을 HTML에 연결하는 코드로 가장 적절한 것은?",
+    "choices": [
+      "<script src=\"https://code.jquery.com/jquery-3.6.4.js\"><\\/script>",
+      "<link rel=\"stylesheet\" href=\"jquery-3.6.4.js\">",
+      "<jquery src=\"https://code.jquery.com/jquery-3.6.4.js\"></jquery>",
+      "<meta name=\"jquery\" content=\"3.6.4\">"
+    ],
+    "answer": 0,
+    "explain": "외부 자바스크립트 파일은 script 태그의 src 속성으로 연결한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "$(document).ready(function () { ... })의 역할로 가장 적절한 것은?",
+    "choices": [
+      "문서 객체가 준비된 뒤 내부 코드를 실행한다",
+      "CSS 파일을 서버에 업로드한다",
+      "모든 변수를 숫자형으로 변환한다",
+      "브라우저 창 크기를 고정한다"
+    ],
+    "answer": 0,
+    "explain": "강의 예제는 $(document).ready() 안에서 문서 객체 선택과 조작 코드를 실행한다."
+  },
+  {
+    "lec": "13강",
+    "star": 0,
+    "q": "jQuery의 uncompressed 버전과 minified 버전에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "minified 버전은 공백과 주석 등을 줄여 파일 크기를 작게 만든 버전이다",
+      "uncompressed 버전은 브라우저에서 절대 실행되지 않는다",
+      "minified 버전은 jQuery 기능 중 이벤트만 포함한다",
+      "두 버전은 서로 다른 문법을 사용한다"
+    ],
+    "answer": 0,
+    "explain": "minified 버전은 배포용으로 용량을 줄인 파일이며, 기본 기능 문법이 달라지는 것은 아니다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "강의안에 나온 jQuery 메서드의 기본 형태로 옳은 것은?",
+    "choices": [
+      "$(선택자).메서드(매개변수, 매개변수)",
+      "선택자::메서드[매개변수]",
+      "method.$(selector).param()",
+      "<selector method=\"parameter\">"
+    ],
+    "answer": 0,
+    "explain": "jQuery는 보통 $()로 대상을 선택한 뒤 점 표기법으로 메서드를 호출한다."
+  },
+  {
+    "lec": "13강",
+    "star": 0,
+    "q": "jQuery가 전역 객체에 할당하는 대표 식별자로 옳은 것은?",
+    "choices": [
+      "window.jQuery와 window.$",
+      "window.css와 window.grid",
+      "document.jqueryOnly와 document.$only",
+      "navigator.jQuery와 navigator.$"
+    ],
+    "answer": 0,
+    "explain": "강의안은 실제 jQuery 코드에서 window.jQuery = window.$ = jQuery 형태로 식별자를 할당한다고 설명한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "$('h1')에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "CSS 선택자 h1에 해당하는 문서 객체들을 jQuery 객체로 선택한다",
+      "h1 태그를 새 HTML 문서로 컴파일한다",
+      "첫 번째 h1의 텍스트를 무조건 삭제한다",
+      "브라우저의 제목 표시줄만 선택한다"
+    ],
+    "answer": 0,
+    "explain": "$()는 CSS 선택자를 사용해 조건에 맞는 문서 객체를 선택한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "다음 코드의 결과로 가장 적절한 것은?",
+    "code": "$('h1').css('color', 'red');\n$('h1').css('background', 'black');",
+    "choices": [
+      "선택된 모든 h1의 글자색은 빨간색, 배경색은 검은색이 된다",
+      "첫 번째 h1만 삭제된다",
+      "h1의 src 속성이 변경된다",
+      "문서의 모든 이미지가 빨간색으로 바뀐다"
+    ],
+    "answer": 0,
+    "explain": "$('h1')은 h1 요소들을 선택하고 css()는 선택된 요소의 스타일을 변경한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "여러 img 요소 중 두 번째 요소를 선택해 src 속성을 읽는 코드로 옳은 것은?",
+    "choices": [
+      "$('img').eq(1).attr('src')",
+      "$('img').first(2).src()",
+      "$('img')[2].css('src')",
+      "$('img').attr(1, 'src')"
+    ],
+    "answer": 0,
+    "explain": "eq()의 인덱스는 0부터 시작하므로 eq(1)은 두 번째 요소를 선택한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "jQuery에서 HTML 속성 값을 추출할 때 사용하는 대표 메서드는?",
+    "choices": [
+      "attr()",
+      "css()",
+      "html()",
+      "slideDown()"
+    ],
+    "answer": 0,
+    "explain": "attr()은 속성 값을 가져오거나 지정할 때 사용한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "다음 코드의 의미로 옳은 것은?",
+    "code": "$('img').attr('src', 'http://via.placeholder.com/300x200');",
+    "choices": [
+      "선택된 img 요소들의 src 속성을 지정한다",
+      "선택된 img 요소들의 내부 글자를 변경한다",
+      "선택된 img 요소들을 화면에서 숨긴다",
+      "선택된 img 요소들의 이벤트를 제거한다"
+    ],
+    "answer": 0,
+    "explain": "attr('속성', '값') 형태는 선택된 문서 객체의 속성 값을 설정한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "여러 속성을 한 번에 지정하는 jQuery 코드로 가장 적절한 것은?",
+    "choices": [
+      "$('img').attr({ src: 'http://via.placeholder.com/100x100', width: 100, height: 100 });",
+      "$('img').attr('src', 'width', 'height');",
+      "$('img').css({ src: 'http://via.placeholder.com/100x100' });",
+      "$('img').text({ width: 100, height: 100 });"
+    ],
+    "answer": 0,
+    "explain": "attr()에 객체를 전달하면 여러 속성을 한 번에 지정할 수 있다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "attr()에 함수를 전달해 속성 값을 지정할 때 함수의 index 매개변수에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "선택된 요소의 순서이며 0부터 시작한다",
+      "항상 1로 고정된다",
+      "CSS z-index 값만 의미한다",
+      "브라우저 창의 너비를 의미한다"
+    ],
+    "answer": 0,
+    "explain": "강의 예제는 index에 1을 더해 100, 200, 300처럼 이미지 크기 URL을 만든다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "메서드 체이닝에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "$() 함수를 여러 번 쓰지 않고 메서드를 연속해서 호출하는 방식이다",
+      "jQuery 파일을 여러 번 다운로드하는 방식이다",
+      "이벤트 전파를 강제로 중단하는 방식이다",
+      "CSS 선택자를 HTML 주석으로 바꾸는 방식이다"
+    ],
+    "answer": 0,
+    "explain": "강의안의 메서드 체이닝 예시는 $('img').attr(...).attr(...).attr(...)처럼 이어서 호출한다."
+  },
+  {
+    "lec": "13강",
+    "star": 0,
+    "q": "jQuery css() 메서드로 배경색 속성을 읽을 때 사용할 수 있는 이름으로 옳은 것은?",
+    "choices": [
+      "backgroundColor 또는 background-color",
+      "background/color 또는 background.color",
+      "bg::color 또는 bg[color]",
+      "color-background-only"
+    ],
+    "answer": 0,
+    "explain": "강의안은 $('body').css('backgroundColor')와 $('body').css('background-color') 형태를 함께 제시한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "여러 CSS 스타일을 한 번에 지정하는 코드로 옳은 것은?",
+    "choices": [
+      "$('.box').css({ float: 'left', margin: 10, width: 100, height: 100, backgroundColor: 'red' });",
+      "$('.box').attr({ float: 'left', backgroundColor: 'red' });",
+      "$('.box').html({ width: 100, height: 100 });",
+      "$('.box').on({ width: 100, height: 100 });"
+    ],
+    "answer": 0,
+    "explain": "css()에 객체를 전달하면 여러 스타일 속성을 한 번에 지정할 수 있다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "다음 코드처럼 css()에 함수를 전달하는 주된 이유로 옳은 것은?",
+    "code": "$('div').css({\n  backgroundColor: function (i) {\n    return 'rgb(' + i + ',' + i + ',' + i + ')';\n  }\n});",
+    "choices": [
+      "선택된 요소의 순서에 따라 서로 다른 스타일 값을 계산하기 위해서",
+      "모든 div를 자동으로 form 태그로 바꾸기 위해서",
+      "jQuery 라이브러리를 다시 내려받기 위해서",
+      "이벤트 전파를 중지하기 위해서"
+    ],
+    "answer": 0,
+    "explain": "함수형 스타일 지정은 index 등을 사용해 요소마다 다른 값을 반환할 수 있다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "html() 메서드에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "문서 객체 내부의 HTML 태그를 해석해 가져오거나 변경한다",
+      "문서 객체의 순수 텍스트만 문자 그대로 표시한다",
+      "문서 객체의 class만 제거한다",
+      "문서 객체의 애니메이션 큐를 비운다"
+    ],
+    "answer": 0,
+    "explain": "강의안의 표는 html()을 문서 객체 내부의 HTML 태그 조작 메서드로 정리한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "text() 메서드에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "문서 객체 내부의 글자를 순수 텍스트로 가져오거나 변경한다",
+      "문서 객체의 HTML 태그를 실행 가능한 코드로 변환한다",
+      "문서 객체의 src 속성만 변경한다",
+      "문서 객체의 이벤트를 모두 제거한다"
+    ],
+    "answer": 0,
+    "explain": "text()는 내부 글자를 텍스트로 조작하며 태그 문자열을 HTML로 해석하지 않는다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "다음 코드의 결과 설명으로 옳은 것은?",
+    "code": "$('h1:nth-child(1)').text('<a href=\"#\">text()</a>');\n$('h1:nth-child(2)').html('<a href=\"#\">html()</a>');",
+    "choices": [
+      "첫 번째 h1은 태그 문자열이 그대로 보이고, 두 번째 h1은 링크가 생성된다",
+      "두 h1 모두 링크가 생성되지 않고 빈 문자열이 된다",
+      "첫 번째 h1만 이미지로 바뀐다",
+      "두 h1 모두 CSS 클래스가 추가된다"
+    ],
+    "answer": 0,
+    "explain": "text()는 문자열을 그대로 넣고 html()은 HTML 태그를 해석한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "여러 h1을 선택한 뒤 $('h1').text()를 호출했을 때 강의 예제의 결과로 옳은 것은?",
+    "choices": [
+      "선택된 h1들의 텍스트가 이어진 문자열로 추출된다",
+      "첫 번째 h1의 HTML 태그만 추출된다",
+      "마지막 h1의 class 이름만 추출된다",
+      "모든 h1이 자동으로 삭제된다"
+    ],
+    "answer": 0,
+    "explain": "강의 예제에서 text()는 Header - 0과 Header - 1의 텍스트가 이어진 결과를 보여 준다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "여러 h1을 선택한 뒤 $('h1').html()을 호출했을 때 강의 예제의 결과로 가장 적절한 것은?",
+    "choices": [
+      "첫 번째 h1의 내부 HTML 값이 반환된다",
+      "선택된 모든 h1의 HTML이 자동으로 배열에 담긴다",
+      "선택된 모든 h1이 링크로 바뀐다",
+      "항상 undefined가 반환된다"
+    ],
+    "answer": 0,
+    "explain": "강의 예제의 alert 결과는 html: Header - 0처럼 첫 번째 요소의 내부 HTML을 보여 준다."
+  },
+  {
+    "lec": "13강",
+    "star": 0,
+    "q": "HTML class 속성에 여러 클래스 이름을 넣는 방법으로 옳은 것은?",
+    "choices": [
+      "띄어쓰기로 구분해 여러 개를 입력한다",
+      "쉼표로만 구분해야 한다",
+      "세미콜론으로만 구분해야 한다",
+      "class 속성은 하나의 값만 가질 수 있다"
+    ],
+    "answer": 0,
+    "explain": "강의안 예시는 <p class=\"bold big italic\">처럼 공백으로 여러 클래스 이름을 구분한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "jQuery의 클래스 조작 메서드 설명으로 옳은 것은?",
+    "choices": [
+      "addClass()는 추가, removeClass()는 제거, toggleClass()는 전환을 수행한다",
+      "addClass()는 제거, removeClass()는 추가, toggleClass()는 항상 삭제만 수행한다",
+      "addClass()는 이벤트 연결, removeClass()는 이벤트 제거만 수행한다",
+      "세 메서드는 모두 애니메이션 속도만 지정한다"
+    ],
+    "answer": 0,
+    "explain": "강의안의 클래스 조작 표는 addClass, removeClass, toggleClass의 역할을 각각 추가, 제거, 전환으로 정리한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "hover(function(){...}, function(){...})에 대한 설명으로 옳은 것은?",
+    "choices": [
+      "마우스가 올라갔을 때와 내려갔을 때 실행할 함수를 각각 연결한다",
+      "클릭 이벤트 하나만 연결한다",
+      "form 제출의 기본 동작만 제거한다",
+      "애니메이션 큐를 즉시 모두 삭제한다"
+    ],
+    "answer": 0,
+    "explain": "강의 예제는 hover()의 첫 번째 함수에서 클래스를 추가하고 두 번째 함수에서 클래스를 제거한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "간단한 jQuery 이벤트 연결 형식으로 옳은 것은?",
+    "choices": [
+      "$(selector).method(function (event) { });",
+      "$(selector)::event = handler;",
+      "<selector event=\"handler\">",
+      "event(selector).method[];"
+    ],
+    "answer": 0,
+    "explain": "강의안은 click(), hover() 같은 간단한 이벤트 메서드에 함수를 전달하는 형식을 제시한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "다음 코드의 동작으로 옳은 것은?",
+    "code": "$('h1').click(function () {\n  alert('클릭!');\n});",
+    "choices": [
+      "h1을 클릭하면 알림창이 열린다",
+      "h1이 자동으로 이미지로 바뀐다",
+      "문서의 모든 링크 이동이 차단된다",
+      "h1의 class가 항상 제거된다"
+    ],
+    "answer": 0,
+    "explain": "click() 메서드에 이벤트 리스너를 전달했으므로 h1 클릭 시 함수가 실행된다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "강의 예제에서 $('h1').hover(fn1, fn2)로 구현한 효과로 가장 적절한 것은?",
+    "choices": [
+      "마우스를 올리면 배경과 글자색을 바꾸고, 내리면 원래 스타일로 되돌린다",
+      "h1을 클릭하면 페이지를 새로 고친다",
+      "h1을 더블클릭하면 jQuery 파일을 다운로드한다",
+      "h1에 입력한 값을 form으로 제출한다"
+    ],
+    "answer": 0,
+    "explain": "복합 이벤트 연결 예제는 hover()의 두 함수를 사용해 마우스 진입과 이탈 상태를 구분한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "이벤트 연결과 제거에 사용하는 jQuery 메서드 조합으로 옳은 것은?",
+    "choices": [
+      "on()과 off()",
+      "show()와 hide()",
+      "html()과 text()",
+      "addClass()와 removeClass()"
+    ],
+    "answer": 0,
+    "explain": "강의안의 이벤트 연결과 제거 표는 on()을 이벤트 연결, off()를 이벤트 제거로 정리한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "on() 메서드로 여러 이벤트를 객체 형태로 연결하는 코드로 옳은 것은?",
+    "choices": [
+      "$('#box').on({ click: function () {}, mouseenter: function () {}, mouseleave: function () {} });",
+      "$('#box').on('click', 'mouseenter', 'mouseleave');",
+      "$('#box').off({ width: 100, height: 100 });",
+      "$('#box').animate({ click: function () {} });"
+    ],
+    "answer": 0,
+    "explain": "on()에는 eventName과 handler를 직접 전달하거나 이벤트 이름과 핸들러를 담은 객체를 전달할 수 있다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "$(selector).on(event, childSelector, data, handler)에서 필수 매개변수로 옳은 것은?",
+    "choices": [
+      "event와 handler",
+      "childSelector와 data",
+      "data와 speed",
+      "width와 opacity"
+    ],
+    "answer": 0,
+    "explain": "강의안 표에서 event와 handler는 필수이고 childSelector와 data는 선택 매개변수다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "이벤트 위임(Event Delegation)이 필요한 상황으로 가장 적절한 것은?",
+    "choices": [
+      "나중에 동적으로 추가된 자식 요소에도 같은 이벤트를 적용해야 할 때",
+      "이미지의 src 속성을 한 번만 읽어야 할 때",
+      "CSS 배경색을 한 번만 가져와야 할 때",
+      "HTML 문서의 제목을 고정해야 할 때"
+    ],
+    "answer": 0,
+    "explain": "강의안은 실행 시점의 li에 직접 이벤트를 등록하면 나중에 추가된 li에는 이벤트가 적용되지 않는다고 설명한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "ul 내부의 li 클릭을 이벤트 위임으로 처리하는 코드로 가장 적절한 것은?",
+    "choices": [
+      "$('ul').on('click', 'li', function () { alert($(this).text()); });",
+      "$('li').click('ul', function () { });",
+      "$('ul').attr('click', 'li');",
+      "$('li').animate('click', 'ul');"
+    ],
+    "answer": 0,
+    "explain": "부모 요소에 이벤트를 연결하고 childSelector로 li를 지정하면 버블링을 이용해 동적 li도 처리할 수 있다."
+  },
+  {
+    "lec": "13강",
+    "star": 0,
+    "q": "jQuery 이벤트 리스너의 매개변수 event로 얻을 수 있는 것은?",
+    "choices": [
+      "이벤트 객체",
+      "CSS Grid 컨테이너",
+      "jQuery CDN 서버 주소만",
+      "HTML 문서의 모든 주석"
+    ],
+    "answer": 0,
+    "explain": "이벤트 리스너의 매개변수는 발생한 이벤트와 관련한 정보를 담은 이벤트 객체다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "a 태그 클릭 시 링크 이동 같은 기본 이벤트를 제거하는 메서드는?",
+    "choices": [
+      "event.preventDefault()",
+      "event.startDefault()",
+      "event.showDefault()",
+      "event.animateDefault()"
+    ],
+    "answer": 0,
+    "explain": "강의안의 기본 이벤트 제거 예제는 click 리스너 안에서 event.preventDefault()를 호출한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "입력 양식 유효성 검사에서 잘못된 값이면 제출을 막기 위해 호출하는 코드로 옳은 것은?",
+    "choices": [
+      "event.preventDefault();",
+      "$('form').show();",
+      "$('input').fadeIn();",
+      "event.delay(1000);"
+    ],
+    "answer": 0,
+    "explain": "강의안의 유효성 검사 예제는 조건을 만족하지 않으면 알림을 띄우고 기본 이벤트를 제거한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "jQuery 이벤트 리스너에서 return false의 의미로 옳은 것은?",
+    "choices": [
+      "기본 이벤트 제거와 이벤트 전달 제거를 함께 수행하는 것과 같은 의미다",
+      "애니메이션을 slow 속도로 실행한다는 의미다",
+      "선택된 요소의 텍스트를 false로 바꾼다는 의미다",
+      "문서 객체 선택을 취소한다는 의미다"
+    ],
+    "answer": 0,
+    "explain": "강의안은 return false가 preventDefault()와 stopPropagation()을 함께 호출한 것과 같은 의미라고 설명한다."
+  },
+  {
+    "lec": "13강",
+    "star": 0,
+    "q": "체크박스의 현재 체크 상태를 가져오는 강의 예제의 코드로 옳은 것은?",
+    "choices": [
+      "$(this).prop('checked')",
+      "$(this).attr('selectedText')",
+      "$(this).css('checked')",
+      "$(this).html('checked')"
+    ],
+    "answer": 0,
+    "explain": "애니메이션 정지 예제는 change 이벤트에서 $(this).prop('checked')로 체크 여부를 읽는다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "jQuery 시각 효과 메서드와 설명의 연결로 옳은 것은?",
+    "choices": [
+      "show()는 표시, hide()는 숨김, toggle()은 둘을 번갈아 실행한다",
+      "show()는 이벤트 제거, hide()는 이벤트 연결을 수행한다",
+      "show()는 HTML 태그 조작, hide()는 글자 조작만 수행한다",
+      "show()는 class 추가, hide()는 class 전환만 수행한다"
+    ],
+    "answer": 0,
+    "explain": "시각 효과 표는 show, hide, toggle을 문서 객체 표시와 숨김 효과로 정리한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "슬라이드 효과와 페이드 효과 메서드 설명으로 옳은 것은?",
+    "choices": [
+      "slideDown()/slideUp()은 슬라이드 표시/숨김, fadeIn()/fadeOut()은 선명해짐/흐려짐 효과다",
+      "slideDown()/slideUp()은 클래스 추가/제거, fadeIn()/fadeOut()은 속성 추출이다",
+      "slideDown()/slideUp()은 이벤트 위임, fadeIn()/fadeOut()은 form 제출이다",
+      "slideDown()/slideUp()은 CDN 연결, fadeIn()/fadeOut()은 선택자 해석이다"
+    ],
+    "answer": 0,
+    "explain": "강의안은 slide 계열과 fade 계열을 대표적인 시각 효과 메서드로 제시한다."
+  },
+  {
+    "lec": "13강",
+    "star": 0,
+    "q": "강의안의 jQuery 효과 속도 문자열 설명으로 옳은 것은?",
+    "choices": [
+      "slow는 600ms, normal은 500ms, fast는 400ms 속도다",
+      "slow는 100ms, normal은 200ms, fast는 300ms 속도다",
+      "slow와 normal과 fast는 모두 0ms다",
+      "속도 문자열은 이벤트 이름으로만 사용된다"
+    ],
+    "answer": 0,
+    "explain": "13강 표는 slow 600밀리초, normal 500밀리초, fast 400밀리초로 정리한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "다음 코드에서 버튼을 클릭할 때 실행되는 효과는?",
+    "code": "$('button').click(function () {\n  $('.page').fadeToggle('slow');\n});",
+    "choices": [
+      ".page 요소가 천천히 나타나거나 사라진다",
+      ".page 요소의 class가 hover로 고정된다",
+      ".page 요소의 src 속성이 변경된다",
+      ".page 요소의 클릭 기본 이벤트가 제거된다"
+    ],
+    "answer": 0,
+    "explain": "fadeToggle()은 fadeIn()과 fadeOut()을 번갈아 실행하는 효과 메서드다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "animate() 메서드 호출 형식으로 강의안에 제시된 것은?",
+    "choices": [
+      "animate(속성 객체), animate(속성 객체, 시간), animate(속성 객체, 시간, 콜백 함수)",
+      "animate(선택자, 이벤트, 클래스), animate(HTML, CSS)",
+      "animate(링크 주소), animate(CDN)",
+      "animate(텍스트, HTML, 속성, 이벤트)"
+    ],
+    "answer": 0,
+    "explain": "애니메이션 효과 단원은 animate()에 속성 객체와 시간, 콜백 함수를 전달하는 형식을 제시한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "다음 코드의 애니메이션 결과로 옳은 것은?",
+    "code": "$('#box').css({ width: 100, height: 100, background: 'red' })\n  .animate({ width: 300, opacity: 0.5 }, 500);",
+    "choices": [
+      "#box의 너비가 300으로 변하고 투명도가 0.5가 되는 애니메이션이 실행된다",
+      "#box가 즉시 삭제된다",
+      "#box의 이벤트가 모두 제거된다",
+      "#box의 내부 HTML이 width:300 문자열로 바뀐다"
+    ],
+    "answer": 0,
+    "explain": "animate()는 지정한 CSS 속성 값으로 변화하는 애니메이션을 실행한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "메서드 체이닝으로 animate()를 연속 호출하면 일반적으로 어떻게 실행되는가?",
+    "choices": [
+      "애니메이션이 순서대로 큐에 들어가 차례로 실행된다",
+      "마지막 animate()만 항상 실행된다",
+      "모든 animate()가 문법 오류가 된다",
+      "첫 번째 animate()가 HTML 태그로 변환된다"
+    ],
+    "answer": 0,
+    "explain": "강의안은 애니메이션 큐 그림과 함께 실행 중인 애니메이션 뒤에 다음 애니메이션이 예약되는 흐름을 보여 준다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "animate()에서 '+=300', '-=50' 같은 값을 사용하는 의미로 옳은 것은?",
+    "choices": [
+      "현재 값에서 상대적으로 증가하거나 감소시키는 값이다",
+      "이벤트 이름을 문자열로 지정하는 값이다",
+      "jQuery CDN 버전을 선택하는 값이다",
+      "HTML 태그를 문자열 그대로 출력하는 값이다"
+    ],
+    "answer": 0,
+    "explain": "상대적 증가 예제는 height +=300, width -=50, left +=300처럼 현재 값 기준 변화를 지정한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "delay() 메서드의 역할로 옳은 것은?",
+    "choices": [
+      "애니메이션을 특정 시간만큼 지연한다",
+      "문서 객체의 텍스트를 추출한다",
+      "기본 이벤트를 제거한다",
+      "CSS 클래스를 전환한다"
+    ],
+    "answer": 0,
+    "explain": "강의안의 애니메이션 정지 메서드 표는 delay()를 특정 시간만큼 애니메이션을 정지시키는 메서드로 설명한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "stop(clearQueue, goToEnd)에서 clearQueue와 goToEnd의 의미로 옳은 것은?",
+    "choices": [
+      "clearQueue는 대기 중인 애니메이션 제거 여부, goToEnd는 종료 상태로 보낼지 여부를 지정한다",
+      "clearQueue는 CSS 색상, goToEnd는 HTML 태그 이름을 지정한다",
+      "clearQueue는 이벤트 이름, goToEnd는 선택자 이름을 지정한다",
+      "두 값은 모두 jQuery CDN 주소를 지정한다"
+    ],
+    "answer": 0,
+    "explain": "애니메이션 효과 정지 예제는 체크박스로 clearQueue와 goToEnd 값을 읽어 stop()에 전달한다."
+  },
+  {
+    "lec": "13강",
+    "star": 1,
+    "q": "연습문제의 요구처럼 마우스가 올라가면 반투명, 내려오면 원래 색으로 바꾸는 데 가장 적절한 코드 흐름은?",
+    "choices": [
+      "hover()에 두 함수를 연결하고 첫 함수에서 opacity를 낮추고 둘째 함수에서 opacity를 1로 되돌린다",
+      "attr()로 src만 변경하고 이벤트는 연결하지 않는다",
+      "text()로 div의 글자만 바꾼다",
+      "preventDefault()만 호출한다"
+    ],
+    "answer": 0,
+    "explain": "연습문제는 마우스 진입과 이탈 상태가 필요하므로 hover()의 두 콜백에서 opacity를 조절하는 흐름이 맞다."
   }
 ];
 
@@ -3521,8 +4231,9 @@ const PICK_PER_LEC = {
   '10강': 15,
   '11강': 15,
   '12강': 15,
+  '13강': 15,
 };
-const LECTURES = ['8강', '9강', '10강', '11강', '12강'];
+const LECTURES = ['8강', '9강', '10강', '11강', '12강', '13강'];
 
 // ============ 유틸 ============
 function shuffle(arr) {
