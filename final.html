@@ -2,7 +2,7 @@
 {
   "name": "Internet Prog Quiz Final",
   "schemaVersion": 1,
-  "description": "인터넷프로그래밍 기말고사 대비 인터랙티브 퀴즈 (8~13강) — 강별 15문제씩 총 90문제 출제"
+  "description": "인터넷프로그래밍 기말고사 대비 인터랙티브 퀴즈 (8~13강) — 개념형 객관식 문제 풀에서 강별 15문제씩 총 90문제 출제"
 }
 </script>
 <html lang="ko">
@@ -70,11 +70,6 @@ header .pool-info { margin-top: 8px; font-size: 12px; opacity: 0.8; }
 
 .q-text { font-size: 15px; font-weight: 500; margin: 0 0 14px; color: #111827; }
 .q-text code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-family: 'D2Coding', Menlo, Consolas, monospace; font-size: 13px; color: #be185d; }
-.q-codeblock {
-  background: #1f2937; color: #e5e7eb; padding: 12px 14px; border-radius: 8px;
-  font-family: 'D2Coding', Menlo, Consolas, monospace; font-size: 13px;
-  margin: 8px 0 14px; white-space: pre; overflow-x: auto;
-}
 
 .choices { display: flex; flex-direction: column; gap: 8px; }
 .choice {
@@ -161,7 +156,6 @@ footer { text-align: center; margin-top: 30px; font-size: 11px; color: #9ca3af; 
   .q-tag { font-size: 10.5px; padding: 2px 6px; }
   .q-text { font-size: 14.5px; margin-bottom: 12px; }
   .q-text code { font-size: 12.5px; }
-  .q-codeblock { padding: 10px 12px; font-size: 12px; border-radius: 7px; }
 
   .choice { padding: 9px 11px; gap: 9px; border-radius: 9px; }
   .choice-num { width: 20px; height: 20px; font-size: 11.5px; }
@@ -184,7 +178,7 @@ footer { text-align: center; margin-top: 30px; font-size: 11px; color: #9ca3af; 
 <div class="container">
   <header>
     <h1>📗 인터넷프로그래밍 기말고사</h1>
-    <p>8~13강 레이아웃/Flex/Grid/반응형 웹/JavaScript/DOM/jQuery · 강별 랜덤 15문제씩 총 90문제 · 인하대 소프트웨어융합공학과</p>
+    <p>8~13강 개념형 객관식 · 강별 랜덤 15문제씩 총 90문제 · 인하대 소프트웨어융합공학과</p>
     <div class="pool-info" id="pool-info"></div>
   </header>
 
@@ -466,20 +460,6 @@ const POOL = [
   {
     "lec": "8강",
     "star": 1,
-    "q": "marginWidth.html 예제에서 body를 중앙 정렬하기 위해 사용한 CSS로 맞는 것은?",
-    "code": "body {\n  margin: 0 auto;\n  width: 960px;\n}",
-    "choices": [
-      "margin: 0 auto; width: 960px;",
-      "float: left; width: 960px;",
-      "position: absolute; width: 960px;",
-      "clear: both; width: 960px;"
-    ],
-    "answer": 0,
-    "explain": "예제는 body에 width: 960px과 margin: 0 auto를 적용해 문서 전체를 중앙 정렬한다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
     "q": "One True 레이아웃 예제에서 전체 공간을 먼저 나눈 세 행은?",
     "choices": [
       "header, nav, aside",
@@ -580,20 +560,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "큰 padding-bottom으로 배경을 아래까지 늘리고 같은 크기의 음수 margin-bottom으로 실제 흐름을 상쇄한 뒤, 부모 overflow: hidden으로 잘라낸다."
-  },
-  {
-    "lec": "8강",
-    "star": 2,
-    "q": "페이지 29 예제에서 컬럼 높이 보정을 위해 사용한 값으로 옳은 것은?",
-    "code": "#left, #right {\n  padding-bottom: 30000px;\n  margin-bottom: -30000px;\n}",
-    "choices": [
-      "padding-bottom: 30000px; margin-bottom: -30000px;",
-      "padding-top: -30000px; margin-top: 30000px;",
-      "height: 30000px; overflow: visible;",
-      "line-height: 30000px; clear: both;"
-    ],
-    "answer": 0,
-    "explain": "슬라이드 이미지 기준으로 #left와 #right 모두 padding-bottom: 30000px, margin-bottom: -30000px가 강조되어 있다."
   },
   {
     "lec": "8강",
@@ -790,112 +756,6 @@ const POOL = [
     "answer": 1,
     "explain": "예제의 h1, p 선택자에는 width: 300px가 지정되어 있다."
   },
-  {
-    "lec": "8강",
-    "star": 2,
-    "q": "연습문제 Step1에서 .container에 지정해야 하는 너비와 정렬은?",
-    "choices": [
-      "width: 1080px; margin: 0 auto;",
-      "width: 960px; float: left;",
-      "width: 500px; position: absolute;",
-      "width: 300px; overflow: hidden;"
-    ],
-    "answer": 0,
-    "explain": "Step1 힌트는 1080px 컨테이너를 만들고 중앙 정렬하라고 제시한다."
-  },
-  {
-    "lec": "8강",
-    "star": 2,
-    "q": "연습문제 Step1에서 .left와 .right의 크기로 맞는 것은?",
-    "choices": [
-      ".left 740×428, .right 332×428",
-      ".left 332×428, .right 740×428",
-      ".left 150×350, .right 350×150",
-      ".left 300×80, .right 300×80"
-    ],
-    "answer": 0,
-    "explain": "Step1은 왼쪽 영역을 740px × 428px, 오른쪽 영역을 332px × 428px로 잡도록 한다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
-    "q": "연습문제 Step1에서 .left와 .right의 float 방향은?",
-    "choices": [
-      ".left는 left, .right는 right",
-      ".left는 right, .right는 left",
-      "둘 다 left",
-      "둘 다 none"
-    ],
-    "answer": 0,
-    "explain": "힌트는 div.left를 왼쪽에 붙이고 div.right를 오른쪽에 붙이라고 한다."
-  },
-  {
-    "lec": "8강",
-    "star": 2,
-    "q": "연습문제 Step2에서 ul.gnb와 ul.rank의 float 방향으로 옳은 것은?",
-    "choices": [
-      "gnb는 left, rank는 right",
-      "gnb는 right, rank는 left",
-      "둘 다 right",
-      "둘 다 none"
-    ],
-    "answer": 0,
-    "explain": "Step2는 ul.gnb를 왼쪽에 붙이고 ul.rank를 오른쪽에 붙이는 네비게이션 레이아웃이다."
-  },
-  {
-    "lec": "8강",
-    "star": 2,
-    "q": "연습문제 Step2에서 메뉴 li들을 가로로 나란히 배치하기 위해 적용할 속성은?",
-    "choices": [
-      "float: left;",
-      "position: fixed;",
-      "clear: both;",
-      "text-overflow: ellipsis;"
-    ],
-    "answer": 0,
-    "explain": "힌트는 내부 li 태그들을 왼쪽으로 붙여서 나란하게 만들라고 한다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
-    "q": "연습문제 Step2에서 내부 li 태그의 목록 점을 제거하는 속성은?",
-    "choices": [
-      "list-style-type: none;",
-      "white-space: nowrap;",
-      "background-size: cover;",
-      "border-radius: 50%;"
-    ],
-    "answer": 0,
-    "explain": "Step2 힌트는 내부 li 태그들의 list-style-type을 none으로 지정하라고 한다."
-  },
-  {
-    "lec": "8강",
-    "star": 2,
-    "q": "연습문제 Step2에서 메뉴 li의 왼쪽 padding은 기본적으로 16px이지만 첫 번째 요소는 어떻게 해야 하는가?",
-    "choices": [
-      "padding-left를 0px로 준다",
-      "padding-left를 32px로 준다",
-      "float를 제거한다",
-      "display를 none으로 준다"
-    ],
-    "answer": 0,
-    "explain": "힌트는 내부 li에는 padding-left: 16px를 주고 첫 번째 요소는 padding-left: 0px로 지정하라고 한다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
-    "q": "연습문제 Step3에서 마지막에 추가하는 footer 영역의 높이는?",
-    "choices": [
-      "50px",
-      "80px",
-      "300px",
-      "428px"
-    ],
-    "answer": 1,
-    "explain": "Step3 힌트는 추가하는 footer div의 높이를 80px로 지정했다고 설명한다."
-  },
-
-  // ===== 9강. Flex / Grid (47문제) =====
   {
     "lec": "9강",
     "star": 0,
@@ -1483,19 +1343,6 @@ const POOL = [
   },
   {
     "lec": "9강",
-    "star": 1,
-    "q": "9강 연습문제의 요구사항으로 옳은 것은?",
-    "choices": [
-      "지난 주 과제의 레이아웃을 Flex/Grid를 사용하여 리메이크한다",
-      "지난 주 과제의 float 코드를 그대로 유지한다",
-      "모든 요소를 position: absolute로만 다시 만든다",
-      "레이아웃 없이 텍스트만 작성한다"
-    ],
-    "answer": 0,
-    "explain": "연습문제는 지난 주 과제의 레이아웃을 Flex/Grid를 사용해 리메이크하라고 제시한다."
-  },
-  {
-    "lec": "9강",
     "star": 2,
     "q": "지난 주 레이아웃을 Flex/Grid로 리메이크할 때 가장 적절한 구성은?",
     "choices": [
@@ -1507,7 +1354,6 @@ const POOL = [
     "answer": 0,
     "explain": "9강 주제에 맞게 큰 레이아웃은 Grid, 가로 메뉴와 검색 순위 줄은 Flex로 구성하면 지난 주 과제를 float 없이 리메이크할 수 있다."
   },
-  // ===== 10강. 반응형 웹 (52문제) =====
   {
     "lec": "10강",
     "star": 0,
@@ -1637,19 +1483,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "슬라이드 예시는 user-scalable=no, initial-scale=1, maximum-scale=1을 viewport content에 넣어 확대/축소와 배율을 제어한다."
-  },
-  {
-    "lec": "10강",
-    "star": 1,
-    "q": "@media 규칙의 기본 형태로 옳은 것은?",
-    "choices": [
-      "@media (<미디어 쿼리>) { <CSS 코드> }",
-      "@viewport { <HTML 코드> }",
-      "@query <script> { <JS 코드> }",
-      "@responsive link href media"
-    ],
-    "answer": 0,
-    "explain": "슬라이드는 스타일시트 내부에서 특정한 규칙을 표현할 때 @media (<미디어 쿼리>) { <CSS 코드> } 형태를 사용한다고 설명한다."
   },
   {
     "lec": "10강",
@@ -1835,32 +1668,6 @@ const POOL = [
   },
   {
     "lec": "10강",
-    "star": 2,
-    "q": "스마트폰, 태블릿PC, 데스크톱을 구분하는 기본 예제에서 배경색 연결로 옳은 것은?",
-    "choices": [
-      "스마트폰 red, 태블릿PC green, 데스크톱 blue",
-      "스마트폰 blue, 태블릿PC red, 데스크톱 green",
-      "스마트폰 green, 태블릿PC blue, 데스크톱 red",
-      "모든 장치 black"
-    ],
-    "answer": 0,
-    "explain": "코드 8-7은 max-width: 767px에서 red, 768~959px에서 green, min-width: 960px에서 blue를 적용한다."
-  },
-  {
-    "lec": "10강",
-    "star": 2,
-    "q": "화면 방향 전환 예제에서 portrait와 landscape에 적용한 배경색으로 옳은 것은?",
-    "choices": [
-      "portrait는 red, landscape는 green",
-      "portrait는 green, landscape는 red",
-      "portrait는 blue, landscape는 yellow",
-      "두 방향 모두 white"
-    ],
-    "answer": 0,
-    "explain": "코드 8-8은 orientation: portrait일 때 red, orientation: landscape일 때 green을 적용한다."
-  },
-  {
-    "lec": "10강",
     "star": 1,
     "q": "미디어 쿼리를 사용하는 방법으로 옳은 것을 고르면?",
     "choices": [
@@ -1979,19 +1786,6 @@ const POOL = [
   {
     "lec": "10강",
     "star": 2,
-    "q": "반응형 웹 패턴 예제에서 데스크톱의 #menu와 #section 너비로 옳은 것은?",
-    "choices": [
-      "#menu 260px, #section 700px",
-      "#menu 700px, #section 260px",
-      "#menu 30%, #section 70%",
-      "#menu auto, #section auto"
-    ],
-    "answer": 0,
-    "explain": "패턴 코드에서 #menu는 260px, #section은 700px을 사용해 합계 960px 레이아웃을 만든다."
-  },
-  {
-    "lec": "10강",
-    "star": 2,
     "q": "패턴 예제에서 스마트폰 크기(max-width: 767px)일 때 공통으로 해제하는 값은?",
     "choices": [
       "body, #menu, #section의 고정 width와 float",
@@ -2017,162 +1811,6 @@ const POOL = [
   },
   {
     "lec": "10강",
-    "star": 1,
-    "q": "10강 연습문제의 핵심 요구사항으로 옳은 것은?",
-    "choices": [
-      "스마트폰 회전을 사용한 레이아웃을 만든다",
-      "마우스 드래그로 이미지를 회전한다",
-      "데이터베이스 테이블을 정규화한다",
-      "자바스크립트로 Ajax 요청을 보낸다"
-    ],
-    "answer": 0,
-    "explain": "연습문제는 스마트폰 회전을 사용한 레이아웃을 만들라고 요구한다."
-  },
-  {
-    "lec": "10강",
-    "star": 1,
-    "q": "10강 연습문제에서 JS를 아직 배우지 않았기 때문에 요구한 화면 구성은?",
-    "choices": [
-      "세로 화면에서는 내용만, 가로 화면에서는 목록과 내용을 함께 출력",
-      "세로 화면에서는 목록만, 가로 화면에서는 아무것도 출력하지 않음",
-      "모든 화면에서 팝업창만 출력",
-      "프린터 화면에서만 목록과 내용을 출력"
-    ],
-    "answer": 0,
-    "explain": "연습문제는 세로 화면에서는 내용을, 가로 화면에서는 목록과 내용을 함께 출력하는 간단한 웹페이지 형태를 요구한다."
-  },
-  {
-    "lec": "10강",
-    "star": 1,
-    "q": "10강 연습문제 기본 코드의 viewport meta 태그로 옳은 것은?",
-    "choices": [
-      "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
-      "<meta name=\"screen\" content=\"print\">",
-      "<link name=\"viewport\" href=\"device.css\">",
-      "<style viewport=\"device-width\">"
-    ],
-    "answer": 0,
-    "explain": "연습문제 기본 코드는 width=device-width와 initial-scale=1.0을 지정한 viewport meta 태그를 포함한다."
-  },
-  {
-    "lec": "10강",
-    "star": 0,
-    "q": "10강 연습문제에서 div.right 내부의 p 태그에 글자를 많이 입력하라고 한 이유는?",
-    "choices": [
-      "페이지 레이아웃을 확인하기 위해서",
-      "브라우저 오류를 강제로 만들기 위해서",
-      "CSS 파일을 자동 생성하기 위해서",
-      "목록 점을 복구하기 위해서"
-    ],
-    "answer": 0,
-    "explain": "슬라이드는 div.right 태그 내의 p 태그에는 글자를 많이 입력해서 페이지 레이아웃을 확인하라고 지시한다."
-  },
-  {
-    "lec": "10강",
-    "star": 1,
-    "q": "10강 연습문제의 초기화 단계로 옳은 것은?",
-    "choices": [
-      "모든 태그(*)의 margin과 padding을 0으로 지정한다",
-      "모든 태그(*)의 display를 none으로 지정한다",
-      "모든 태그(*)의 position을 absolute로 지정한다",
-      "모든 태그(*)의 color를 transparent로 지정한다"
-    ],
-    "answer": 0,
-    "explain": "연습문제 초기화 단계의 첫 번째 지시는 모든 태그의 margin과 padding을 0으로 지정하는 것이다."
-  },
-  {
-    "lec": "10강",
-    "star": 1,
-    "q": "10강 연습문제에서 li 태그의 목록 점을 없애기 위해 지정하는 속성은?",
-    "choices": [
-      "list-style-type: none",
-      "float: none",
-      "orientation: portrait",
-      "width: auto"
-    ],
-    "answer": 0,
-    "explain": "연습문제 초기화 단계는 li 태그의 list-style-type을 none으로 지정하라고 한다."
-  },
-  {
-    "lec": "10강",
-    "star": 2,
-    "q": "10강 연습문제에서 세로 상태의 div.left 처리로 옳은 것은?",
-    "choices": [
-      "보이지 않게 만든다",
-      "너비 30%로 왼쪽에 붙인다",
-      "너비 70%로 오른쪽에 붙인다",
-      "아래쪽 테두리를 지정한다"
-    ],
-    "answer": 0,
-    "explain": "반응형 웹 지시의 첫 번째 항목은 세로 상태에서 div.left 태그가 보이지 않게 만드는 것이다."
-  },
-  {
-    "lec": "10강",
-    "star": 2,
-    "q": "10강 연습문제에서 가로 상태의 div.left 처리로 옳은 것은?",
-    "choices": [
-      "너비의 30%를 차지하고 왼쪽에 붙게 만든다",
-      "너비의 70%를 차지하고 오른쪽에 붙게 만든다",
-      "display: none으로 숨긴다",
-      "아래쪽 테두리를 1px solid로 만든다"
-    ],
-    "answer": 0,
-    "explain": "가로 상태에서는 div.left가 너비의 30%를 차지하고 왼쪽에 붙게 하라고 지시한다."
-  },
-  {
-    "lec": "10강",
-    "star": 2,
-    "q": "10강 연습문제에서 가로 상태의 div.right 처리로 옳은 것은?",
-    "choices": [
-      "너비의 70%를 차지하고 오른쪽에 붙게 만든다",
-      "너비의 30%를 차지하고 왼쪽에 붙게 만든다",
-      "항상 보이지 않게 만든다",
-      "list-style-type을 none으로 지정한다"
-    ],
-    "answer": 0,
-    "explain": "가로 상태에서는 div.right가 너비의 70%를 차지하고 오른쪽에 붙게 하라고 지시한다."
-  },
-  {
-    "lec": "10강",
-    "star": 1,
-    "q": "10강 연습문제에서 div.content의 padding 값은?",
-    "choices": [
-      "16px",
-      "24px",
-      "30%",
-      "70%"
-    ],
-    "answer": 0,
-    "explain": "기본 콘텐츠 구성 단계는 div.content 태그의 padding을 16px로 지정하라고 한다."
-  },
-  {
-    "lec": "10강",
-    "star": 1,
-    "q": "10강 연습문제에서 li 태그의 위아래 padding 값은?",
-    "choices": [
-      "24px",
-      "16px",
-      "1px",
-      "70%"
-    ],
-    "answer": 0,
-    "explain": "기본 콘텐츠 구성 단계는 li 태그의 위아래 padding 속성을 24px로 지정하라고 한다."
-  },
-  {
-    "lec": "10강",
-    "star": 1,
-    "q": "10강 연습문제에서 li 태그의 아래쪽 테두리 값으로 옳은 것은?",
-    "choices": [
-      "1px solid #c7c7c7",
-      "24px dotted #c7c7c7",
-      "16px solid red",
-      "none"
-    ],
-    "answer": 0,
-    "explain": "기본 콘텐츠 구성 단계는 li 태그의 아래쪽 테두리를 1px solid #c7c7c7로 지정하라고 한다."
-  },
-  {
-    "lec": "10강",
     "star": 0,
     "q": "크롬에서 스마트폰 회전을 시뮬레이션하는 방법에 포함되지 않는 것은?",
     "choices": [
@@ -2184,7 +1822,6 @@ const POOL = [
     "answer": 0,
     "explain": "슬라이드는 크롬 실행, F12 개발자 도구, toggle device toolbar, 장치 설정, Rotate 버튼을 안내하며 데이터베이스 서버 실행은 포함하지 않는다."
   },
-  // ===== 11강. 자바스크립트 기본문법 (56문제) =====
   {
     "lec": "11강",
     "star": 0,
@@ -2210,32 +1847,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "미디어 쿼리와 스마트폰 방향 전환은 10강 반응형 웹 내용이다."
-  },
-  {
-    "lec": "11강",
-    "star": 1,
-    "q": "자바스크립트에서 표현식에 대한 설명으로 옳은 것은?",
-    "choices": [
-      "값을 만들어 내는 간단한 코드",
-      "항상 중괄호로 감싸는 코드 블록",
-      "브라우저의 화면 너비를 지정하는 태그",
-      "CSS 파일을 연결하는 HTML 태그"
-    ],
-    "answer": 0,
-    "explain": "슬라이드는 표현식을 값을 만들어 내는 간단한 코드로 설명한다."
-  },
-  {
-    "lec": "11강",
-    "star": 1,
-    "q": "문장에 대한 설명으로 옳은 것은?",
-    "choices": [
-      "표현식과 키워드 등으로 만든 실행할 수 있는 코드의 최소 단위",
-      "문자 하나만 저장하는 자료형",
-      "CSS에서 선택자를 의미하는 단어",
-      "HTML 문서의 루트 요소"
-    ],
-    "answer": 0,
-    "explain": "문장은 실행 가능한 코드의 최소 단위이며, 문장 마지막에 세미콜론을 붙여 문장을 끝낼 수 있다."
   },
   {
     "lec": "11강",
@@ -2340,19 +1951,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "여러 행 주석은 /*로 시작하고 */로 끝낸다."
-  },
-  {
-    "lec": "11강",
-    "star": 1,
-    "q": "주석에 대한 설명으로 옳은 것은?",
-    "choices": [
-      "코드 실행에 영향을 주지 않는다",
-      "항상 화면에 출력된다",
-      "반드시 alert보다 먼저 실행된다",
-      "변수 선언을 대신한다"
-    ],
-    "answer": 0,
-    "explain": "슬라이드 예시는 주석은 코드 실행에 영향을 주지 않는다고 설명한다."
   },
   {
     "lec": "11강",
@@ -2669,19 +2267,6 @@ const POOL = [
   {
     "lec": "11강",
     "star": 1,
-    "q": "중첩 조건문이란?",
-    "choices": [
-      "조건문 안에 또 다른 조건문을 넣는 것",
-      "반복문 없이 배열을 순회하는 것",
-      "함수 없이 객체를 생성하는 것",
-      "주석 안에 코드를 넣는 것"
-    ],
-    "answer": 0,
-    "explain": "조건문 내부에 다시 if 문을 넣으면 중첩 조건문이 된다."
-  },
-  {
-    "lec": "11강",
-    "star": 1,
     "q": "if else if 조건문을 사용하는 대표적인 상황은?",
     "choices": [
       "서로 다른 여러 조건 중 하나를 선택해야 할 때",
@@ -2913,7 +2498,6 @@ const POOL = [
     "answer": 0,
     "explain": "메서드 내부에서 this는 그 메서드를 호출한 객체를 가리켜 객체의 다른 속성에 접근할 수 있게 한다."
   },
-  // ===== 12강. 문서 객체 모델 (46문제) =====
   {
     "lec": "12강",
     "star": 0,
@@ -3017,19 +2601,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "스크립트 실행 시점에 대상 문서 객체가 아직 생성되지 않았으면 선택할 수 없어 null 문제가 발생한다."
-  },
-  {
-    "lec": "12강",
-    "star": 2,
-    "q": "문서 객체 생성이 끝난 뒤 코드를 실행하기 위해 강의 예시에서 사용한 방식은?",
-    "choices": [
-      "window.onload = function () { ... }",
-      "Math.abs(function) { ... }",
-      "media=\"screen\"",
-      "float: none"
-    ],
-    "answer": 0,
-    "explain": "강의 예시는 window.onload에 함수를 연결해 문서 객체가 준비된 뒤 선택과 조작을 수행한다."
   },
   {
     "lec": "12강",
@@ -3241,19 +2812,6 @@ const POOL = [
   },
   {
     "lec": "12강",
-    "star": 2,
-    "q": "setInterval()을 사용해 시계를 만드는 예제에서 핵심 동작은?",
-    "choices": [
-      "일정 시간마다 현재 시간을 다시 표시한다",
-      "한 번만 코드를 실행하고 멈춘다",
-      "이벤트 연결을 모두 제거한다",
-      "CSS 파일을 새로 다운로드한다"
-    ],
-    "answer": 0,
-    "explain": "setInterval()은 지정한 간격마다 함수를 반복 실행하므로 현재 시간을 주기적으로 갱신할 수 있다."
-  },
-  {
-    "lec": "12강",
     "star": 1,
     "q": "이벤트에 대한 설명으로 옳은 것은?",
     "choices": [
@@ -3290,19 +2848,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "표 10-5는 DOM 레벨 0에 인라인 이벤트 모델과 고전 이벤트 모델이 포함된다고 정리한다."
-  },
-  {
-    "lec": "12강",
-    "star": 1,
-    "q": "HTML 태그 내부에 onclick=\"...\"처럼 직접 이벤트 코드를 작성하는 방식은?",
-    "choices": [
-      "인라인 이벤트 모델",
-      "표준 이벤트 모델",
-      "참조 타입 모델",
-      "그리드 이벤트 모델"
-    ],
-    "answer": 0,
-    "explain": "태그의 이벤트 속성에 자바스크립트 코드를 직접 넣는 방식은 인라인 이벤트 모델이다."
   },
   {
     "lec": "12강",
@@ -3371,71 +2916,6 @@ const POOL = [
   },
   {
     "lec": "12강",
-    "star": 2,
-    "q": "연습문제 1 코드에서 오류가 나는 직접적인 이유는?",
-    "choices": [
-      "script가 h1 요소 생성 전에 document.getElementById('element')를 실행한다",
-      "id 속성 이름에는 element를 사용할 수 없다",
-      "style.color에는 red를 사용할 수 없다",
-      "innerHTML에는 문자열을 넣을 수 없다"
-    ],
-    "answer": 0,
-    "explain": "head의 script가 먼저 실행되어 body의 h1이 아직 없으므로 getElementById() 결과가 null이 되고 style 접근에서 문제가 생긴다."
-  },
-  {
-    "lec": "12강",
-    "star": 2,
-    "q": "연습문제 1의 해결 방법으로 가장 적절한 것은?",
-    "choices": [
-      "script를 h1 뒤로 옮기거나 window.onload/DOMContentLoaded 이후 실행한다",
-      "id를 class로 바꾸기만 한다",
-      "red를 blue로 바꾸기만 한다",
-      "DOCTYPE을 삭제한다"
-    ],
-    "answer": 0,
-    "explain": "대상 문서 객체가 생성된 뒤 선택해야 하므로 script 위치를 뒤로 옮기거나 로드 이후 실행되게 해야 한다."
-  },
-  {
-    "lec": "12강",
-    "star": 2,
-    "q": "연습문제 1이 정상 수정되면 h1의 글자색과 내용은 어떻게 되는가?",
-    "choices": [
-      "글자색은 red, 내용은 From JavaScript",
-      "글자색은 white, 내용은 Header - 1",
-      "글자색은 black, 내용은 Lorem ipsum 그대로",
-      "요소가 화면에서 사라진다"
-    ],
-    "answer": 0,
-    "explain": "코드는 element.style.color = 'red';와 element.innerHTML = 'From JavaScript';를 실행하려는 내용이다."
-  },
-  {
-    "lec": "12강",
-    "star": 2,
-    "q": "연습문제 2에서 document.querySelector('h1')가 선택하는 대상은?",
-    "choices": [
-      "Header - 1",
-      "Header - 2",
-      "Header - 3",
-      "세 개의 h1 전체"
-    ],
-    "answer": 0,
-    "explain": "querySelector('h1')는 첫 번째 h1인 Header - 1만 선택한다."
-  },
-  {
-    "lec": "12강",
-    "star": 2,
-    "q": "연습문제 2 코드 실행 결과로 옳은 것은?",
-    "choices": [
-      "첫 번째 Header - 1만 흰 글자와 검은 배경으로 바뀐다",
-      "세 개의 h1이 모두 흰 글자와 검은 배경으로 바뀐다",
-      "마지막 Header - 3만 바뀐다",
-      "아무 h1도 선택되지 않는다"
-    ],
-    "answer": 0,
-    "explain": "querySelector()가 첫 번째 h1만 반환하므로 Header - 1에만 color와 backgroundColor가 적용된다."
-  },
-  {
-    "lec": "12강",
     "star": 1,
     "q": "여러 h1 모두를 선택해 같은 스타일을 적용하려면 어떤 선택 메서드가 더 적절한가?",
     "choices": [
@@ -3459,19 +2939,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "12강 문서 객체 조작 단원은 글자, 스타일, 속성 조작을 주요 예제로 다룬다."
-  },
-  {
-    "lec": "12강",
-    "star": 1,
-    "q": "DOM 조작 코드에서 대상을 먼저 선택해야 하는 이유로 옳은 것은?",
-    "choices": [
-      "선택한 문서 객체를 기준으로 글자, 스타일, 속성을 변경하기 위해서",
-      "선택하지 않아도 모든 조작이 자동으로 적용되기 때문에",
-      "선택자는 CSS에서만 쓰이고 DOM과 무관하기 때문에",
-      "선택하면 이벤트가 항상 제거되기 때문에"
-    ],
-    "answer": 0,
-    "explain": "DOM 조작은 먼저 대상 문서 객체를 선택하고 그 객체의 속성이나 메서드를 사용해 변경하는 흐름이다."
   },
   {
     "lec": "12강",
@@ -3512,7 +2979,6 @@ const POOL = [
     "answer": 0,
     "explain": "기본 이벤트 제거 예제는 href가 있는 a 태그의 기본 이동을 막는 형태로 제시된다."
   },
-  // ===== 13강. jQuery 라이브러리 (54문제) =====
   {
     "lec": "13강",
     "star": 1,
@@ -3567,19 +3033,6 @@ const POOL = [
   },
   {
     "lec": "13강",
-    "star": 1,
-    "q": "강의안에서 제시한 jQuery 라이브러리 추가 방법으로 옳은 것은?",
-    "choices": [
-      "파일을 내려받아 외부 자바스크립트로 추가하거나 CDN 호스트를 사용한다",
-      "CSS 파일의 @media 규칙 안에 jQuery 코드를 넣는다",
-      "HTML의 <body> 태그를 jQuery 태그로 바꾼다",
-      "브라우저 주소창에 jQuery 코드를 직접 입력한다"
-    ],
-    "answer": 0,
-    "explain": "jQuery는 내려받은 파일을 script로 연결하거나 CDN URL을 script src에 연결해 사용할 수 있다."
-  },
-  {
-    "lec": "13강",
     "star": 0,
     "q": "CDN 호스트를 이용해 jQuery를 추가할 때 주로 복사해 사용하는 것은?",
     "choices": [
@@ -3590,32 +3043,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "강의안 예시는 CDN 페이지에서 링크 주소를 복사해 script 태그의 src 값으로 붙여 넣는다."
-  },
-  {
-    "lec": "13강",
-    "star": 1,
-    "q": "jQuery CDN을 HTML에 연결하는 코드로 가장 적절한 것은?",
-    "choices": [
-      "<script src=\"https://code.jquery.com/jquery-3.6.4.js\"><\\/script>",
-      "<link rel=\"stylesheet\" href=\"jquery-3.6.4.js\">",
-      "<jquery src=\"https://code.jquery.com/jquery-3.6.4.js\"></jquery>",
-      "<meta name=\"jquery\" content=\"3.6.4\">"
-    ],
-    "answer": 0,
-    "explain": "외부 자바스크립트 파일은 script 태그의 src 속성으로 연결한다."
-  },
-  {
-    "lec": "13강",
-    "star": 1,
-    "q": "$(document).ready(function () { ... })의 역할로 가장 적절한 것은?",
-    "choices": [
-      "문서 객체가 준비된 뒤 내부 코드를 실행한다",
-      "CSS 파일을 서버에 업로드한다",
-      "모든 변수를 숫자형으로 변환한다",
-      "브라우저 창 크기를 고정한다"
-    ],
-    "answer": 0,
-    "explain": "강의 예제는 $(document).ready() 안에서 문서 객체 선택과 조작 코드를 실행한다."
   },
   {
     "lec": "13강",
@@ -3645,19 +3072,6 @@ const POOL = [
   },
   {
     "lec": "13강",
-    "star": 0,
-    "q": "jQuery가 전역 객체에 할당하는 대표 식별자로 옳은 것은?",
-    "choices": [
-      "window.jQuery와 window.$",
-      "window.css와 window.grid",
-      "document.jqueryOnly와 document.$only",
-      "navigator.jQuery와 navigator.$"
-    ],
-    "answer": 0,
-    "explain": "강의안은 실제 jQuery 코드에서 window.jQuery = window.$ = jQuery 형태로 식별자를 할당한다고 설명한다."
-  },
-  {
-    "lec": "13강",
     "star": 1,
     "q": "$('h1')에 대한 설명으로 옳은 것은?",
     "choices": [
@@ -3672,33 +3086,6 @@ const POOL = [
   {
     "lec": "13강",
     "star": 1,
-    "q": "다음 코드의 결과로 가장 적절한 것은?",
-    "code": "$('h1').css('color', 'red');\n$('h1').css('background', 'black');",
-    "choices": [
-      "선택된 모든 h1의 글자색은 빨간색, 배경색은 검은색이 된다",
-      "첫 번째 h1만 삭제된다",
-      "h1의 src 속성이 변경된다",
-      "문서의 모든 이미지가 빨간색으로 바뀐다"
-    ],
-    "answer": 0,
-    "explain": "$('h1')은 h1 요소들을 선택하고 css()는 선택된 요소의 스타일을 변경한다."
-  },
-  {
-    "lec": "13강",
-    "star": 1,
-    "q": "여러 img 요소 중 두 번째 요소를 선택해 src 속성을 읽는 코드로 옳은 것은?",
-    "choices": [
-      "$('img').eq(1).attr('src')",
-      "$('img').first(2).src()",
-      "$('img')[2].css('src')",
-      "$('img').attr(1, 'src')"
-    ],
-    "answer": 0,
-    "explain": "eq()의 인덱스는 0부터 시작하므로 eq(1)은 두 번째 요소를 선택한다."
-  },
-  {
-    "lec": "13강",
-    "star": 1,
     "q": "jQuery에서 HTML 속성 값을 추출할 때 사용하는 대표 메서드는?",
     "choices": [
       "attr()",
@@ -3708,33 +3095,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "attr()은 속성 값을 가져오거나 지정할 때 사용한다."
-  },
-  {
-    "lec": "13강",
-    "star": 1,
-    "q": "다음 코드의 의미로 옳은 것은?",
-    "code": "$('img').attr('src', 'http://via.placeholder.com/300x200');",
-    "choices": [
-      "선택된 img 요소들의 src 속성을 지정한다",
-      "선택된 img 요소들의 내부 글자를 변경한다",
-      "선택된 img 요소들을 화면에서 숨긴다",
-      "선택된 img 요소들의 이벤트를 제거한다"
-    ],
-    "answer": 0,
-    "explain": "attr('속성', '값') 형태는 선택된 문서 객체의 속성 값을 설정한다."
-  },
-  {
-    "lec": "13강",
-    "star": 1,
-    "q": "여러 속성을 한 번에 지정하는 jQuery 코드로 가장 적절한 것은?",
-    "choices": [
-      "$('img').attr({ src: 'http://via.placeholder.com/100x100', width: 100, height: 100 });",
-      "$('img').attr('src', 'width', 'height');",
-      "$('img').css({ src: 'http://via.placeholder.com/100x100' });",
-      "$('img').text({ width: 100, height: 100 });"
-    ],
-    "answer": 0,
-    "explain": "attr()에 객체를 전달하면 여러 속성을 한 번에 지정할 수 있다."
   },
   {
     "lec": "13강",
@@ -3778,33 +3138,6 @@ const POOL = [
   {
     "lec": "13강",
     "star": 1,
-    "q": "여러 CSS 스타일을 한 번에 지정하는 코드로 옳은 것은?",
-    "choices": [
-      "$('.box').css({ float: 'left', margin: 10, width: 100, height: 100, backgroundColor: 'red' });",
-      "$('.box').attr({ float: 'left', backgroundColor: 'red' });",
-      "$('.box').html({ width: 100, height: 100 });",
-      "$('.box').on({ width: 100, height: 100 });"
-    ],
-    "answer": 0,
-    "explain": "css()에 객체를 전달하면 여러 스타일 속성을 한 번에 지정할 수 있다."
-  },
-  {
-    "lec": "13강",
-    "star": 1,
-    "q": "다음 코드처럼 css()에 함수를 전달하는 주된 이유로 옳은 것은?",
-    "code": "$('div').css({\n  backgroundColor: function (i) {\n    return 'rgb(' + i + ',' + i + ',' + i + ')';\n  }\n});",
-    "choices": [
-      "선택된 요소의 순서에 따라 서로 다른 스타일 값을 계산하기 위해서",
-      "모든 div를 자동으로 form 태그로 바꾸기 위해서",
-      "jQuery 라이브러리를 다시 내려받기 위해서",
-      "이벤트 전파를 중지하기 위해서"
-    ],
-    "answer": 0,
-    "explain": "함수형 스타일 지정은 index 등을 사용해 요소마다 다른 값을 반환할 수 있다."
-  },
-  {
-    "lec": "13강",
-    "star": 1,
     "q": "html() 메서드에 대한 설명으로 옳은 것은?",
     "choices": [
       "문서 객체 내부의 HTML 태그를 해석해 가져오거나 변경한다",
@@ -3814,33 +3147,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "강의안의 표는 html()을 문서 객체 내부의 HTML 태그 조작 메서드로 정리한다."
-  },
-  {
-    "lec": "13강",
-    "star": 1,
-    "q": "text() 메서드에 대한 설명으로 옳은 것은?",
-    "choices": [
-      "문서 객체 내부의 글자를 순수 텍스트로 가져오거나 변경한다",
-      "문서 객체의 HTML 태그를 실행 가능한 코드로 변환한다",
-      "문서 객체의 src 속성만 변경한다",
-      "문서 객체의 이벤트를 모두 제거한다"
-    ],
-    "answer": 0,
-    "explain": "text()는 내부 글자를 텍스트로 조작하며 태그 문자열을 HTML로 해석하지 않는다."
-  },
-  {
-    "lec": "13강",
-    "star": 1,
-    "q": "다음 코드의 결과 설명으로 옳은 것은?",
-    "code": "$('h1:nth-child(1)').text('<a href=\"#\">text()</a>');\n$('h1:nth-child(2)').html('<a href=\"#\">html()</a>');",
-    "choices": [
-      "첫 번째 h1은 태그 문자열이 그대로 보이고, 두 번째 h1은 링크가 생성된다",
-      "두 h1 모두 링크가 생성되지 않고 빈 문자열이 된다",
-      "첫 번째 h1만 이미지로 바뀐다",
-      "두 h1 모두 CSS 클래스가 추가된다"
-    ],
-    "answer": 0,
-    "explain": "text()는 문자열을 그대로 넣고 html()은 HTML 태그를 해석한다."
   },
   {
     "lec": "13강",
@@ -3923,20 +3229,6 @@ const POOL = [
   {
     "lec": "13강",
     "star": 1,
-    "q": "다음 코드의 동작으로 옳은 것은?",
-    "code": "$('h1').click(function () {\n  alert('클릭!');\n});",
-    "choices": [
-      "h1을 클릭하면 알림창이 열린다",
-      "h1이 자동으로 이미지로 바뀐다",
-      "문서의 모든 링크 이동이 차단된다",
-      "h1의 class가 항상 제거된다"
-    ],
-    "answer": 0,
-    "explain": "click() 메서드에 이벤트 리스너를 전달했으므로 h1 클릭 시 함수가 실행된다."
-  },
-  {
-    "lec": "13강",
-    "star": 1,
     "q": "강의 예제에서 $('h1').hover(fn1, fn2)로 구현한 효과로 가장 적절한 것은?",
     "choices": [
       "마우스를 올리면 배경과 글자색을 바꾸고, 내리면 원래 스타일로 되돌린다",
@@ -3963,19 +3255,6 @@ const POOL = [
   {
     "lec": "13강",
     "star": 1,
-    "q": "on() 메서드로 여러 이벤트를 객체 형태로 연결하는 코드로 옳은 것은?",
-    "choices": [
-      "$('#box').on({ click: function () {}, mouseenter: function () {}, mouseleave: function () {} });",
-      "$('#box').on('click', 'mouseenter', 'mouseleave');",
-      "$('#box').off({ width: 100, height: 100 });",
-      "$('#box').animate({ click: function () {} });"
-    ],
-    "answer": 0,
-    "explain": "on()에는 eventName과 handler를 직접 전달하거나 이벤트 이름과 핸들러를 담은 객체를 전달할 수 있다."
-  },
-  {
-    "lec": "13강",
-    "star": 1,
     "q": "$(selector).on(event, childSelector, data, handler)에서 필수 매개변수로 옳은 것은?",
     "choices": [
       "event와 handler",
@@ -3998,19 +3277,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "강의안은 실행 시점의 li에 직접 이벤트를 등록하면 나중에 추가된 li에는 이벤트가 적용되지 않는다고 설명한다."
-  },
-  {
-    "lec": "13강",
-    "star": 1,
-    "q": "ul 내부의 li 클릭을 이벤트 위임으로 처리하는 코드로 가장 적절한 것은?",
-    "choices": [
-      "$('ul').on('click', 'li', function () { alert($(this).text()); });",
-      "$('li').click('ul', function () { });",
-      "$('ul').attr('click', 'li');",
-      "$('li').animate('click', 'ul');"
-    ],
-    "answer": 0,
-    "explain": "부모 요소에 이벤트를 연결하고 childSelector로 li를 지정하면 버블링을 이용해 동적 li도 처리할 수 있다."
   },
   {
     "lec": "13강",
@@ -4041,19 +3307,6 @@ const POOL = [
   {
     "lec": "13강",
     "star": 1,
-    "q": "입력 양식 유효성 검사에서 잘못된 값이면 제출을 막기 위해 호출하는 코드로 옳은 것은?",
-    "choices": [
-      "event.preventDefault();",
-      "$('form').show();",
-      "$('input').fadeIn();",
-      "event.delay(1000);"
-    ],
-    "answer": 0,
-    "explain": "강의안의 유효성 검사 예제는 조건을 만족하지 않으면 알림을 띄우고 기본 이벤트를 제거한다."
-  },
-  {
-    "lec": "13강",
-    "star": 1,
     "q": "jQuery 이벤트 리스너에서 return false의 의미로 옳은 것은?",
     "choices": [
       "기본 이벤트 제거와 이벤트 전달 제거를 함께 수행하는 것과 같은 의미다",
@@ -4063,19 +3316,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "강의안은 return false가 preventDefault()와 stopPropagation()을 함께 호출한 것과 같은 의미라고 설명한다."
-  },
-  {
-    "lec": "13강",
-    "star": 0,
-    "q": "체크박스의 현재 체크 상태를 가져오는 강의 예제의 코드로 옳은 것은?",
-    "choices": [
-      "$(this).prop('checked')",
-      "$(this).attr('selectedText')",
-      "$(this).css('checked')",
-      "$(this).html('checked')"
-    ],
-    "answer": 0,
-    "explain": "애니메이션 정지 예제는 change 이벤트에서 $(this).prop('checked')로 체크 여부를 읽는다."
   },
   {
     "lec": "13강",
@@ -4119,20 +3359,6 @@ const POOL = [
   {
     "lec": "13강",
     "star": 1,
-    "q": "다음 코드에서 버튼을 클릭할 때 실행되는 효과는?",
-    "code": "$('button').click(function () {\n  $('.page').fadeToggle('slow');\n});",
-    "choices": [
-      ".page 요소가 천천히 나타나거나 사라진다",
-      ".page 요소의 class가 hover로 고정된다",
-      ".page 요소의 src 속성이 변경된다",
-      ".page 요소의 클릭 기본 이벤트가 제거된다"
-    ],
-    "answer": 0,
-    "explain": "fadeToggle()은 fadeIn()과 fadeOut()을 번갈아 실행하는 효과 메서드다."
-  },
-  {
-    "lec": "13강",
-    "star": 1,
     "q": "animate() 메서드 호출 형식으로 강의안에 제시된 것은?",
     "choices": [
       "animate(속성 객체), animate(속성 객체, 시간), animate(속성 객체, 시간, 콜백 함수)",
@@ -4142,20 +3368,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "애니메이션 효과 단원은 animate()에 속성 객체와 시간, 콜백 함수를 전달하는 형식을 제시한다."
-  },
-  {
-    "lec": "13강",
-    "star": 1,
-    "q": "다음 코드의 애니메이션 결과로 옳은 것은?",
-    "code": "$('#box').css({ width: 100, height: 100, background: 'red' })\n  .animate({ width: 300, opacity: 0.5 }, 500);",
-    "choices": [
-      "#box의 너비가 300으로 변하고 투명도가 0.5가 되는 애니메이션이 실행된다",
-      "#box가 즉시 삭제된다",
-      "#box의 이벤트가 모두 제거된다",
-      "#box의 내부 HTML이 width:300 문자열로 바뀐다"
-    ],
-    "answer": 0,
-    "explain": "animate()는 지정한 CSS 속성 값으로 변화하는 애니메이션을 실행한다."
   },
   {
     "lec": "13강",
@@ -4208,19 +3420,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "애니메이션 효과 정지 예제는 체크박스로 clearQueue와 goToEnd 값을 읽어 stop()에 전달한다."
-  },
-  {
-    "lec": "13강",
-    "star": 1,
-    "q": "연습문제의 요구처럼 마우스가 올라가면 반투명, 내려오면 원래 색으로 바꾸는 데 가장 적절한 코드 흐름은?",
-    "choices": [
-      "hover()에 두 함수를 연결하고 첫 함수에서 opacity를 낮추고 둘째 함수에서 opacity를 1로 되돌린다",
-      "attr()로 src만 변경하고 이벤트는 연결하지 않는다",
-      "text()로 div의 글자만 바꾼다",
-      "preventDefault()만 호출한다"
-    ],
-    "answer": 0,
-    "explain": "연습문제는 마우스 진입과 이탈 상태가 필요하므로 hover()의 두 콜백에서 opacity를 조절하는 흐름이 맞다."
   }
 ];
 
@@ -4317,7 +3516,6 @@ function render() {
     const isCorrect = selected === q.answer;
     const cardClass = revealed ? (isCorrect ? 'answered-correct' : 'answered-wrong') : '';
     const stars = '⭐'.repeat(q.star);
-    const codeBlock = q.code ? `<pre class="q-codeblock">${escapeHtml(q.code)}</pre>` : '';
 
     const choicesHtml = q.choices.map((c, ci) => {
       let cls = 'choice';
@@ -4351,7 +3549,6 @@ function render() {
           <span class="q-star">${stars}</span>
         </div>
         <div class="q-text">${inlineCode(q.q)}</div>
-        ${codeBlock}
         <div class="choices">${choicesHtml}</div>
         ${explainHtml}
       </div>
