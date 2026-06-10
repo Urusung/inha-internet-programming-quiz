@@ -395,19 +395,6 @@ const POOL = [
   {
     "lec": "8강",
     "star": 1,
-    "q": "floatWithOverflow_1.html 예제에서 메뉴 항목 div.item에 적용된 float 값은?",
-    "choices": [
-      "right",
-      "left",
-      "none",
-      "both"
-    ],
-    "answer": 1,
-    "explain": "예제의 div.item은 float: left;로 지정되어 메뉴들이 왼쪽부터 수평으로 나란히 배치된다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
     "q": "float된 자식 요소만 들어 있는 부모에 overflow: hidden이 없으면 대표적으로 어떤 문제가 생기는가?",
     "choices": [
       "부모가 float 자손의 높이를 제대로 감싸지 못한다",
@@ -433,19 +420,6 @@ const POOL = [
   },
   {
     "lec": "8강",
-    "star": 2,
-    "q": "clear 예제에서 수평 정렬 대상 아래에 추가한 div.clear에 들어간 CSS는?",
-    "choices": [
-      "float: left;",
-      "clear: both;",
-      "overflow: scroll;",
-      "position: absolute;"
-    ],
-    "answer": 1,
-    "explain": "슬라이드는 수평 정렬 대상 아래에 div.clear를 배치하고, CSS에서 div.clear { clear: both; }를 지정한다고 설명한다."
-  },
-  {
-    "lec": "8강",
     "star": 0,
     "q": "중앙 정렬 레이아웃에서 중앙 정렬할 태그에 함께 지정하는 대표 조합은?",
     "choices": [
@@ -456,19 +430,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "중앙 정렬할 태그에 width를 주고 margin을 0 auto로 입력한다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
-    "q": "One True 레이아웃 예제에서 전체 공간을 먼저 나눈 세 행은?",
-    "choices": [
-      "header, nav, aside",
-      "top, middle, bottom",
-      "left, center, right",
-      "main, article, footer"
-    ],
-    "answer": 1,
-    "explain": "One True 레이아웃은 먼저 top, middle, bottom 세 행으로 공간을 분할한다."
   },
   {
     "lec": "8강",
@@ -495,58 +456,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "슬라이드는 부모 태그에 고정 너비를 지정하고, 수평 정렬하는 부모의 overflow에 hidden을 적용한 뒤, 자손에 너비와 float를 적용한다고 정리한다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
-    "q": "oneTrueLayout.html 예제에서 body에 지정한 너비와 margin은?",
-    "choices": [
-      "width: 960px; margin: 0 auto;",
-      "width: 500px; margin: 10px auto;",
-      "width: 1080px; margin: 8px auto;",
-      "width: 300px; margin: 0;"
-    ],
-    "answer": 1,
-    "explain": "예제의 body는 width: 500px; margin: 10px auto;로 중앙에 배치된다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
-    "q": "oneTrueLayout.html 예제에서 #middle에 적용된 핵심 속성은?",
-    "choices": [
-      "overflow: hidden;",
-      "position: fixed;",
-      "white-space: nowrap;",
-      "text-overflow: ellipsis;"
-    ],
-    "answer": 0,
-    "explain": "#middle은 내부의 float된 #left, #right를 감싸기 위해 overflow: hidden을 적용한다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
-    "q": "oneTrueLayout.html 예제에서 #left와 #right의 너비 조합은?",
-    "choices": [
-      "150px와 350px",
-      "250px와 250px",
-      "740px와 332px",
-      "50px와 1080px"
-    ],
-    "answer": 0,
-    "explain": "#left는 width: 150px, #right는 width: 350px이고, body의 전체 폭 500px을 채운다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
-    "q": "oneTrueLayout.html 예제에서 #left와 #right의 float 방향으로 옳은 것은?",
-    "choices": [
-      "#left: left, #right: right",
-      "#left: right, #right: left",
-      "둘 다 none",
-      "둘 다 fixed"
-    ],
-    "answer": 0,
-    "explain": "#left는 float: left, #right는 float: right로 지정한다."
   },
   {
     "lec": "8강",
@@ -577,71 +486,6 @@ const POOL = [
   {
     "lec": "8강",
     "star": 1,
-    "q": "absolutePosition.html 예제에서 #container에 적용된 position 값은?",
-    "choices": [
-      "absolute",
-      "relative",
-      "fixed",
-      "static"
-    ],
-    "answer": 1,
-    "explain": "#container는 width/height/border/overflow와 함께 position: relative를 가진다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
-    "q": "absolutePosition.html 예제에서 .circle에 공통으로 적용된 속성으로 옳은 것은?",
-    "choices": [
-      "position: absolute; width: 100px; height: 100px;",
-      "position: fixed; width: 50px; height: 50px;",
-      "float: left; width: 150px;",
-      "white-space: nowrap; width: 300px;"
-    ],
-    "answer": 0,
-    "explain": ".circle은 position: absolute, width와 height 100px, border-radius 50% 50%를 공통으로 적용한다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
-    "q": "absolutePosition.html 예제에서 빨간 원 #red의 위치 지정은?",
-    "choices": [
-      "left: 20px; top: 20px;",
-      "right: 20px; top: 20px;",
-      "right: 20px; bottom: 20px;",
-      "left: 20px; bottom: 20px;"
-    ],
-    "answer": 0,
-    "explain": "#red는 왼쪽 위에 배치되므로 left: 20px; top: 20px를 사용한다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
-    "q": "absolutePosition.html 예제에서 파란 원 #blue의 위치 지정은?",
-    "choices": [
-      "left: 20px; top: 20px;",
-      "right: 20px; top: 20px;",
-      "right: 20px; bottom: 20px;",
-      "left: 20px; bottom: 20px;"
-    ],
-    "answer": 2,
-    "explain": "#blue는 오른쪽 아래에 배치되므로 right: 20px; bottom: 20px를 사용한다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
-    "q": "absolutePosition.html 예제에서 노란 원 #yellow의 위치 지정은?",
-    "choices": [
-      "left: 20px; top: 20px;",
-      "right: 20px; top: 20px;",
-      "right: 20px; bottom: 20px;",
-      "left: 20px; bottom: 20px;"
-    ],
-    "answer": 3,
-    "explain": "#yellow는 왼쪽 아래에 배치되므로 left: 20px; bottom: 20px를 사용한다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
     "q": "요소를 화면 중앙에 배치하는 absolute 기법의 1단계로 맞는 것은?",
     "choices": [
       "position: absolute와 left/top: 50% 지정",
@@ -667,71 +511,6 @@ const POOL = [
   },
   {
     "lec": "8강",
-    "star": 1,
-    "q": "fixedBar.html 예제의 .top_bar에 들어간 position 값은?",
-    "choices": [
-      "absolute",
-      "relative",
-      "fixed",
-      "static"
-    ],
-    "answer": 2,
-    "explain": "고정 바 예제에서 .top_bar와 .left_bar는 모두 position: fixed를 사용한다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
-    "q": "fixedBar.html 예제에서 .top_bar의 위치와 크기 지정으로 옳은 것은?",
-    "choices": [
-      "left: 0; top: 0; right: 0; height: 50px;",
-      "left: 0; top: 50px; bottom: 0; width: 50px;",
-      "left: 50%; top: 50%; width: 500px;",
-      "right: 20px; bottom: 20px; height: 100px;"
-    ],
-    "answer": 0,
-    "explain": ".top_bar는 화면 위쪽 전체에 고정되도록 left: 0, top: 0, right: 0, height: 50px를 사용한다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
-    "q": "fixedBar.html 예제에서 .left_bar의 위치와 크기 지정으로 옳은 것은?",
-    "choices": [
-      "left: 0; top: 0; right: 0; height: 50px;",
-      "left: 0; top: 50px; bottom: 0; width: 50px;",
-      "left: 50%; top: 50%; width: 500px;",
-      "right: 20px; bottom: 20px; height: 100px;"
-    ],
-    "answer": 1,
-    "explain": ".left_bar는 상단 바 아래부터 왼쪽에 고정되므로 left: 0, top: 50px, bottom: 0, width: 50px를 사용한다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
-    "q": "fixedBar.html 예제에서 본문 .container에 margin-top과 margin-left를 50px씩 준 이유는?",
-    "choices": [
-      "고정된 상단/왼쪽 바에 본문이 가려지지 않게 하려고",
-      "글자를 자동 생략하려고",
-      "float를 해제하려고",
-      "배경 이미지를 반복하려고"
-    ],
-    "answer": 0,
-    "explain": "고정 바는 화면에 붙어 있으므로 본문이 겹치지 않게 .container에 위/왼쪽 여백을 준다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
-    "q": "글자 생략 예제에서 말줄임표를 표시하는 핵심 CSS 속성은?",
-    "choices": [
-      "text-overflow: ellipsis;",
-      "clear: both;",
-      "position: fixed;",
-      "background-size: cover;"
-    ],
-    "answer": 0,
-    "explain": "말줄임표 자체는 text-overflow: ellipsis로 지정한다."
-  },
-  {
-    "lec": "8강",
     "star": 2,
     "q": "text-overflow: ellipsis가 동작하도록 함께 쓰는 속성 조합으로 가장 적절한 것은?",
     "choices": [
@@ -742,19 +521,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "예제는 h1, p에 width: 300px를 주고 .ellipsis에 white-space: nowrap, overflow: hidden, text-overflow: ellipsis를 적용한다."
-  },
-  {
-    "lec": "8강",
-    "star": 1,
-    "q": "ellipsis.html 예제에서 h1과 p에 공통으로 지정한 너비는?",
-    "choices": [
-      "100px",
-      "300px",
-      "500px",
-      "1080px"
-    ],
-    "answer": 1,
-    "explain": "예제의 h1, p 선택자에는 width: 300px가 지정되어 있다."
   },
   {
     "lec": "9강",
@@ -1756,45 +1522,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "슬라이드는 HTML 태그 구성은 모바일 장치를 기준으로 하는 모바일 퍼스트 방식이라고 설명한다."
-  },
-  {
-    "lec": "10강",
-    "star": 1,
-    "q": "반응형 웹 패턴 예제에서 적당한 위치 배치를 위해 활용한 CSS 속성은?",
-    "choices": [
-      "float의 left와 right",
-      "text-shadow만 사용",
-      "border-radius만 사용",
-      "font-style만 사용"
-    ],
-    "answer": 0,
-    "explain": "슬라이드는 float 태그의 left와 right를 활용해 메뉴와 본문을 적당한 위치에 놓는다고 설명한다."
-  },
-  {
-    "lec": "10강",
-    "star": 2,
-    "q": "반응형 웹 패턴 예제에서 데스크톱 기본 body 스타일로 옳은 것은?",
-    "choices": [
-      "width: 960px; margin: 0 auto; overflow: hidden;",
-      "width: auto; margin: 24px; overflow: visible;",
-      "display: grid; height: 100vh; color: red;",
-      "position: fixed; top: 0; left: 0;"
-    ],
-    "answer": 0,
-    "explain": "패턴 예제들은 데스크톱 기본값으로 body의 width를 960px, margin을 0 auto, overflow를 hidden으로 둔다."
-  },
-  {
-    "lec": "10강",
-    "star": 2,
-    "q": "패턴 예제에서 스마트폰 크기(max-width: 767px)일 때 공통으로 해제하는 값은?",
-    "choices": [
-      "body, #menu, #section의 고정 width와 float",
-      "모든 li의 텍스트 내용",
-      "viewport meta 태그 전체",
-      "HTML 문서의 title"
-    ],
-    "answer": 0,
-    "explain": "스마트폰 사이즈에서는 body width를 auto로 바꾸고 #menu와 #section도 width: auto, float: none으로 해제한다."
   },
   {
     "lec": "10강",
@@ -2877,19 +2604,6 @@ const POOL = [
   },
   {
     "lec": "12강",
-    "star": 2,
-    "q": "고전 이벤트 모델 예제에서 button.onclick에 연결된 함수 내부의 this는 무엇을 가리키는가?",
-    "choices": [
-      "이벤트가 발생한 button 문서 객체",
-      "항상 document 객체",
-      "항상 window 객체",
-      "첫 번째 h1 태그"
-    ],
-    "answer": 0,
-    "explain": "슬라이드의 이벤트 발생 객체 예제는 this.textContent를 사용해 클릭된 버튼 자신의 글자를 변경한다."
-  },
-  {
-    "lec": "12강",
     "star": 1,
     "q": "이벤트 리스너의 매개변수 event로 얻을 수 있는 것은?",
     "choices": [
@@ -2900,19 +2614,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "이벤트 객체를 사용하면 이벤트와 관련한 정보를 알아낼 수 있다."
-  },
-  {
-    "lec": "12강",
-    "star": 2,
-    "q": "a 태그의 기본 이동 동작을 고전 이벤트 모델에서 막기 위해 예제에서 사용한 방법은?",
-    "choices": [
-      "이벤트 리스너에서 return false를 반환한다",
-      "href를 반드시 빈 문자열로 둔다",
-      "textContent를 null로 만든다",
-      "style.backgroundColor를 지운다"
-    ],
-    "answer": 0,
-    "explain": "기본 이벤트 제거 예제는 onclick 이벤트 리스너에서 return false를 반환해 링크의 기본 이동을 막는다."
   },
   {
     "lec": "12강",
@@ -2965,19 +2666,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "onclick 같은 이벤트 속성에 함수를 대입하는 방식은 속성 값이므로 같은 속성에 다시 대입하면 덮어써진다."
-  },
-  {
-    "lec": "12강",
-    "star": 0,
-    "q": "12강에서 이벤트 사용 예제로 다룬 기본 이벤트 제거 대상에 해당하는 HTML 태그는?",
-    "choices": [
-      "a",
-      "meta",
-      "style",
-      "title"
-    ],
-    "answer": 0,
-    "explain": "기본 이벤트 제거 예제는 href가 있는 a 태그의 기본 이동을 막는 형태로 제시된다."
   },
   {
     "lec": "13강",
@@ -3150,32 +2838,6 @@ const POOL = [
   },
   {
     "lec": "13강",
-    "star": 1,
-    "q": "여러 h1을 선택한 뒤 $('h1').text()를 호출했을 때 강의 예제의 결과로 옳은 것은?",
-    "choices": [
-      "선택된 h1들의 텍스트가 이어진 문자열로 추출된다",
-      "첫 번째 h1의 HTML 태그만 추출된다",
-      "마지막 h1의 class 이름만 추출된다",
-      "모든 h1이 자동으로 삭제된다"
-    ],
-    "answer": 0,
-    "explain": "강의 예제에서 text()는 Header - 0과 Header - 1의 텍스트가 이어진 결과를 보여 준다."
-  },
-  {
-    "lec": "13강",
-    "star": 1,
-    "q": "여러 h1을 선택한 뒤 $('h1').html()을 호출했을 때 강의 예제의 결과로 가장 적절한 것은?",
-    "choices": [
-      "첫 번째 h1의 내부 HTML 값이 반환된다",
-      "선택된 모든 h1의 HTML이 자동으로 배열에 담긴다",
-      "선택된 모든 h1이 링크로 바뀐다",
-      "항상 undefined가 반환된다"
-    ],
-    "answer": 0,
-    "explain": "강의 예제의 alert 결과는 html: Header - 0처럼 첫 번째 요소의 내부 HTML을 보여 준다."
-  },
-  {
-    "lec": "13강",
     "star": 0,
     "q": "HTML class 속성에 여러 클래스 이름을 넣는 방법으로 옳은 것은?",
     "choices": [
@@ -3225,19 +2887,6 @@ const POOL = [
     ],
     "answer": 0,
     "explain": "강의안은 click(), hover() 같은 간단한 이벤트 메서드에 함수를 전달하는 형식을 제시한다."
-  },
-  {
-    "lec": "13강",
-    "star": 1,
-    "q": "강의 예제에서 $('h1').hover(fn1, fn2)로 구현한 효과로 가장 적절한 것은?",
-    "choices": [
-      "마우스를 올리면 배경과 글자색을 바꾸고, 내리면 원래 스타일로 되돌린다",
-      "h1을 클릭하면 페이지를 새로 고친다",
-      "h1을 더블클릭하면 jQuery 파일을 다운로드한다",
-      "h1에 입력한 값을 form으로 제출한다"
-    ],
-    "answer": 0,
-    "explain": "복합 이벤트 연결 예제는 hover()의 두 함수를 사용해 마우스 진입과 이탈 상태를 구분한다."
   },
   {
     "lec": "13강",
